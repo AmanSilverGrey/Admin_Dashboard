@@ -12,8 +12,12 @@ const AddOrg = () => {
   const [state, setState] = useState('')
   const [zip, setZip] = useState('')
   const [owner, setOwner] = useState('')
+  const [ownerName, setOwnerName] = useState('')
   const [note, setNote] = useState('')
   const [oAname, setOAname] = useState([])
+  //Error state
+  const [phoneError, setPhoneError] = useState(null)
+  const [emailError, setEmailError] = useState(null)
 
   //Fecthing Org admin names
   const API = async () => {
@@ -34,6 +38,7 @@ const AddOrg = () => {
   //Hnadling the form submit and posting it to the jason(database)
   const handleSubmit = (e) => {
     e.preventDefault()
+    console.log(owner)
 
     const addedOrg = {
       name,
@@ -47,6 +52,7 @@ const AddOrg = () => {
       zip,
       owner,
       note,
+      ownerName,
     }
 
     axios
@@ -56,15 +62,21 @@ const AddOrg = () => {
         alert('Organization Added!')
       })
       .catch((error) => {
-        console.log(error)
-        alert(Response.data)
-        console.log(error.data);
+        console.log(error.response.data)
+        {
+          error.response.data.phone
+            ? alert(error.response.data.phone)
+            : alert(error.response.data.email)
+        }
       })
   }
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
+        <div className='form-floating mb-7' >
+          <p className='text-muted'>Feilds marked with <span className='text-danger' >*</span> are required.</p>
+        </div>
         {/* <!--begin::Input group--> */}
         <div className='form-floating mb-7'>
           <input
@@ -75,7 +87,7 @@ const AddOrg = () => {
             onChange={(e) => setName(e.target.value)}
             required
           />
-          <label htmlFor='floatingInput1'>Name</label>
+          <label htmlFor='floatingInput1'>Name <span className='text-danger' >*</span></label>
         </div>
 
         <div className='form-floating mb-7'>
@@ -87,7 +99,7 @@ const AddOrg = () => {
             onChange={(e) => setPrimary_name(e.target.value)}
             required
           />
-          <label htmlFor='floatingInput1'>Primary name</label>
+          <label htmlFor='floatingInput1'>Primary name <span className='text-danger' >*</span></label>
         </div>
 
         <div className='form-floating mb-7'>
@@ -99,7 +111,7 @@ const AddOrg = () => {
             onChange={(e) => setPrimay_title(e.target.value)}
             required
           />
-          <label htmlFor='floatingInput1'>Primary title</label>
+          <label htmlFor='floatingInput1'>Primary title <span className='text-danger' >*</span></label>
         </div>
 
         <div className='form-floating mb-7'>
@@ -110,8 +122,11 @@ const AddOrg = () => {
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             required
+            maxLength={15}
+            minLength={10}
           />
-          <label htmlFor='floatingInput1'>Phone no.</label>
+          <label htmlFor='floatingInput1'>Phone no. <span className='text-danger' >*</span> </label>
+          {/* {phoneError && <span className='text-danger p-3 small'>{phoneError}</span>} */}
         </div>
 
         <div className='form-floating mb-7'>
@@ -123,7 +138,8 @@ const AddOrg = () => {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <label htmlFor='floatingInput1'>Email</label>
+          <label htmlFor='floatingInput1'>Email <span className='text-danger' >*</span></label>
+          {/* {emailError && <span className='text-danger p-3 small'>{emailError}</span>} */}
         </div>
 
         <div className='form-floating mb-7'>
@@ -135,7 +151,7 @@ const AddOrg = () => {
             onChange={(e) => setAddress(e.target.value)}
             required
           />
-          <label htmlFor='floatingInput1'>Address</label>
+          <label htmlFor='floatingInput1'>Address <span className='text-danger' >*</span></label>
         </div>
 
         <div className='form-floating mb-7'>
@@ -147,7 +163,7 @@ const AddOrg = () => {
             onChange={(e) => setCity(e.target.value)}
             required
           />
-          <label htmlFor='floatingInput1'>City</label>
+          <label htmlFor='floatingInput1'>City <span className='text-danger' >*</span></label>
         </div>
 
         <div className='form-floating mb-7'>
@@ -159,7 +175,7 @@ const AddOrg = () => {
             onChange={(e) => setState(e.target.value)}
             required
           />
-          <label htmlFor='floatingInput1'>State</label>
+          <label htmlFor='floatingInput1'>State <span className='text-danger' >*</span></label>
         </div>
 
         <div className='form-floating mb-7'>
@@ -171,7 +187,7 @@ const AddOrg = () => {
             onChange={(e) => setZip(e.target.value)}
             required
           />
-          <label htmlFor='floatingInput1'>Zip</label>
+          <label htmlFor='floatingInput1'>Zip <span className='text-danger' >*</span></label>
         </div>
 
         {/* Drop Down */}
@@ -180,18 +196,21 @@ const AddOrg = () => {
             className='form-select form-select-solid bg-white cursor-pointer'
             id='floatingSelect1'
             aria-label='Floating label select example'
-            value={owner}
-            onChange={(e) => setOwner(e.target.value)}
+            value={ownerName}
+            onChange={(e) => {
+              setOwnerName(e.target.value)
+              setOwner(e.target.value)
+            }}
             // required
           >
-            <option defaultValue>{}</option>
+            <option defaultValue>{'Select Org Admin'}</option>
             {oAname.map((item) => (
-              <option key={item.id} >
+              <option key={item.id} value={item.id}>
                 {item.first_name} {item.last_name}
               </option>
             ))}
           </select>
-          <label htmlFor='floatingSelect1'>Owner</label>
+          <label htmlFor='floatingSelect1'>Owner <span className='text-danger' >*</span></label>
         </div>
 
         {/* Note */}
@@ -211,7 +230,6 @@ const AddOrg = () => {
             Add
           </button>
         </div>
-
       </form>
       {/* <!--end::Input group--> */}
     </div>

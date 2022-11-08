@@ -140,7 +140,7 @@ const OrgAdminTable = ({className}) => {
                           />
                         </div>
                         <div
-                          onClick={() => DeleteUser(item.id)}
+                          onClick={() => DeleteUser(item)}
                           className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'
                         >
                           <KTSVG

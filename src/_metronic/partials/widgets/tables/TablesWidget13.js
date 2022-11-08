@@ -131,7 +131,7 @@ const TablesWidget13 = ({className}) => {
                             <p className='text-dark fw-bold fs-6'>{item.address}</p>
                           </td>
                           <td>
-                            <p className='text-dark fw-bold fs-6'>{item.owner}</p>
+                            <p className='text-dark fw-bold fs-6'>{item.owner_fname} {item.owner_lname}</p>
                           </td>
                           <td>
                             <p className='text-dark fw-bold fs-6'>{item.phone}</p>

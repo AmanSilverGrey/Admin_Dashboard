@@ -104,7 +104,7 @@ const RequestsTable = ({className}) => {
   useEffect(() => {
     api()
     console.log(data)
-  }, [])
+  }, [Toggle, DeleteUser])
 
   //Handle Form Submit
   const handleSubmit = (e) => {

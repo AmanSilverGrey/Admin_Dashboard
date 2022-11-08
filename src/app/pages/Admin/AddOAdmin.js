@@ -24,7 +24,7 @@ const AddOAdmin = () => {
 
   return (
     <div>
-      <h2>Add Org admin dummy</h2>
+      {/* <h2>Add Org admin dummy</h2> */}
       <form onSubmit={handleSubmit}>
         <div className='form-floating mb-7'>
           <input
