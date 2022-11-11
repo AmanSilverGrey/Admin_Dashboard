@@ -1,72 +1,42 @@
-import React, {  useState} from 'react'
-import { firebase } from '../firebase';
-import {getAuth, RecaptchaVerifier, signInWithPhoneNumber} from 'firebase/auth'
-//New from previus login template
-import clsx from 'clsx'
-import {useFormik} from 'formik'
-import {getUserByToken, login} from '../core/_requests'
-import {toAbsoluteUrl} from '../../../../_metronic/helpers'
-import {useAuth} from '../core/Auth'
-
-//for demo purpose
-const initialValues = {
-  phno: '8319659467',
-  
-}
-
+import React, {useEffect, useState} from 'react'
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+  signInWithPhoneNumber,
+} from 'firebase/auth'
+import {auth} from '../firebase'
+import {RecaptchaVerifier} from 'firebase/auth'
 
 const Login = () => {
-  const [phoneNo, setPhoneNo] = useState('')
-  const [uniqueCode, setUniqueCode] = useState('')
-// from previous template
-const [loading, setLoading] = useState(false)
-const {saveAuth, setCurrentUser} = useAuth()
- 
+  const [number, setNumber] = useState('')
+  const [password, setPassword] = useState('')
 
   const configureCaptcha = (e) => {
-    alert("form submit")
     e.preventDefault()
-    const auth = getAuth();
-    console.log(auth);
-    console.log("Aut runs");
-    window.recaptchaVerifier = new RecaptchaVerifier(
-      'sign-in-button',
-      {
-        size: 'invisible',
-        callback: (response) => {
-          // reCAPTCHA solved, allow signInWithPhoneNumber.
-          onSignInSubmit()
-          console.log("Recapctha Verified");
-        },
-      },
-      auth
-    )
-  }
-
-  const onSignInSubmit = () => {
-    console.log("hello onsignruns ");
-    const phoneNumber = '91' + phoneNo
-    console.log(phoneNumber);
-    // const phoneNumber = getPhoneNumberFromUserInput()
-    const appVerifier = window.recaptchaVerifier
-    
-    const auth = getAuth()
-    signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+    console.log(number)
+    signInWithPhoneNumber(auth, '+918445188705', window.reCaptchaVerifier)
       .then((confirmationResult) => {
-        // SMS sent. Prompt user to type the code from the message, then sign the
-        // user in with confirmationResult.confirm(code).
         window.confirmationResult = confirmationResult
-        // ...
+        console.log('rk OTP Sent', confirmationResult)
+        // console.log( "918445188705" )
       })
       .catch((error) => {
-        // Error; SMS not sent
-        // ...
+        console.log('rk FB ', error)
+        window.location.reload()
       })
+  }
+
+  const LogOut = () => {
+    console.log("Logout working");
+    auth.signOut()
+
   }
 
   const onSubmitOTP = (e) => {
     e.preventDefault()
-    const code = uniqueCode;
+    const code = password
     // const code = getCodeFromUserInput()
     window.confirmationResult
       .confirm(code)
@@ -78,13 +48,37 @@ const {saveAuth, setCurrentUser} = useAuth()
       .catch((error) => {
         // User couldn't sign in (bad verification code?)
         // ...
+        console.log(error)
       })
   }
 
+  useEffect(() => {
+    window.reCaptchaVerifier = new RecaptchaVerifier(
+      'sign-in-button',
+      {
+        size: 'invisible',
+        callback: function (response) {
+          console.log('It works!')
+          signInWithPhoneNumber(auth, '+918445188705', window.reCaptchaVerifier)
+            .then((confirmationResult) => {
+              window.confirmationResult = confirmationResult
+              console.log('rk OTP Sent', confirmationResult)
+            })
+            .catch((error) => {
+              console.log('rk FB ', error)
+            })
+        },
+      },
+      auth
+    )
+    window.reCaptchaVerifier.render()
+  }, [])
+
   return (
     <>
+      {/* <pre>{JSON.stringify(firebaseApp.options, null, 2)}</pre> */}
       <form onSubmit={configureCaptcha} className='form w-100'>
-        <div id='sign-in-button' className='text-center mb-11'>
+        <div className='text-center mb-11'>
           <h2 className='text-dark fw-bolder mb-3'>Sign in</h2>
           <div className='text-gray-500 fw-semibold fs-6'>Your ASC account</div>
         </div>
@@ -95,17 +89,21 @@ const {saveAuth, setCurrentUser} = useAuth()
             type='tel'
             name='number'
             placeholder='Phone Number'
-            value={phoneNo}
+            value={number}
             required
-            onChange={(e) => setPhoneNo(e.target.value)}
+            onChange={(e) => setNumber(e.target.value)}
           />
         </div>
         <div className='d-grid mb-10 w-50 mx-auto'>
-          <button className='btn btn-primary' type='submit'>
+          <button className='btn btn-primary' id='sign-in-button' type='submit'>
             Submit
           </button>
         </div>
       </form>
+
+      <button className='btn btn-primary' onClick={LogOut}>
+        Log out
+      </button>
 
       <form onSubmit={onSubmitOTP} className='form w-100'>
         <div className='text-center mb-11'>
@@ -113,12 +111,12 @@ const {saveAuth, setCurrentUser} = useAuth()
 
           <input
             className='form-control bg-transparent'
-            type='tel'
+            type='password'
             name='OTP'
             placeholder='OTP'
-            required
-            value={uniqueCode}
-            onChange={(e) => setUniqueCode(e.target.value)}
+            // required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <div className='d-grid mb-10 w-50 mx-auto'>
