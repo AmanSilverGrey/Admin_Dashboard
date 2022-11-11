@@ -20,7 +20,6 @@ const Login = () => {
       .then((confirmationResult) => {
         window.confirmationResult = confirmationResult
         console.log('rk OTP Sent', confirmationResult)
-        // console.log( "918445188705" )
       })
       .catch((error) => {
         console.log('rk FB ', error)
@@ -29,26 +28,29 @@ const Login = () => {
   }
 
   const LogOut = () => {
-    console.log("Logout working");
-    auth.signOut()
-
+    console.log('Logout working')
+    signOut(auth)
+    console.log(auth)
   }
 
   const onSubmitOTP = (e) => {
     e.preventDefault()
     const code = password
+    console.log(code)
     // const code = getCodeFromUserInput()
     window.confirmationResult
       .confirm(code)
-      .then((result) => {
+      .then((confirmationResult) => {
         // User signed in successfully.
-        const user = result.user
+        console.log(confirmationResult)
+        const user = confirmationResult.user
+        console.log(user)
         // ...
       })
       .catch((error) => {
         // User couldn't sign in (bad verification code?)
         // ...
-        console.log(error)
+        console.log(error.message)
       })
   }
 
@@ -65,7 +67,7 @@ const Login = () => {
               console.log('rk OTP Sent', confirmationResult)
             })
             .catch((error) => {
-              console.log('rk FB ', error)
+              console.log('rk FB ', error.message)
             })
         },
       },
@@ -111,7 +113,7 @@ const Login = () => {
 
           <input
             className='form-control bg-transparent'
-            type='password'
+            type='text'
             name='OTP'
             placeholder='OTP'
             // required
