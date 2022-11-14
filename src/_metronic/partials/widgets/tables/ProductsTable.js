@@ -46,7 +46,7 @@ const ProductsTable = ({className}) => {
             {/* begin::Table body */}
             <tbody>
               {data.map((item) => (
-                <tr>
+                <tr key={item.id}>
                   <td>
                     <p className='text-dark fw-bold fs-6'>{item.name}</p>
                   </td>

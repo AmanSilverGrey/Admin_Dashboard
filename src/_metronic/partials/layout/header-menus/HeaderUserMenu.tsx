@@ -1,12 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import {FC} from 'react'
 import {Link} from 'react-router-dom'
-import {useAuth} from '../../../../app/modules/auth'
+import {Logout, useAuth} from '../../../../app/modules/auth'
 import {Languages} from './Languages'
 import {toAbsoluteUrl} from '../../../helpers'
+import {signOut} from 'firebase/auth'
+import {auth} from '../../../../app/modules/auth/firebase'
 
 const HeaderUserMenu: FC = () => {
-  const {currentUser, logout} = useAuth()
+  const {currentUser,setCurrentUser,logout} = useAuth()
   return (
     <div
       className='menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px'
@@ -30,15 +32,13 @@ const HeaderUserMenu: FC = () => {
         </div>
       </div>
 
-      {/* <div className='separator my-2'></div> */}
+      <div className='separator my-2'></div>
 
-      {/* <div className='menu-item px-5'>
-        <Link to={'/crafted/pages/profile'} className='menu-link px-5'>
-          My Profile
-        </Link>
+      <div className='menu-item px-5 text-center'>
+        <span className='badge badge-light-danger fw-bolder fs-8 px-2 py-1 ms-2 cursor-pointer' onClick={logout}>Log out</span>
       </div>
 
-      <div className='menu-item px-5'>
+      {/* <div className='menu-item px-5'>
         <a href='#' className='menu-link px-5'>
           <span className='menu-text'>My Projects</span>
           <span className='menu-badge'>
@@ -127,7 +127,7 @@ const HeaderUserMenu: FC = () => {
         <a onClick={logout} className='menu-link px-5'>
           Sign Out
         </a>
-      </div> */}
+      </div>  */}
     </div>
   )
 }

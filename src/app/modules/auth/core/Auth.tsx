@@ -13,6 +13,9 @@ import {AuthModel, UserModel} from './_models'
 import * as authHelper from './AuthHelpers'
 import {getUserByToken} from './_requests'
 import {WithChildren} from '../../../../_metronic/helpers'
+import {signOut} from 'firebase/auth'
+import {auth} from '../firebase'
+// import { useNavigate } from 'react-router-dom'
 
 type AuthContextProps = {
   auth: AuthModel | undefined
@@ -37,6 +40,7 @@ const useAuth = () => {
 }
 
 const AuthProvider: FC<WithChildren> = ({children}) => {
+  //  const navigate = useNavigate();
   const [auth, setAuth] = useState<AuthModel | undefined>(authHelper.getAuth())
   const [currentUser, setCurrentUser] = useState<UserModel | undefined>()
   const saveAuth = (auth: AuthModel | undefined) => {
@@ -51,6 +55,11 @@ const AuthProvider: FC<WithChildren> = ({children}) => {
   const logout = () => {
     saveAuth(undefined)
     setCurrentUser(undefined)
+    localStorage.removeItem('user')
+    console.log("Uer log out");
+    window.location.reload();
+    
+    
   }
 
   return (
@@ -77,7 +86,7 @@ const AuthInit: FC<WithChildren> = ({children}) => {
       } catch (error) {
         console.error(error)
         if (!didRequest.current) {
-          logout()
+          // logout()
         }
       } finally {
         setShowSplashScreen(false)
@@ -89,7 +98,7 @@ const AuthInit: FC<WithChildren> = ({children}) => {
     if (auth && auth.api_token) {
       requestUser(auth.api_token)
     } else {
-      logout()
+      // logout()
       setShowSplashScreen(false)
     }
     // eslint-disable-next-line

@@ -103,8 +103,7 @@ const RequestsTable = ({className}) => {
   }
   useEffect(() => {
     api()
-    console.log(data)
-  }, [Toggle, DeleteUser])
+  }, [])
 
   //Handle Form Submit
   const handleSubmit = (e) => {
@@ -141,7 +140,7 @@ const RequestsTable = ({className}) => {
           {!toggle && !addUser && (
             <span
               onClick={() => {
-                setAddUser(!addUser)
+                setAddUser( current => !current )
               }}
             >
               Add User

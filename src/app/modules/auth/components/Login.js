@@ -1,4 +1,5 @@
-import React, {useEffect, useState} from 'react'
+import axios from '../../../FetchApi/Api'
+import React, {useState} from 'react'
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -8,126 +9,135 @@ import {
 } from 'firebase/auth'
 import {auth} from '../firebase'
 import {RecaptchaVerifier} from 'firebase/auth'
+import {useAuth} from '../core/Auth'
+import {CountryCode} from '../../../Country/CountryCode'
+import {useNavigate} from 'react-router-dom'
+import Loading from './Loading'
 
 const Login = () => {
-  const [number, setNumber] = useState('')
-  const [password, setPassword] = useState('')
+  const navigate = useNavigate()
+  const [phone, setPhone] = useState(CountryCode)
+  const [OTP, setOTP] = useState('')
+  const [expandForm, setExpandForm] = useState(false)
+  const {setCurrentUser} = useAuth()
+  const [isloading, setisLoading] = useState(false)
 
-  const configureCaptcha = (e) => {
-    e.preventDefault()
-    console.log(number)
-    signInWithPhoneNumber(auth, '+918445188705', window.reCaptchaVerifier)
-      .then((confirmationResult) => {
-        window.confirmationResult = confirmationResult
-        console.log('rk OTP Sent', confirmationResult)
-      })
-      .catch((error) => {
-        console.log('rk FB ', error)
-        window.location.reload()
-      })
-  }
-
-  const LogOut = () => {
-    console.log('Logout working')
-    signOut(auth)
-    console.log(auth)
-  }
-
-  const onSubmitOTP = (e) => {
-    e.preventDefault()
-    const code = password
-    console.log(code)
-    // const code = getCodeFromUserInput()
-    window.confirmationResult
-      .confirm(code)
-      .then((confirmationResult) => {
-        // User signed in successfully.
-        console.log(confirmationResult)
-        const user = confirmationResult.user
-        console.log(user)
-        // ...
-      })
-      .catch((error) => {
-        // User couldn't sign in (bad verification code?)
-        // ...
-        console.log(error.message)
-      })
-  }
-
-  useEffect(() => {
-    window.reCaptchaVerifier = new RecaptchaVerifier(
-      'sign-in-button',
+  const gererateRecaptcha = () => {
+    window.recaptchaVerifier = new RecaptchaVerifier(
+      'recaptcha-container',
       {
         size: 'invisible',
-        callback: function (response) {
-          console.log('It works!')
-          signInWithPhoneNumber(auth, '+918445188705', window.reCaptchaVerifier)
-            .then((confirmationResult) => {
-              window.confirmationResult = confirmationResult
-              console.log('rk OTP Sent', confirmationResult)
-            })
-            .catch((error) => {
-              console.log('rk FB ', error.message)
-            })
-        },
+        callback: (Response) => {},
       },
       auth
     )
-    window.reCaptchaVerifier.render()
-  }, [])
+  }
+
+  const requestOTP = (e) => {
+    e.preventDefault()
+    axios
+      .post('/login/', {phone})
+      .then((Response) => {
+        if (Response.data.data) {
+          setExpandForm(true)
+          gererateRecaptcha()
+          let appVerifier = window.recaptchaVerifier
+          signInWithPhoneNumber(auth, phone, appVerifier)
+            .then((confirmationResult) => {
+              window.confirmationResult = confirmationResult
+            })
+            .catch((error) => {
+              console.log(error)
+              alert(error.message)
+            })
+        } else {
+          alert(Response.data.message)
+        }
+      })
+      .catch((error) => {
+        console.log(error.response.data)
+        {
+          error.response.data.phone
+            ? alert(error.response.data.phone)
+            : alert(error.response.data.email)
+        }
+      })
+  }
+
+  const verifyOTP = (e) => {
+    let otp = e.target.value
+    setOTP(otp)
+
+    if (otp.length === 6) {
+      let confirmationResult = window.confirmationResult
+      confirmationResult
+        .confirm(otp)
+        .then((result) => {
+          const user = result.user
+          console.log(user)
+          setCurrentUser(user)
+          localStorage.setItem('user', JSON.stringify(user))
+          console.log(user)
+          setisLoading(true)
+          navigate('/dashboard')
+        })
+        .catch((error) => {
+          console.log(error.message)
+        })
+    }
+  }
 
   return (
     <>
-      {/* <pre>{JSON.stringify(firebaseApp.options, null, 2)}</pre> */}
-      <form onSubmit={configureCaptcha} className='form w-100'>
-        <div className='text-center mb-11'>
-          <h2 className='text-dark fw-bolder mb-3'>Sign in</h2>
-          <div className='text-gray-500 fw-semibold fs-6'>Your ASC account</div>
+      {!isloading && (
+        <div className='formContainer'>
+          <form onSubmit={requestOTP}>
+            <h1>Sign in with phone phone</h1>
+            <div className='mb-3'>
+              <label htmlFor='phonenumberinput' className='form-label'>
+                Phone number
+              </label>
+              <input
+                type='tel'
+                className='form-control'
+                id='phoneNumberInput'
+                aria-describedby='emailHelp'
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
+            </div>
+            {expandForm && (
+              <div className='mb-3'>
+                <label htmlFor='otpInput' className='form-label'>
+                  OTP
+                </label>
+                <input
+                  type='phone'
+                  className='form-control'
+                  id='otpInput'
+                  aria-describedby='emailHelp'
+                  value={OTP}
+                  onChange={verifyOTP}
+                />
+                <div id='otpHelp' className='form-text'>
+                  Please enter the One Time Pin sent to your phone
+                </div>
+              </div>
+            )}
+            {!expandForm && (
+              <button type='submit' className='btn btn-primary'>
+                Request OTP
+              </button>
+            )}
+            <div id='recaptcha-container'></div>
+          </form>
         </div>
-
-        <div className='fv-row mb-8'>
-          <input
-            className='form-control bg-transparent'
-            type='tel'
-            name='number'
-            placeholder='Phone Number'
-            value={number}
-            required
-            onChange={(e) => setNumber(e.target.value)}
-          />
-        </div>
-        <div className='d-grid mb-10 w-50 mx-auto'>
-          <button className='btn btn-primary' id='sign-in-button' type='submit'>
-            Submit
-          </button>
-        </div>
-      </form>
-
-      <button className='btn btn-primary' onClick={LogOut}>
-        Log out
-      </button>
-
-      <form onSubmit={onSubmitOTP} className='form w-100'>
-        <div className='text-center mb-11'>
-          <h2 className='text-dark fw-bolder mb-3'>Enter OTP</h2>
-
-          <input
-            className='form-control bg-transparent'
-            type='text'
-            name='OTP'
-            placeholder='OTP'
-            // required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <div className='d-grid mb-10 w-50 mx-auto'>
-          <button className='btn btn-primary' type='submit'>
-            Submit
-          </button>
-        </div>
-      </form>
+      )}
+      {
+        isloading && <Loading/>
+      }
     </>
   )
 }
+
 export default Login
