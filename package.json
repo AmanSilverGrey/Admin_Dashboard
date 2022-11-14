@@ -2,7 +2,7 @@
   "name": "demo1",
   "version": "8.1.5",
   "private": true,
-  "homepage": "/metronic8/react/demo1",
+  "homepage": "http://AmanSilverGrey.github.io/Admin_Dashboard",
   "dependencies": {
     "@formatjs/intl-pluralrules": "4.3.3",
     "@formatjs/intl-relativetimeformat": "10.0.1",
@@ -58,6 +58,7 @@
     "@types/sass-loader": "8.0.3",
     "css-loader": "6.7.1",
     "del": "6.0.0",
+    "gh-pages": "^4.0.0",
     "mini-css-extract-plugin": "2.6.1",
     "prettier": "2.6.2",
     "rtlcss-webpack-plugin": "4.0.7",
@@ -68,6 +69,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
