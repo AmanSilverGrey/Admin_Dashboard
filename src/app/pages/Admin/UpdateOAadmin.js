@@ -45,10 +45,13 @@ const UpdateOAadmin = ({id}) => {
   }
 
   return (
-    <div>
+    <div className='w-50 mx-auto p-10 shadow  mb-5 bg-body rounded'>
       {/* <!--begin::Input group--> */}
       {/* <h2>Update superAdmin</h2> */}
       <form onSubmit={handleSubmit}>
+      <br />
+        <h2 className='text-primary'>Edit organization admin</h2>
+        <br />
       <div className='form-floating mb-7'>
         <input
           type='text'
@@ -74,7 +77,7 @@ const UpdateOAadmin = ({id}) => {
 
       <div className='form-floating mb-7'>
         <input
-          type='number'
+          type='tel'
           className='form-control form-control-solid bg-white'
           id='floatingInput1'
           value={phone}

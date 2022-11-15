@@ -110,9 +110,9 @@ const RequestsTable = ({className}) => {
   //Handle Form Submit
   const handleSubmit = (e) => {
     e.preventDefault()
-    alert('User Edited!') 
-    console.log(selectOrg);
-    const orgId = orgName.find((item) => item?.id == selectOrg);
+    alert('User Edited!')
+    console.log(selectOrg)
+    const orgId = orgName.find((item) => item?.id == selectOrg)
     const EditedUser = {first_name, last_name, email, org: orgId?.id, org_name: orgId?.name}
 
     axios
@@ -143,7 +143,7 @@ const RequestsTable = ({className}) => {
           {!toggle && !addUser && (
             <span
               onClick={() => {
-                setAddUser( current => !current )
+                setAddUser((current) => !current)
               }}
             >
               Add User
@@ -273,9 +273,12 @@ const RequestsTable = ({className}) => {
         </div>
       )}
 
-{/* Edit User */}
+      {/* Edit User */}
       {toggle && (
-        <div>
+        <div className='w-50 mx-auto p-10 shadow  mb-5 bg-body rounded'>
+          <br />
+          <h2 className='text-primary'>Edit user </h2>
+          <br />
           <div className='form-floating mb-7'>
             <input
               type='text'
@@ -326,15 +329,15 @@ const RequestsTable = ({className}) => {
               id='floatingSelect1'
               aria-label='Floating label select example'
               onChange={(e) => setSelectOrg(e.target.value)}
-              value = {selectOrg}
+              value={selectOrg}
               required
             >
               {/* <option defaultValue>{org}</option> */}
               {orgName.map((item) => (
-                <option key={item.id} value={item?.id} >
+                <option key={item.id} value={item?.id}>
                   {item.name}
                 </option>
-              ))}              
+              ))}
             </select>
             <label htmlFor='floatingSelect1'>Organization name</label>
           </div>

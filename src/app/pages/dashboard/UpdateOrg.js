@@ -5,7 +5,7 @@ const UpdateOrg = ({id}) => {
   const [name, setName] = useState('')
   const [primary_name, setPrimary_name] = useState('')
   const [primary_title, setPrimay_title] = useState('')
-  const [phone, setPhone] = useState('')
+  // const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
   const [address, setAddress] = useState('')
   const [city, setCity] = useState('')
@@ -23,7 +23,7 @@ const UpdateOrg = ({id}) => {
         setName(Response.data.name)
         setPrimary_name(Response.data.primary_name)
         setPrimay_title(Response.data.primary_title)
-        setPhone(Response.data.phone)
+        // setPhone(Response.data.phone)
         setEmail(Response.data.email)
         setAddress(Response.data.address)
         setCity(Response.data.city)
@@ -59,7 +59,7 @@ const UpdateOrg = ({id}) => {
       name,
       primary_name,
       primary_title,
-      phone,
+      // phone,
       email,
       address,
       city,
@@ -80,8 +80,11 @@ const UpdateOrg = ({id}) => {
   }
 
   return (
-    <div>
+    <div className='w-50 mx-auto p-10 shadow  mb-5 bg-body rounded'>
       {/* <!--begin::Input group--> */}
+      <br />
+        <h2 className='text-primary'>Add Organization</h2>
+        <br />
       <div className='form-floating mb-7'>
         <input
           type='text'
@@ -113,7 +116,8 @@ const UpdateOrg = ({id}) => {
         />
         <label htmlFor='floatingInput1'>Primary title</label>
       </div>
-      <div className='form-floating mb-7'>
+      {/* Phone Number */}
+      {/* <div className='form-floating mb-7'>
         <input
           type='number'
           className='form-control form-control-solid bg-white'
@@ -122,7 +126,8 @@ const UpdateOrg = ({id}) => {
           onChange={(e) => setPhone(e.target.value)}
         />
         <label htmlFor='floatingInput1'>Phone no.</label>
-      </div>
+      </div> */}
+
       <div className='form-floating mb-7'>
         <input
           type='email'

@@ -45,7 +45,7 @@ const AddUser = () => {
   }
 
   return (
-    <div className='w-50 mx-auto p-10 shadow  mb-5 bg-body rounded '>
+    <div className='w-50 mx-auto p-10 shadow  mb-5 bg-body rounded'>
       <form onSubmit={handleSubmit}>
         <br />
         <h2 className='text-primary'>Add user</h2>

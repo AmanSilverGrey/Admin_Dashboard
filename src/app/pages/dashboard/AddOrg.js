@@ -1,11 +1,12 @@
 import axios from '../../FetchApi/Api'
 import React, {useEffect, useState} from 'react'
+import { CountryCode } from '../../Country/CountryCode'
 
 const AddOrg = () => {
   const [name, setName] = useState('')
   const [primary_name, setPrimary_name] = useState('')
   const [primary_title, setPrimay_title] = useState('')
-  const [phone, setPhone] = useState('')
+  const [phone, setPhone] = useState(CountryCode)
   const [email, setEmail] = useState('')
   const [address, setAddress] = useState('')
   const [city, setCity] = useState('')
@@ -72,11 +73,17 @@ const AddOrg = () => {
   }
 
   return (
-    <div>
+    <div className='w-50 mx-auto p-10 shadow  mb-5 bg-body rounded'>
       <form onSubmit={handleSubmit}>
-        <div className='form-floating mb-7' >
-          <p className='text-muted'>Feilds marked with <span className='text-danger' >*</span> are required.</p>
+        <br />
+        <h2 className='text-primary'>Add organization </h2>
+        <div className='form-floating mb-7'>
+          <p className='text-muted'>
+            Feilds marked with <span className='text-danger'>*</span> are required.
+          </p>
         </div>
+        <br />
+
         {/* <!--begin::Input group--> */}
         <div className='form-floating mb-7'>
           <input
@@ -87,7 +94,9 @@ const AddOrg = () => {
             onChange={(e) => setName(e.target.value)}
             required
           />
-          <label htmlFor='floatingInput1'>Name <span className='text-danger' >*</span></label>
+          <label htmlFor='floatingInput1'>
+            Name <span className='text-danger'>*</span>
+          </label>
         </div>
 
         <div className='form-floating mb-7'>
@@ -99,7 +108,9 @@ const AddOrg = () => {
             onChange={(e) => setPrimary_name(e.target.value)}
             required
           />
-          <label htmlFor='floatingInput1'>Primary name <span className='text-danger' >*</span></label>
+          <label htmlFor='floatingInput1'>
+            Primary name <span className='text-danger'>*</span>
+          </label>
         </div>
 
         <div className='form-floating mb-7'>
@@ -111,12 +122,14 @@ const AddOrg = () => {
             onChange={(e) => setPrimay_title(e.target.value)}
             required
           />
-          <label htmlFor='floatingInput1'>Primary title <span className='text-danger' >*</span></label>
+          <label htmlFor='floatingInput1'>
+            Primary title <span className='text-danger'>*</span>
+          </label>
         </div>
 
         <div className='form-floating mb-7'>
           <input
-            type='number'
+            type='tel'
             className='form-control form-control-solid bg-white'
             id='floatingInput1'
             value={phone}
@@ -125,7 +138,9 @@ const AddOrg = () => {
             maxLength={15}
             minLength={10}
           />
-          <label htmlFor='floatingInput1'>Phone no. <span className='text-danger' >*</span> </label>
+          <label htmlFor='floatingInput1'>
+            Phone no. <span className='text-danger'>*</span>{' '}
+          </label>
           {/* {phoneError && <span className='text-danger p-3 small'>{phoneError}</span>} */}
         </div>
 
@@ -138,7 +153,9 @@ const AddOrg = () => {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <label htmlFor='floatingInput1'>Email <span className='text-danger' >*</span></label>
+          <label htmlFor='floatingInput1'>
+            Email <span className='text-danger'>*</span>
+          </label>
           {/* {emailError && <span className='text-danger p-3 small'>{emailError}</span>} */}
         </div>
 
@@ -151,7 +168,9 @@ const AddOrg = () => {
             onChange={(e) => setAddress(e.target.value)}
             required
           />
-          <label htmlFor='floatingInput1'>Address <span className='text-danger' >*</span></label>
+          <label htmlFor='floatingInput1'>
+            Address <span className='text-danger'>*</span>
+          </label>
         </div>
 
         <div className='form-floating mb-7'>
@@ -163,7 +182,9 @@ const AddOrg = () => {
             onChange={(e) => setCity(e.target.value)}
             required
           />
-          <label htmlFor='floatingInput1'>City <span className='text-danger' >*</span></label>
+          <label htmlFor='floatingInput1'>
+            City <span className='text-danger'>*</span>
+          </label>
         </div>
 
         <div className='form-floating mb-7'>
@@ -175,7 +196,9 @@ const AddOrg = () => {
             onChange={(e) => setState(e.target.value)}
             required
           />
-          <label htmlFor='floatingInput1'>State <span className='text-danger' >*</span></label>
+          <label htmlFor='floatingInput1'>
+            State <span className='text-danger'>*</span>
+          </label>
         </div>
 
         <div className='form-floating mb-7'>
@@ -187,7 +210,9 @@ const AddOrg = () => {
             onChange={(e) => setZip(e.target.value)}
             required
           />
-          <label htmlFor='floatingInput1'>Zip <span className='text-danger' >*</span></label>
+          <label htmlFor='floatingInput1'>
+            Zip <span className='text-danger'>*</span>
+          </label>
         </div>
 
         {/* Drop Down */}
@@ -210,7 +235,9 @@ const AddOrg = () => {
               </option>
             ))}
           </select>
-          <label htmlFor='floatingSelect1'>Owner <span className='text-danger' >*</span></label>
+          <label htmlFor='floatingSelect1'>
+            Owner <span className='text-danger'>*</span>
+          </label>
         </div>
 
         {/* Note */}

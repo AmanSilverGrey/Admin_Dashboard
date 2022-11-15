@@ -41,7 +41,7 @@ const Login = () => {
           setExpandForm(true)
           const UserDetail = Response.data.data;
           console.log(UserDetail);
-          localStorage.setItem("User-Details", UserDetail);
+          localStorage.setItem("User-Details", JSON.stringify(UserDetail));
 
           gererateRecaptcha()
           let appVerifier = window.recaptchaVerifier

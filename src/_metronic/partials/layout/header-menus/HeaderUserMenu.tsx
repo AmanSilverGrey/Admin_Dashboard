@@ -10,7 +10,8 @@ import {auth} from '../../../../app/modules/auth/firebase'
 const HeaderUserMenu: FC = () => {
   const {currentUser, setCurrentUser, logout} = useAuth()
   const UserDetails = localStorage.getItem('User-Details')
- console.log(UserDetails);
+  const userdata = JSON.parse(JSON.stringify(UserDetails));
+ console.log(userdata.name);
  
   
   return (
