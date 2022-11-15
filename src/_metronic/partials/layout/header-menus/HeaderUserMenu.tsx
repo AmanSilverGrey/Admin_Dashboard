@@ -8,7 +8,11 @@ import {signOut} from 'firebase/auth'
 import {auth} from '../../../../app/modules/auth/firebase'
 
 const HeaderUserMenu: FC = () => {
-  const {currentUser,setCurrentUser,logout} = useAuth()
+  const {currentUser, setCurrentUser, logout} = useAuth()
+  const UserDetails = localStorage.getItem('User-Details')
+ console.log(UserDetails);
+ 
+  
   return (
     <div
       className='menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px'
@@ -22,7 +26,7 @@ const HeaderUserMenu: FC = () => {
 
           <div className='d-flex flex-column'>
             <div className='fw-bolder d-flex align-items-center fs-5'>
-              {currentUser?.first_name} {currentUser?.first_name}
+              {/* {UserDetails?.first_name} {UserDetails?.first_name} */}
               <span className='badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2'>Pro</span>
             </div>
             <a href='#' className='fw-bold text-muted text-hover-primary fs-7'>
@@ -35,7 +39,12 @@ const HeaderUserMenu: FC = () => {
       <div className='separator my-2'></div>
 
       <div className='menu-item px-5 text-center'>
-        <span className='badge badge-light-danger fw-bolder fs-8 px-2 py-1 ms-2 cursor-pointer' onClick={logout}>Log out</span>
+        <span
+          className='badge badge-light-danger fw-bolder fs-8 px-2 py-1 ms-2 cursor-pointer'
+          onClick={logout}
+        >
+          Log out
+        </span>
       </div>
 
       {/* <div className='menu-item px-5'>

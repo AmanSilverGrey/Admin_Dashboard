@@ -23,8 +23,11 @@ const AddAdmin = () => {
   }
 
   return (
-    <div>
+    <div className='w-50 mx-auto p-10 shadow  mb-5 bg-body rounded'>
       {/* <h2>Add super admin dummy</h2> */}
+      <br />
+      <h2 className='text-primary'>Add Super Admin</h2>
+      <br />
       <form onSubmit={handleSubmit}>
         <div className='form-floating mb-7'>
           <input
@@ -35,7 +38,9 @@ const AddAdmin = () => {
             onChange={(e) => setFirst_name(e.target.value)}
             required
           />
-          <label htmlFor='floatingInput1'>First Name <span className='text-danger'>*</span></label>
+          <label htmlFor='floatingInput1'>
+            First Name <span className='text-danger'>*</span>
+          </label>
         </div>
 
         <div className='form-floating mb-7'>
@@ -58,7 +63,9 @@ const AddAdmin = () => {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <label htmlFor='floatingInput1'>Email <span className='text-danger'>*</span></label>
+          <label htmlFor='floatingInput1'>
+            Email <span className='text-danger'>*</span>
+          </label>
         </div>
         <div className='form-floating mb-7'>
           <input
@@ -69,7 +76,9 @@ const AddAdmin = () => {
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
           />
-          <label htmlFor='floatingInput1'>Phone no. <span className='text-danger'>*</span></label>
+          <label htmlFor='floatingInput1'>
+            Phone no. <span className='text-danger'>*</span>
+          </label>
         </div>
 
         {/* Owner DropDown starts*/}

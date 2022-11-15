@@ -30,3 +30,7 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+
+# Deploy
+run npm run deploy
+--It makes the deployement to the github pages

@@ -12,7 +12,7 @@ import _ from 'lodash'
 
 const RequestsTable = ({className}) => {
   const [data, setData] = useState([])
-  const [toggle, setToggle] = useState()
+  const [toggle, setToggle] = useState('')
   const [addUser, setAddUser] = useState(false)
 
   // const [approve, setApprove] = useState(-1);
@@ -23,6 +23,7 @@ const RequestsTable = ({className}) => {
   const [email, setEmail] = useState('')
   const [org, setOrg] = useState('')
   const [org_name, setOrg_name] = useState('')
+  const [selectOrg, setSelectOrg] = useState('')
 
   //For Update dropdown
   const [orgName, setOrgName] = useState([])
@@ -79,6 +80,7 @@ const RequestsTable = ({className}) => {
         setLast_name(Response.data.data.last_name)
         setEmail(Response.data.data.email)
         setOrg(Response.data.data.org)
+        setSelectOrg(Response.data.data.org_name)
       })
       .catch((error) => {
         console.log(error)
@@ -103,14 +105,15 @@ const RequestsTable = ({className}) => {
   }
   useEffect(() => {
     api()
-  }, [])
+  }, [addUser])
 
   //Handle Form Submit
   const handleSubmit = (e) => {
     e.preventDefault()
-    alert('User Edited!')
-
-    const EditedUser = {first_name, last_name, email, org}
+    alert('User Edited!') 
+    console.log(selectOrg);
+    const orgId = orgName.find((item) => item?.id == selectOrg);
+    const EditedUser = {first_name, last_name, email, org: orgId?.id, org_name: orgId?.name}
 
     axios
       .patch(`/user/${toggle}/`, EditedUser)
@@ -270,6 +273,7 @@ const RequestsTable = ({className}) => {
         </div>
       )}
 
+{/* Edit User */}
       {toggle && (
         <div>
           <div className='form-floating mb-7'>
@@ -303,7 +307,7 @@ const RequestsTable = ({className}) => {
             <label htmlFor='floatingInput1'>Email</label>
           </div>
 
-          <div className='form-floating mb-7'>
+          {/* <div className='form-floating mb-7'>
             <input
               type='number'
               className='form-control form-control-solid bg-white'
@@ -312,7 +316,7 @@ const RequestsTable = ({className}) => {
               onChange={(e) => setOrg(e.target.value)}
             />
             <label htmlFor='floatingInput1'>Org</label>
-          </div>
+          </div> */}
 
           {/* dropdown */}
           {/* Drop Down */}
@@ -321,12 +325,13 @@ const RequestsTable = ({className}) => {
               className='form-select form-select-solid bg-white cursor-pointer'
               id='floatingSelect1'
               aria-label='Floating label select example'
-              onChange={(e) => setOrg_name(e.target.value)}
+              onChange={(e) => setSelectOrg(e.target.value)}
+              value = {selectOrg}
               required
             >
-              <option defaultValue>{org_name}</option>
+              {/* <option defaultValue>{org}</option> */}
               {orgName.map((item) => (
-                <option key={item.id} value={org}>
+                <option key={item.id} value={item?.id} >
                   {item.name}
                 </option>
               ))}              

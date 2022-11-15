@@ -45,9 +45,10 @@ const UpdateAdmin = ({id}) => {
   }
 
   return (
-    <div>
+    <div className='w-50 mx-auto p-10 shadow  mb-5 bg-body rounded'>
       {/* <!--begin::Input group--> */}
-      <h2>Update superAdmin</h2>
+
+      <h2 className='text-primary'>Edit superAdmin</h2>
       <form onSubmit={handleSubmit}>
       <div className='form-floating mb-7'>
         <input

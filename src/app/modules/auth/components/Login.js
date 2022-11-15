@@ -12,7 +12,6 @@ import {RecaptchaVerifier} from 'firebase/auth'
 import {useAuth} from '../core/Auth'
 import {CountryCode} from '../../../Country/CountryCode'
 import {useNavigate} from 'react-router-dom'
-import Loading from './Loading'
 
 const Login = () => {
   const navigate = useNavigate()
@@ -40,6 +39,10 @@ const Login = () => {
       .then((Response) => {
         if (Response.data.data) {
           setExpandForm(true)
+          const UserDetail = Response.data.data;
+          console.log(UserDetail);
+          localStorage.setItem("User-Details", UserDetail);
+
           gererateRecaptcha()
           let appVerifier = window.recaptchaVerifier
           signInWithPhoneNumber(auth, phone, appVerifier)
@@ -56,11 +59,6 @@ const Login = () => {
       })
       .catch((error) => {
         console.log(error.response.data)
-        {
-          error.response.data.phone
-            ? alert(error.response.data.phone)
-            : alert(error.response.data.email)
-        }
       })
   }
 
@@ -69,6 +67,7 @@ const Login = () => {
     setOTP(otp)
 
     if (otp.length === 6) {
+      setisLoading(true)
       let confirmationResult = window.confirmationResult
       confirmationResult
         .confirm(otp)
@@ -78,7 +77,6 @@ const Login = () => {
           setCurrentUser(user)
           localStorage.setItem('user', JSON.stringify(user))
           console.log(user)
-          setisLoading(true)
           navigate('/dashboard')
         })
         .catch((error) => {
@@ -92,14 +90,21 @@ const Login = () => {
       {!isloading && (
         <div className='formContainer'>
           <form onSubmit={requestOTP}>
-            <h1>Sign in with phone phone</h1>
+            <div className='text-center mb-11'>
+              <h1 className='text-dark fw-bolder mb-3'>Sign In</h1>
+              <div className='text-gray-500 fw-semibold fs-6'>To your asc account</div>
+            </div>
+
             <div className='mb-3'>
-              <label htmlFor='phonenumberinput' className='form-label'>
+              <label
+                htmlFor='phonenumberinput'
+                className='form-label fw-bolder text-dark fs-6 mb-0'
+              >
                 Phone number
               </label>
               <input
                 type='tel'
-                className='form-control'
+                className='form-control bg-transparent'
                 id='phoneNumberInput'
                 aria-describedby='emailHelp'
                 value={phone}
@@ -125,7 +130,7 @@ const Login = () => {
               </div>
             )}
             {!expandForm && (
-              <button type='submit' className='btn btn-primary'>
+              <button type='submit' className='btn btn-primary mx-auto'>
                 Request OTP
               </button>
             )}
@@ -133,9 +138,13 @@ const Login = () => {
           </form>
         </div>
       )}
-      {
-        isloading && <Loading/>
-      }
+      {isloading && (
+        <h2 className='text-center mb-11 text-dark fw-bolder'>
+          <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
+          <br />
+          Please wait.
+        </h2>
+      )}
     </>
   )
 }

@@ -21,7 +21,7 @@ const {PUBLIC_URL} = process.env
 
 const AppRoutes: FC = () => {
   const {currentUser} = useAuth()
-  const [item, setItems] = useState(true)
+  // const item = true;
 
   // const getLocalItems = () => {
   //   const data = localStorage.getItem('user')
@@ -44,12 +44,12 @@ const AppRoutes: FC = () => {
           <Route path='logout' element={<Logout />} />
 
           {
-          // localStorage.getItem('user')
-          item
+          localStorage.getItem('user')
+          // item
            ? (
             <>
               <Route path='/*' element={<PrivateRoutes />} />
-              <Route index element={<Navigate to='/dashboard' />} />
+              <Route index element={<Navigate to='/requests' />} />
             </>
           ) : (
             <>
