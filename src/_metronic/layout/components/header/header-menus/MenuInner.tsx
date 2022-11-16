@@ -15,17 +15,23 @@ export function MenuInner() {
         {/* <figcaption className='figure-caption'>  Complete Rapid Drug Testing
          and PPE Solutions</figcaption> */}
       </figure>
-      {userdata?.type == 'SA' && <MenuItem title='Admin' to='/superadmin' />}
-      {userdata?.type == 'OA' ||
-        (userdata?.type == 'SA' && <MenuItem title='Organisation Admin' to='/orgadmin' />)}
+      {/* 1 */}
+      {userdata?.type == 'SA' ||
+        (userdata?.type == 'NU' && <MenuItem title='Admin' to='/superadmin' />)}
+      {/* 2 */}
+      { userdata?.type == "SA" || userdata?.type == "NU"  && <MenuItem title='Organisation Admin' to='/orgadmin' />}
+      {/* 3 */}
       {userdata?.type == 'SA' ||
         (userdata?.type == 'OA' && <MenuItem title='Organisation' to='/dashboard' />)}
+      {/* 4 */}
       {userdata?.type == 'SA' ||
         // userdata?.type == 'OA' ||
         (userdata?.type == 'NU' && <MenuItem title='Products' to='/products' />)}
+      {/* 5 */}
       {userdata?.type == 'SA' ||
         userdata?.type == 'OA' ||
         (userdata?.type == 'NU' && <MenuItem title='Requests' to='/requests' />)}
+      {/* 6 */}
       {userdata?.type == 'SA' ||
         userdata?.type == 'OA' ||
         (userdata?.type == 'NU' && <MenuItem title='Reports' to='/reports' />)}

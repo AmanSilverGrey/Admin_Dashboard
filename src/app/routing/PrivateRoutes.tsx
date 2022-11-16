@@ -11,6 +11,7 @@ import Products from '../pages/Products/Products'
 import Requests from '../pages/Requests/Requests'
 import OrgAdmin from '../pages/Admin/OrgAdmin'
 import SuperAdmin from '../pages/Admin/SuperAdmin'
+import {userdata} from '../LocalStorage/UserDetails'
 
 const PrivateRoutes = () => {
   const ProfilePage = lazy(() => import('../modules/profile/ProfilePage'))
@@ -26,12 +27,13 @@ const PrivateRoutes = () => {
         {/* Redirect to Dashboard after success login/registartion */}
         <Route path='auth/*' element={<Navigate to='/requests' />} />
         {/* Pages */}
-        <Route path='dashboard' element={<DashboardWrapper />} />
+        {userdata?.type == 'SA' ||
+          (userdata?.type == 'OA' && <Route path='dashboard' element={<DashboardWrapper />} />)}
         <Route path='admin' element={<AdminPageWrapper />} />
         <Route path='reports' element={<Reports />} />
         <Route path='products' element={<Products />} />
         <Route path='requests' element={<Requests />} />
-        <Route path='superadmin' element={<OrgAdmin />} />
+        { userdata?.type == 'SA' && <Route path='superadmin' element={<OrgAdmin />} />}
         <Route path='orgadmin' element={<SuperAdmin />} />
 
         {/* Lazy Modules */}
