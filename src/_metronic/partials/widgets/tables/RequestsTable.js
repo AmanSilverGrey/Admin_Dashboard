@@ -214,9 +214,9 @@ const RequestsTable = ({className}) => {
                                 onClick={() => {
                                   handleApprove(item)
                                 }}
-                                className='badge badge-light-danger'
+                                className='badge badge-light-danger cursor-pointer'
                               >
-                                Not Approved
+                                Click to approve
                               </span>
                             )}
                           </div>

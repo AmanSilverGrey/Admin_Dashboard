@@ -31,8 +31,8 @@ const PrivateRoutes = () => {
         <Route path='reports' element={<Reports />} />
         <Route path='products' element={<Products />} />
         <Route path='requests' element={<Requests />} />
-        <Route path='orgadmin' element={<OrgAdmin />} />
-        <Route path='superadmin' element={<SuperAdmin />} />
+        <Route path='superadmin' element={<OrgAdmin />} />
+        <Route path='orgadmin' element={<SuperAdmin />} />
 
         {/* Lazy Modules */}
         <Route

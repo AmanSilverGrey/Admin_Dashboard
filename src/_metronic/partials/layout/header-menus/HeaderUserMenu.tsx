@@ -6,12 +6,13 @@ import {Languages} from './Languages'
 import {toAbsoluteUrl} from '../../../helpers'
 import {signOut} from 'firebase/auth'
 import {auth} from '../../../../app/modules/auth/firebase'
+import { json } from 'node:stream/consumers'
 
 const HeaderUserMenu: FC = () => {
   const {currentUser, setCurrentUser, logout} = useAuth()
   const UserDetails = localStorage.getItem('User-Details')
-  const userdata = JSON.parse(JSON.stringify(UserDetails));
- console.log(userdata.name);
+  const userdata = JSON.parse(JSON.parse(JSON.stringify(UserDetails)));
+ console.log(userdata);
  
   
   return (
@@ -27,8 +28,8 @@ const HeaderUserMenu: FC = () => {
 
           <div className='d-flex flex-column'>
             <div className='fw-bolder d-flex align-items-center fs-5'>
-              {/* {UserDetails?.first_name} {UserDetails?.first_name} */}
-              <span className='badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2'>Pro</span>
+              {userdata?.firstname} {userdata?.lastname}
+              <span className='badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2'>{userdata.type}</span>
             </div>
             <a href='#' className='fw-bold text-muted text-hover-primary fs-7'>
               {currentUser?.email}
