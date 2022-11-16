@@ -91,7 +91,7 @@ const Login = () => {
         <div className='formContainer'>
           <form onSubmit={requestOTP}>
             <div className='text-center mb-11'>
-              <h1 className='text-dark fw-bolder mb-3'>Sign In</h1>
+              <h1 className='text-dark fw-bolder mb-3'>Log In</h1>
               <div className='text-gray-500 fw-semibold fs-6'>To your asc account</div>
             </div>
 
