@@ -16,25 +16,29 @@ export function MenuInner() {
          and PPE Solutions</figcaption> */}
       </figure>
       {/* 1 */}
-      {userdata?.type == 'SA' ||
-        (userdata?.type == 'NU' && <MenuItem title='Admin' to='/superadmin' />)}
+      {(userdata?.type == 'SA' || userdata?.type == 'NU') && (
+        <MenuItem title='Admin' to='/superadmin' />
+      )}
       {/* 2 */}
-      { userdata?.type == "SA" || userdata?.type == "NU"  && <MenuItem title='Organisation Admin' to='/orgadmin' />}
+      {(userdata?.type == 'SA' || userdata?.type == 'NU') && (
+        <MenuItem title='Organisation Admin' to='/orgadmin' />
+      )}
       {/* 3 */}
-      {userdata?.type == 'SA' ||
-        (userdata?.type == 'OA' && <MenuItem title='Organisation' to='/dashboard' />)}
+      {(userdata?.type == 'SA' || userdata?.type == 'OA') && (
+        <MenuItem title='Organisation' to='/dashboard' />
+      )}
       {/* 4 */}
-      {userdata?.type == 'SA' ||
+      {(userdata?.type == 'SA' ||
         // userdata?.type == 'OA' ||
-        (userdata?.type == 'NU' && <MenuItem title='Products' to='/products' />)}
+        userdata?.type == 'NU') && <MenuItem title='Products' to='/products' />}
       {/* 5 */}
-      {userdata?.type == 'SA' ||
-        userdata?.type == 'OA' ||
-        (userdata?.type == 'NU' && <MenuItem title='Requests' to='/requests' />)}
+      {(userdata?.type == 'SA' || userdata?.type == 'OA' || userdata?.type == 'NU') && (
+        <MenuItem title='Requests' to='/requests' />
+      )}
       {/* 6 */}
-      {userdata?.type == 'SA' ||
-        userdata?.type == 'OA' ||
-        (userdata?.type == 'NU' && <MenuItem title='Reports' to='/reports' />)}
+      {(userdata?.type == 'SA' || userdata?.type == 'OA' || userdata?.type == 'NU') && (
+        <MenuItem title='Reports' to='/reports' />
+      )}
     </>
   )
 }

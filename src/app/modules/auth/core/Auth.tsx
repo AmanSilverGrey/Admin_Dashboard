@@ -56,6 +56,7 @@ const AuthProvider: FC<WithChildren> = ({children}) => {
     saveAuth(undefined)
     setCurrentUser(undefined)
     localStorage.removeItem('user')
+    localStorage.removeItem('User-Details')
     console.log("Uer log out");
     window.location.reload();
     

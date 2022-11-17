@@ -7,6 +7,7 @@ import {toAbsoluteUrl} from '../../../helpers'
 import {signOut} from 'firebase/auth'
 import {auth} from '../../../../app/modules/auth/firebase'
 import { json } from 'node:stream/consumers'
+import user from '../../../layout/components/header/header-menus/Assests/user.png'
 
 const HeaderUserMenu: FC = () => {
   const {currentUser, setCurrentUser, logout} = useAuth()
@@ -23,7 +24,7 @@ const HeaderUserMenu: FC = () => {
       <div className='menu-item px-3'>
         <div className='menu-content d-flex align-items-center px-3'>
           <div className='symbol symbol-50px me-5'>
-            <img alt='Logo' src={toAbsoluteUrl('/media/avatars/300-1.jpg')} />
+            <img alt='Logo' src={user} />
           </div>
 
           <div className='d-flex flex-column'>
