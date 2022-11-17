@@ -27,13 +27,22 @@ const PrivateRoutes = () => {
         {/* Redirect to Dashboard after success login/registartion */}
         <Route path='auth/*' element={<Navigate to='/requests' />} />
         {/* Pages */}
-        {userdata?.type == 'SA' ||
+        {userdata?.type == 'SA' || userdata?.type == 'NU' ||
           (userdata?.type == 'OA' && <Route path='dashboard' element={<DashboardWrapper />} />)}
-        <Route path='admin' element={<AdminPageWrapper />} />
-        <Route path='reports' element={<Reports />} />
+
+        {/* <Route path='admin' element={<AdminPageWrapper />} /> */}
+
+        {/* Reports */}
+        {<Route path='reports' element={<Reports />} />}
+
+        {/* Products */}
         <Route path='products' element={<Products />} />
+
+        {/* Requests */}
         <Route path='requests' element={<Requests />} />
-        { userdata?.type == 'SA' && <Route path='superadmin' element={<OrgAdmin />} />}
+
+        {/* Org Admin */}
+        {userdata?.type == 'SA' && <Route path='superadmin' element={<OrgAdmin />} />}
         <Route path='orgadmin' element={<SuperAdmin />} />
 
         {/* Lazy Modules */}
