@@ -27,7 +27,7 @@ const ReportsTable = ({className}) => {
     <div className={`card ${className}`}>
       {/* <div className={`card ${className}`}> */}
       {/* begin::Body */}
-      <div className='card-body py-3'>
+      <div className='card-body py-3 shadow bg-body rounded'>
         {/* begin::Table container */}
         <div className='table-responsive'>
           {/* begin::Table */}

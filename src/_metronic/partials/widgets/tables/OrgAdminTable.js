@@ -50,9 +50,9 @@ const OrgAdminTable = ({className}) => {
     <div>
       <div className='page-heading d-flex align-items-center text-dark fw-bold fs-3 my-0 justify-content-between py-3 py-lg-6'>
         {/* {toggle ? <h3>Edit User</h3> : <h3>Requests</h3>} */}
-        {toggle && <h3>Edit Org admin</h3>}
-        {!toggle && !addAdmin && <h3>Organisation Admin</h3>}
-        {addAdmin && <h3>Add Organisation Admin</h3>}
+        {/* {toggle && <h3>Edit Org admin</h3>} */}
+        <h3>Organisation Admin</h3>
+        {/* {addAdmin && <h3>Add Organisation Admin</h3>} */}
 
         <div
           onClick={() => setToggle('')}
@@ -66,7 +66,7 @@ const OrgAdminTable = ({className}) => {
                 setAddAdmin((addAdmin) => !addAdmin)
               }}
             >
-              Add Super Admin
+              Add organizationg admin
             </span>
           )}
           {(toggle || addAdmin) && (
@@ -85,7 +85,7 @@ const OrgAdminTable = ({className}) => {
         <div className={`card ${className}`}>
           {/* <div className={`card ${className}`}> */}
           {/* begin::Body */}
-          <div className='card-body py-3'>
+          <div className='card-body py-3 shadow bg-body rounded'>
             {/* begin::Table container */}
             <div className='table-responsive'>
               {/* begin::Table */}

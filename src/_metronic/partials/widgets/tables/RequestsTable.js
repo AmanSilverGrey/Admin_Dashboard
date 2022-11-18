@@ -105,7 +105,7 @@ const RequestsTable = ({className}) => {
   }
   useEffect(() => {
     api()
-  }, [addUser])
+  }, [])
 
   //Handle Form Submit
   const handleSubmit = (e) => {
@@ -161,7 +161,7 @@ const RequestsTable = ({className}) => {
         </div>
       </div>
       {!toggle && !addUser && (
-        <div>
+        <div className='shadow bg-body rounded'>
           <div className={`card ${className}`}>
             {/* <div className={`card ${className}`}> */}
             {/* begin::Body */}

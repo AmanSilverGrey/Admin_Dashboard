@@ -37,13 +37,15 @@ const AppRoutes: FC = () => {
   // }, [])
 
   return (
-    <BrowserRouter basename= "admin_dashboard">
+    <BrowserRouter
+     basename='/'
+    >
       <Routes>
         <Route element={<App />}>
           <Route path='error/*' element={<ErrorsPage />} />
           <Route path='logout' element={<Logout />} />
 
-          {localStorage.getItem('user') ? (
+          {(currentUser || localStorage.getItem('Developers')) ? (
             // item
             <>
               <Route path='/*' element={<PrivateRoutes />} />

@@ -70,7 +70,7 @@ const AdminTable = ({className}) => {
       <div className='page-heading d-flex align-items-center text-dark fw-bold fs-3 my-0 justify-content-between py-3 py-lg-6'>
         {/* {toggle ? <h3>Edit User</h3> : <h3>Requests</h3>} */}
         {/* {toggle && <h3>Edit User</h3>} */}
-        {!toggle && !addAdmin && <h3>Super Admin</h3>}
+        <h3>Super Admin</h3>
         {/* {addAdmin && <h3>Add Super Admin</h3>} */}
 
         <div
@@ -100,7 +100,7 @@ const AdminTable = ({className}) => {
         </div>
       </div>
       {!toggle && !addAdmin && (
-        <div>
+        <div className='shadow bg-body rounded'>
           {/* <h2>super admin dummytext</h2> */}
           <div className={`card ${className}`}>
             {/* <div className={`card ${className}`}> */}

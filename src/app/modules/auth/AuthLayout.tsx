@@ -3,6 +3,7 @@ import {useEffect} from 'react'
 import {Outlet, Link} from 'react-router-dom'
 import {toAbsoluteUrl} from '../../../_metronic/helpers'
 import asc from '../../../_metronic/layout/components/header/header-menus/Assests/asc_logo.png'
+import logo_asc_white from '../../PNGS/logo_asc_white.png/logo_asc_white.png'
 
 const AuthLayout = () => {
   useEffect(() => {
@@ -61,7 +62,7 @@ const AuthLayout = () => {
         {/* begin::Content */}
         <div className='d-flex flex-column flex-center py-15 px-5 px-md-15 w-100'>
           {/* begin::Image */}
-          <img className='mx-auto w-275px w-md-50 w-xl-100px mb-10 mb-lg-3' src={asc} alt='' />
+          <img className='mx-auto w-275px w-md-50 w-xl-400px mb-10 mb-lg-3' src={logo_asc_white} alt='' />
           {/* end::Image */}
 
           

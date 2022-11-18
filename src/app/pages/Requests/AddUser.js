@@ -9,7 +9,7 @@ const AddUser = () => {
   const [phone, setPhone] = useState(CountryCode)
   const [selectedOrg, setSelectedOrg] = useState('')
   const [orgList, setOrgList] = useState([])
-  
+
   //Fecthing Org admin names
   const API = async () => {
     await axios
@@ -30,7 +30,7 @@ const AddUser = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log(selectedOrg)
-    const org = orgList.find((item) => item?.id == selectedOrg);
+    const org = orgList.find((item) => item?.id == selectedOrg)
 
     const AddUser = {first_name, last_name, email, phone, org: org?.id, org_name: org?.name}
     axios
@@ -49,6 +49,9 @@ const AddUser = () => {
       <form onSubmit={handleSubmit}>
         <br />
         <h2 className='text-primary'>Add user</h2>
+        <p className='text-muted'>
+          Feilds marked with <span className='text-danger'>*</span> are required.
+        </p>
         <br />
         <div className='form-floating mb-7'>
           <input
@@ -60,7 +63,7 @@ const AddUser = () => {
             required
           />
           <label htmlFor='floatingInput1'>
-            First Name <span>*</span>
+            First Name <span className='text-danger'>*</span>
           </label>
         </div>
 
@@ -84,7 +87,7 @@ const AddUser = () => {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <label htmlFor='floatingInput1'>Email</label>
+          <label htmlFor='floatingInput1'>Email <span className='text-danger'>*</span></label>
         </div>
 
         <div className='form-floating mb-7'>
@@ -96,7 +99,7 @@ const AddUser = () => {
             onChange={(e) => setPhone(e.target.value)}
             required
           />
-          <label htmlFor='floatingInput1'>Phone no.</label>
+          <label htmlFor='floatingInput1'>Phone no. <span className='text-danger'>*</span></label>
         </div>
 
         {/* Drop Down */}
@@ -106,7 +109,7 @@ const AddUser = () => {
             id='floatingSelect1'
             aria-label='Floating label select example'
             onChange={(e) => setSelectedOrg(e.target.value)}
-            value = {selectedOrg}
+            value={selectedOrg}
             required
           >
             <option defaultValue>{}</option>
@@ -116,11 +119,11 @@ const AddUser = () => {
               </option>
             ))}
           </select>
-          <label htmlFor='floatingSelect1'>Organization name</label>
+          <label htmlFor='floatingSelect1'>Organization name <span className='text-danger'>*</span></label>
         </div>
 
         <div className='col-md-12 text-center'>
-          <button className='btn btn-sm fw-bold btn-primary'type="sumbit">
+          <button className='btn btn-sm fw-bold btn-primary' type='sumbit'>
             Add
           </button>
         </div>

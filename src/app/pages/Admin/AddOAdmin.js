@@ -29,6 +29,9 @@ const AddOAdmin = () => {
       <form onSubmit={handleSubmit}>
       <br />
         <h2 className='text-primary'>Add organization admin</h2>
+        <p className='text-muted'>
+            Feilds marked with <span className='text-danger'>*</span> are required.
+          </p>
         <br />
         <div className='form-floating mb-7'>
           <input
@@ -39,7 +42,7 @@ const AddOAdmin = () => {
             onChange={(e) => setFirst_name(e.target.value)}
             required
           />
-          <label htmlFor='floatingInput1'>First Name</label>
+          <label htmlFor='floatingInput1'>First Name <span className='text-danger'>*</span></label>
         </div>
 
         <div className='form-floating mb-7'>
@@ -62,7 +65,7 @@ const AddOAdmin = () => {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <label htmlFor='floatingInput1'>Email</label>
+          <label htmlFor='floatingInput1'>Email <span className='text-danger'>*</span></label>
         </div>
         <div className='form-floating mb-7'>
           <input
@@ -73,7 +76,7 @@ const AddOAdmin = () => {
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
           />
-          <label htmlFor='floatingInput1'>Phone no.</label>
+          <label htmlFor='floatingInput1'>Phone no. <span className='text-danger'>*</span></label>
         </div>
 
         {/* Owner DropDown starts*/}

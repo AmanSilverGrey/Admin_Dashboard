@@ -45,11 +45,11 @@ const PrivateRoutes = () => {
         <Route path='requests' element={<Requests />} />
 
         {/* Super Admin */}
-        <Route path='superadmin' element={<OrgAdmin />} />
+        {userdata?.type == 'SA' && <Route path='superadmin' element={<OrgAdmin />} />}
 
         {/* Org Admin */}
 
-        <Route path='orgadmin' element={<SuperAdmin />} />
+        {userdata?.type == 'SA' && <Route path='orgadmin' element={<SuperAdmin />} />}
 
         {/* Lazy Modules */}
         <Route

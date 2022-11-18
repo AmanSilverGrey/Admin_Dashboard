@@ -1,1 +1,1 @@
-export const CountryCode = "+91";
+export const CountryCode = "+1";

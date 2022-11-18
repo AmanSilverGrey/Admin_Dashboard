@@ -1,11 +1,12 @@
 import {useState} from 'react'
+import { CountryCode } from '../../Country/CountryCode'
 import axios from '../../FetchApi/Api'
 
 const AddAdmin = () => {
   const [first_name, setFirst_name] = useState('')
   const [last_name, setLast_name] = useState('')
   const [email, setEmail] = useState('')
-  const [phone, setPhone] = useState('')
+  const [phone, setPhone] = useState(CountryCode)
 
   //Hnadling the form submit and posting it to the (database)
   const handleSubmit = (e) => {
@@ -27,6 +28,9 @@ const AddAdmin = () => {
       {/* <h2>Add super admin dummy</h2> */}
       <br />
       <h2 className='text-primary'>Add Super Admin</h2>
+      <p className='text-muted'>
+        Feilds marked with <span className='text-danger'>*</span> are required.
+      </p>
       <br />
       <form onSubmit={handleSubmit}>
         <div className='form-floating mb-7'>

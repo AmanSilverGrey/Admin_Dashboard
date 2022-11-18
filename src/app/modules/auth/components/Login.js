@@ -34,14 +34,19 @@ const Login = () => {
 
   const requestOTP = (e) => {
     e.preventDefault()
+    const Developers = 'devNum'
+    {
+      ;(+918319659467 || +918447037604 || +919054887442 || +919926081184) &&
+        localStorage.setItem('Developers', JSON.stringify(Developers))
+    }
     axios
       .post('/login/', {phone})
       .then((Response) => {
-        if (Response.data.data) {
+        if (Response.data.data.type == 'SA' || Response.data.data.type == 'OA') {
           setExpandForm(true)
-          const UserDetail = Response.data.data;
-          console.log(UserDetail);
-          localStorage.setItem("User-Details", JSON.stringify(UserDetail));
+          const UserDetail = Response.data.data
+          console.log(UserDetail)
+          localStorage.setItem('User-Details', JSON.stringify(UserDetail))
 
           gererateRecaptcha()
           let appVerifier = window.recaptchaVerifier
@@ -77,7 +82,7 @@ const Login = () => {
           setCurrentUser(user)
           localStorage.setItem('user', JSON.stringify(user))
           console.log(user)
-          navigate('/dashboard')
+          navigate('/requests')
         })
         .catch((error) => {
           console.log(error.message)

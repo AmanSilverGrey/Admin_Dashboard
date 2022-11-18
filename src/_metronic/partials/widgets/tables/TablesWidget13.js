@@ -92,7 +92,7 @@ const TablesWidget13 = ({className}) => {
         </div>
       </div>
       {!toggle && !addOrg && (
-        <div className={`card ${className}`}>
+        <div className={`card ${className} shadow bg-body rounded`}>
           {status === 0 && (
             <div>
               <h2>Data not available</h2>
@@ -102,7 +102,7 @@ const TablesWidget13 = ({className}) => {
             <div>
               {/* <div className={`card ${className}`}> */}
               {/* begin::Body */}
-              <div className='card-body py-3'>
+              <div className='card-body py-3 '>
                 {/* begin::Table container */}
                 <div className='table-responsive'>
                   {/* begin::Table */}

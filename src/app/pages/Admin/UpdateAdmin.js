@@ -78,7 +78,7 @@ const UpdateAdmin = ({id}) => {
 
         <div className='form-floating mb-7'>
           <input
-            type='number'
+            type='tel'
             className='form-control form-control-solid bg-white'
             id='floatingInput1'
             value={phone}

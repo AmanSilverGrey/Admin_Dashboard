@@ -18,22 +18,22 @@ const HeaderUserMenu: FC = () => {
   
   return (
     <div
-      className='menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px'
+      className='menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px shadow'
       data-kt-menu='true'
     >
       <div className='menu-item px-3'>
-        <div className='menu-content d-flex align-items-center px-3'>
+        <div className='menu-content d-flex align-items-center px-3 '>
           <div className='symbol symbol-50px me-5'>
             <img alt='Logo' src={user} />
           </div>
 
-          <div className='d-flex flex-column'>
+          <div className='d-flex flex-column '>
             <div className='fw-bolder d-flex align-items-center fs-5'>
               {userdata?.firstname} {userdata?.lastname}
-              <span className='badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2'>{userdata.type}</span>
+              <span className='badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2'>{userdata?.type}</span>
             </div>
             <a href='#' className='fw-bold text-muted text-hover-primary fs-7'>
-              {currentUser?.email}
+              {/* {currentUser?.email} */}
             </a>
           </div>
         </div>
@@ -41,9 +41,9 @@ const HeaderUserMenu: FC = () => {
 
       <div className='separator my-2'></div>
 
-      <div className='menu-item px-5 text-center'>
+      <div className='menu-item px-5 text-center '>
         <span
-          className='badge badge-light-danger fw-bolder fs-8 px-2 py-1 ms-2 cursor-pointer'
+          className='badge badge-light-danger fw-bolder fs-8 px-2 py-1 ms-2 cursor-pointer shadow'
           onClick={logout}
         >
           Log out

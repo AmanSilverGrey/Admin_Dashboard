@@ -29,7 +29,7 @@ const TablesWidget12 = () => {
         <h2>Data not available</h2>
       </div>}
       {status === 1 && (
-        <div>
+        <div className='shadow bg-body rounded'>
           {/* <div className={`card ${className}`}> */}
           {/* begin::Body */}
           <div className='card-body py-3'>

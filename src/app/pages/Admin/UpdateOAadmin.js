@@ -59,8 +59,9 @@ const UpdateOAadmin = ({id}) => {
           id='floatingInput1'
           value={first_name}
           onChange={(e) => setFirst_name(e.target.value)}
+          required
         />
-        <label htmlFor='floatingInput1'>Name</label>
+        <label htmlFor='floatingInput1'>Name <span className='text-danger'>*</span></label>
       </div>
 
       <div className='form-floating mb-7'>
@@ -82,8 +83,9 @@ const UpdateOAadmin = ({id}) => {
           id='floatingInput1'
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
+          required
         />
-        <label htmlFor='floatingInput1'>Phone no.</label>
+        <label htmlFor='floatingInput1'>Phone no. <span className='text-danger'>*</span></label>
       </div>
 
       <div className='col-md-12 text-center'>
