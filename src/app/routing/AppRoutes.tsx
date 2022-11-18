@@ -37,7 +37,7 @@ const AppRoutes: FC = () => {
   // }, [])
 
   return (
-    <BrowserRouter basename= {PUBLIC_URL}>
+    <BrowserRouter basename= "admin_dashboard">
       <Routes>
         <Route element={<App />}>
           <Route path='error/*' element={<ErrorsPage />} />
