@@ -12,7 +12,7 @@ const AddAdmin = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     alert('Admin Added!')
-    const AddAdmin = {first_name, last_name, email, phone, type: 'SA'}
+    const AddAdmin = {first_name, last_name, email, phone, type: 'SA', "is_active": true}
     axios
       .post('/user/', AddAdmin)
       .then((Response) => {

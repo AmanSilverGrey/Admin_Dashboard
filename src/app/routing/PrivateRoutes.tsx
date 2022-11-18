@@ -45,11 +45,15 @@ const PrivateRoutes = () => {
         <Route path='requests' element={<Requests />} />
 
         {/* Super Admin */}
-        {userdata?.type == 'SA' && <Route path='superadmin' element={<OrgAdmin />} />}
+        {(userdata?.type == 'SA' || localStorage.getItem('Developers')) && (
+          <Route path='superadmin' element={<OrgAdmin />} />
+        )}
 
         {/* Org Admin */}
 
-        {userdata?.type == 'SA' && <Route path='orgadmin' element={<SuperAdmin />} />}
+        {(userdata?.type == 'SA' || localStorage.getItem('Developers')) && (
+          <Route path='orgadmin' element={<SuperAdmin />} />
+        )}
 
         {/* Lazy Modules */}
         <Route

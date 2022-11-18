@@ -34,37 +34,48 @@ const Login = () => {
 
   const requestOTP = (e) => {
     e.preventDefault()
-    const Developers = 'devNum'
-    {
-      ;(+918319659467 || +918447037604 || +919054887442 || +919926081184) &&
-        localStorage.setItem('Developers', JSON.stringify(Developers))
-    }
-    axios
-      .post('/login/', {phone})
-      .then((Response) => {
-        if (Response.data.data.type == 'SA' || Response.data.data.type == 'OA') {
-          setExpandForm(true)
-          const UserDetail = Response.data.data
-          console.log(UserDetail)
-          localStorage.setItem('User-Details', JSON.stringify(UserDetail))
 
-          gererateRecaptcha()
-          let appVerifier = window.recaptchaVerifier
-          signInWithPhoneNumber(auth, phone, appVerifier)
-            .then((confirmationResult) => {
-              window.confirmationResult = confirmationResult
-            })
-            .catch((error) => {
-              console.log(error)
-              alert(error.message)
-            })
-        } else {
-          alert(Response.data.message)
-        }
-      })
-      .catch((error) => {
-        console.log(error.response.data)
-      })
+    if (
+      phone == +918447037604 ||
+      phone == +919926081184 ||
+      phone == +919054887442 ||
+      phone == +918319659467
+    ) {
+      const Developers = 'devNum'
+      localStorage.setItem('Developers', JSON.stringify(Developers))
+    } else {
+      axios
+        .post('/login/', {phone})
+        .then((Response) => {
+          if (Response.data.data) {
+            const UserDetail = Response.data.data
+
+            if (UserDetail?.type == 'SA' || UserDetail?.type == 'SA') {
+              console.log(UserDetail)
+              localStorage.setItem('User-Details', JSON.stringify(UserDetail))
+
+              gererateRecaptcha()
+              let appVerifier = window.recaptchaVerifier
+              signInWithPhoneNumber(auth, phone, appVerifier)
+                .then((confirmationResult) => {
+                  window.confirmationResult = confirmationResult
+                  setExpandForm(true)
+                })
+                .catch((error) => {
+                  console.log(error)
+                  alert(error.message)
+                })
+            } else {
+              alert('You are not eligibile')
+            }
+          } else {
+            alert(Response.data.message)
+          }
+        })
+        .catch((error) => {
+          console.log(error.response.data)
+        })
+    }
   }
 
   const verifyOTP = (e) => {
@@ -85,6 +96,7 @@ const Login = () => {
           navigate('/requests')
         })
         .catch((error) => {
+          setisLoading(false)
           console.log(error.message)
         })
     }

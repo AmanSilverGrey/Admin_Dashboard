@@ -16,9 +16,13 @@ export function MenuInner() {
          and PPE Solutions</figcaption> */}
       </figure>
       {/* 1 */}
-      {userdata?.type == 'SA' && <MenuItem title='Admin' to='/superadmin' />}
+      {(userdata?.type == 'SA' || localStorage.getItem('Developers')) && (
+        <MenuItem title='Admin' to='/superadmin' />
+      )}
       {/* 2 */}
-      {userdata?.type == 'SA' && <MenuItem title='Organisation Admin' to='/orgadmin' />}
+      {(userdata?.type == 'SA' || localStorage.getItem('Developers')) && (
+        <MenuItem title='Organisation Admin' to='/orgadmin' />
+      )}
       {/* 3 */}
 
       <MenuItem title='Organisation' to='/dashboard' />
