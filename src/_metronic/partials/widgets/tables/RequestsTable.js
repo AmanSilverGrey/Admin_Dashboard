@@ -4,6 +4,7 @@ import React, {useEffect, useState} from 'react'
 import {KTSVG} from '../../../helpers'
 import AddUser from '../../../../app/pages/Requests/AddUser'
 import _ from 'lodash'
+import ReactTooltip from 'react-tooltip'
 
 //type Props = {
 //className: string,
@@ -24,6 +25,7 @@ const RequestsTable = ({className}) => {
   const [org, setOrg] = useState('')
   const [org_name, setOrg_name] = useState('')
   const [selectOrg, setSelectOrg] = useState('')
+  const [active, setActive] = useState()
 
   //For Update dropdown
   const [orgName, setOrgName] = useState([])
@@ -32,7 +34,7 @@ const RequestsTable = ({className}) => {
   const handleApprove = (item) => {
     // console.log(is_active)
 
-    const editActive = {is_active: true}
+    const editActive = {is_active: active}
 
     axios
       .patch(`/user/${item.id}/`, editActive)
@@ -42,7 +44,7 @@ const RequestsTable = ({className}) => {
         const itemIndex = tableData?.findIndex((it) => it?.id == item?.id)
         tableData[itemIndex] = Response.data
         setData(tableData)
-        console.log(Response.data)
+        // console.log(Response.data)
       })
       .catch((error) => {
         console.log(error)
@@ -110,7 +112,7 @@ const RequestsTable = ({className}) => {
   //Handle Form Submit
   const handleSubmit = (e) => {
     e.preventDefault()
-    alert('User Edited!')
+
     console.log(selectOrg)
     const orgId = orgName.find((item) => item?.id == selectOrg)
     const EditedUser = {first_name, last_name, email, org: orgId?.id, org_name: orgId?.name}
@@ -119,6 +121,8 @@ const RequestsTable = ({className}) => {
       .patch(`/user/${toggle}/`, EditedUser)
       .then((Response) => {
         console.log(Response.data)
+        setToggle(false)
+        alert('User Edited!')
       })
       .catch((error) => {
         console.log(error)
@@ -129,18 +133,18 @@ const RequestsTable = ({className}) => {
     <>
       <div className='page-heading d-flex align-items-center text-dark fw-bold fs-3 my-0 justify-content-between py-3 py-lg-6'>
         {/* {toggle ? <h3>Edit User</h3> : <h3>Requests</h3>} */}
-        {toggle && <h3>Edit User</h3>}
-        {!toggle && !addUser && <h3>Requests</h3>}
-        {addUser && <h3>Add User</h3>}
+        {/* {toggle && <h3>Edit User</h3>} */}
+        <h3>Requests</h3>
+        {/* {addUser && <h3>Add User</h3>} */}
 
-        <div
-          onClick={() => setToggle('')}
-          className='btn btn-sm fw-bold btn-primary'
-          data-bs-toggle='modal'
-          data-bs-target='#kt_modal_create_app'
-        >
-          {' '}
-          {!toggle && !addUser && (
+        {!toggle && !addUser && (
+          <div
+            onClick={() => setToggle('')}
+            className='btn btn-sm fw-bold btn-primary'
+            data-bs-toggle='modal'
+            data-bs-target='#kt_modal_create_app'
+          >
+            {' '}
             <span
               onClick={() => {
                 setAddUser((current) => !current)
@@ -148,20 +152,11 @@ const RequestsTable = ({className}) => {
             >
               Add User
             </span>
-          )}
-          {(toggle || addUser) && (
-            <span
-              onClick={() => {
-                setAddUser(false)
-              }}
-            >
-              Back
-            </span>
-          )}
-        </div>
+          </div>
+        )}
       </div>
       {!toggle && !addUser && (
-        <div className='shadow bg-body rounded'>
+        <div className='shadow bg-body rounded text-center'>
           <div className={`card ${className}`}>
             {/* <div className={`card ${className}`}> */}
             {/* begin::Body */}
@@ -173,13 +168,13 @@ const RequestsTable = ({className}) => {
                   {/* begin::Table head */}
                   <thead>
                     <tr className='fw-bold text-muted'>
-                      <th className='min-w-150px'>First Name</th>
-                      <th className='min-w-140px'>Last Name</th>
-                      <th className='min-w-120px'>Email</th>
-                      <th className='min-w-120px'>Phone Number</th>
-                      <th className='min-w-120px'>Organisation</th>
-                      <th className='min-w-120px'>Status</th>
-                      <th className='min-w-120px'>Edit/ Delete</th>
+                      <th className='w-15'>First Name</th>
+                      <th className='w-15'>Last Name</th>
+                      <th className='w-15'>Email</th>
+                      <th className='w-15'>Phone Number</th>
+                      <th className='w-15'>Organisation</th>
+                      <th className='w-15'>Status</th>
+                      <th className=''>Edit/ Delete</th>
                       {/* <th className='min-w-120px'>Status</th> */}
                       {/* <th className='min-w-100px text-end'>Actions</th> */}
                     </tr>
@@ -207,17 +202,50 @@ const RequestsTable = ({className}) => {
                         <td key={item.id}>
                           <div>
                             {item.is_active && (
-                              <span className='badge badge-light-success'>Approved</span>
+                              <div>
+                                <span
+                                  data-tip
+                                  data-for='registerTip'
+                                  onClick={() => {
+                                    setActive(false)
+                                    handleApprove(item)
+                                  }}
+                                  className='badge badge-light-success cursor-pointer'
+                                >
+                                  User is active
+                                </span>
+                                <ReactTooltip
+                                  id='registerTip'
+                                  place='top'
+                                  effect='float'
+                                  type='info'
+                                >
+                                  Click to deactivate
+                                </ReactTooltip>
+                              </div>
                             )}
                             {!item.is_active && (
-                              <span
-                                onClick={() => {
-                                  handleApprove(item)
-                                }}
-                                className='badge badge-light-danger cursor-pointer'
-                              >
-                                Click to approve
-                              </span>
+                              <div>
+                                <span
+                                 data-tip
+                                 data-for='activateUser'
+                                  onClick={() => {
+                                    setActive(true)
+                                    handleApprove(item)
+                                  }}
+                                  className='badge badge-light-danger cursor-pointer'
+                                >
+                                  User is deactive
+                                </span>
+                                <ReactTooltip
+                                  id='activateUser'
+                                  place='top'
+                                  effect='float'
+                                  type='info'
+                                >
+                                  Click to activate
+                                </ReactTooltip>
+                              </div>
                             )}
                           </div>
                         </td>
@@ -342,17 +370,20 @@ const RequestsTable = ({className}) => {
             <label htmlFor='floatingSelect1'>Organization name</label>
           </div>
 
-          <div className='col-md-12 text-center'>
-            <span className='btn btn-sm fw-bold btn-primary' onClick={handleSubmit}>
+          <div className='col-md-12 text-center d-flex gap-10'>
+            <span className='btn btn-sl fw-bold btn-success w-20 mt-8' onClick={handleSubmit}>
               Update
             </span>
+            <div className='btn btn-sl fw-bold btn-dark w-20 mt-8' onClick={() => setToggle(false)}>
+              Cancel
+            </div>
           </div>
         </div>
       )}
 
       {addUser && (
         <div>
-          <AddUser />
+          <AddUser goback={setAddUser} />
         </div>
       )}
     </>

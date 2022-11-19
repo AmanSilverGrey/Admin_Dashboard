@@ -1,7 +1,7 @@
 import axios from '../../FetchApi/Api'
 import {useEffect, useState} from 'react'
 
-const UpdateOrg = ({id}) => {
+const UpdateOrg = ({id, goback}) => {
   const [name, setName] = useState('')
   const [primary_name, setPrimary_name] = useState('')
   const [primary_title, setPrimay_title] = useState('')
@@ -53,8 +53,7 @@ const UpdateOrg = ({id}) => {
   //Handling the form submit
   const handleSubmit = (e) => {
     e.preventDefault()
-    alert('Organization Updated!')
-
+    
     const UpdatedOrg = {
       name,
       primary_name,
@@ -73,6 +72,8 @@ const UpdateOrg = ({id}) => {
       .put(`/organization/${id}/`, UpdatedOrg)
       .then((Response) => {
         console.log(Response.data)
+        alert('Organization Updated!')
+        goback();
       })
       .catch((error) => {
         console.log(error)
@@ -207,10 +208,13 @@ const UpdateOrg = ({id}) => {
         ></textarea>
         <label htmlFor='floatingTextarea1'>Note</label>
       </div>
-      <div className='col-md-12 text-center'>
-        <span className='btn btn-sl fw-bold btn-primary w-20 mt-8' onClick={handleSubmit}>
+      <div className='col-md-12 text-center d-flex gap-10'>
+        <span className='btn btn-sl fw-bold btn-success w-20 mt-8' onClick={handleSubmit}>
           Update
         </span>
+        <div className='btn btn-sl fw-bold btn-dark w-20 mt-8' onClick={() => goback()}>
+            Cancel
+          </div>
       </div>
       {/* <!--end::Input group--> */}
     </div>

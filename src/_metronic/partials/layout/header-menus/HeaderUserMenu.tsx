@@ -13,7 +13,7 @@ const HeaderUserMenu: FC = () => {
   const {currentUser, setCurrentUser, logout} = useAuth()
   const UserDetails = localStorage.getItem('User-Details')
   const userdata = JSON.parse(JSON.parse(JSON.stringify(UserDetails)));
- console.log(userdata);
+//  console.log(userdata);
  
   
   return (

@@ -1,8 +1,8 @@
-import {useState} from 'react'
-import { CountryCode } from '../../Country/CountryCode'
+import {useEffect, useState} from 'react'
+import {CountryCode} from '../../Country/CountryCode'
 import axios from '../../FetchApi/Api'
 
-const AddAdmin = () => {
+const AddAdmin = ({goback}) => {
   const [first_name, setFirst_name] = useState('')
   const [last_name, setLast_name] = useState('')
   const [email, setEmail] = useState('')
@@ -11,15 +11,28 @@ const AddAdmin = () => {
   //Hnadling the form submit and posting it to the (database)
   const handleSubmit = (e) => {
     e.preventDefault()
-    alert('Admin Added!')
-    const AddAdmin = {first_name, last_name, email, phone, type: 'SA', "is_active": true}
+    const AddAdmin = {
+      first_name,
+      last_name,
+      email,
+      phone,
+      type: 'SA',
+      is_active: true,
+    }
     axios
       .post('/user/', AddAdmin)
       .then((Response) => {
-        console.log(Response.data)
+        const result = Response.data.status
+        if (result) {
+          alert('Admin Added!')
+        goback(false)
+        }
+        else{
+          alert(Response.data.message)
+        }
       })
       .catch((error) => {
-        console.log(error)
+        alert(error.message)
       })
   }
 
@@ -89,10 +102,13 @@ const AddAdmin = () => {
 
         {/* Owner DropDown ends */}
 
-        <div className='col-md-12 text-center'>
-          <button className='btn btn-sm fw-bold btn-primary' onSubmit={handleSubmit}>
+        <div className='col-md-12 text-center d-flex gap-10'>
+          <button className='btn btn-sl fw-bold btn-success w-20 mt-8' onSubmit={handleSubmit}>
             Add
           </button>
+          <div className='btn btn-sl fw-bold btn-dark w-20 mt-8' onClick={() => goback(false)}>
+            Cancel
+          </div>
         </div>
       </form>
     </div>

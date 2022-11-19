@@ -5,6 +5,7 @@ import {KTSVG} from '../../../helpers'
 import UpdateOAadmin from '../../../../app/pages/Admin/UpdateOAadmin'
 import _ from 'lodash'
 import AddOAdmin from '../../../../app/pages/Admin/AddOAdmin'
+import ReactTooltip from 'react-tooltip'
 
 //type Props = {
 //className: string,
@@ -16,6 +17,7 @@ const OrgAdminTable = ({className}) => {
   const [data, setData] = useState([])
   const [toggle, setToggle] = useState()
   const [addAdmin, setAddAdmin] = useState(false)
+  const [active, setActive] = useState()
 
   const api = async () => {
     await axios.get('/orgadminlist/').then((response) => {
@@ -25,12 +27,31 @@ const OrgAdminTable = ({className}) => {
 
   useEffect(() => {
     api()
-    console.log(data)
+    // console.log(data)
   }, [toggle, addAdmin])
 
   //Api call for particluar user to edit.
   const Toggle = (item) => {
     setToggle(item.id)
+  }
+
+  // Handle AprroveDeactive
+  const handleApprove = (item) => {
+    // console.log(is_active)
+    console.log(active)
+    const editActive = {is_active: active}
+    axios
+      .patch(`/orgadminlist/${item.id}/`, editActive)
+      .then((Response) => {
+        // const tableData = _.cloneDeep(data)
+        const tableData = [...data]
+        const itemIndex = tableData?.findIndex((it) => it?.id == item?.id)
+        tableData[itemIndex] = Response.data
+        setData(tableData)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
   // To delete particular user
@@ -54,13 +75,13 @@ const OrgAdminTable = ({className}) => {
         <h3>Organisation Admin</h3>
         {/* {addAdmin && <h3>Add Organisation Admin</h3>} */}
 
-        <div
-          onClick={() => setToggle('')}
-          className='btn btn-sm fw-bold btn-primary'
-          data-bs-toggle='modal'
-          data-bs-target='#kt_modal_create_app'
-        >
-          {!toggle && !addAdmin && (
+        {!toggle && !addAdmin && (
+          <div
+            onClick={() => setToggle('')}
+            className='btn btn-sm fw-bold btn-primary'
+            data-bs-toggle='modal'
+            data-bs-target='#kt_modal_create_app'
+          >
             <span
               onClick={() => {
                 setAddAdmin((addAdmin) => !addAdmin)
@@ -68,21 +89,12 @@ const OrgAdminTable = ({className}) => {
             >
               Add organizationg admin
             </span>
-          )}
-          {(toggle || addAdmin) && (
-            <span
-              onClick={() => {
-                setAddAdmin(false)
-              }}
-            >
-              Back
-            </span>
-          )}
-        </div>
+          </div>
+        )}
       </div>
       {/* Display Table */}
       {!toggle && !addAdmin && (
-        <div className={`card ${className}`}>
+        <div className={`card ${className} mx-auto w-75 text-center`}>
           {/* <div className={`card ${className}`}> */}
           {/* begin::Body */}
           <div className='card-body py-3 shadow bg-body rounded'>
@@ -95,7 +107,9 @@ const OrgAdminTable = ({className}) => {
                   <tr className='fw-bold text-muted'>
                     <th className='min-w-140px'>First Name</th>
                     <th className='min-w-140px'>Last Name</th>
+                    <th className='min-w-140px'>Email</th>
                     <th className='min-w-140px'>Phone Number</th>
+                    <th className='w-20'>Status</th>
                     <th className='min-w-140px'>Edit/ Delete</th>
                     {/* <th className='min-w-120px'>Status</th> */}
                     {/* <th className='min-w-100px text-end'>Actions</th> */}
@@ -115,8 +129,55 @@ const OrgAdminTable = ({className}) => {
                       </td>
 
                       <td>
+                        <p className='text-dark fw-bold fs-6'>{item.email}</p>
+                      </td>
+
+                      <td>
                         <p className='text-dark fw-bold fs-6'>{item.phone}</p>
                       </td>
+
+                      {/* Status start*/}
+                      <td key={item.id}>
+                        <div className=''>
+                          {item.is_active && (
+                            <div>
+                              <span
+                                data-tip
+                                data-for='Deactivate'
+                                className='badge badge-light-success cursor-pointer '
+                                onClick={() => {
+                                  setActive(false)
+                                  handleApprove(item)
+                                }}
+                              >
+                                Admin is active
+                              </span>
+                              <ReactTooltip id='Deactivate' place='top' effect='float' type='info'>
+                                Click to deactivate
+                              </ReactTooltip>
+                            </div>
+                          )}
+                          {!item.is_active && (
+                            <div>
+                              <span
+                                data-tip
+                                data-for='Activate'
+                                className='badge badge-light-danger cursor-pointer'
+                                onClick={() => {
+                                  setActive(true)
+                                  handleApprove(item)
+                                }}
+                              >
+                                Admin deactivated
+                              </span>
+                              <ReactTooltip id='Activate' place='top' effect='float' type='info'>
+                                Click to activate
+                              </ReactTooltip>
+                            </div>
+                          )}
+                        </div>
+                      </td>
+                      {/* Status ends*/}
 
                       <td className=''>
                         {/* <a
@@ -163,10 +224,10 @@ const OrgAdminTable = ({className}) => {
       )}
       {addAdmin && (
         <div>
-          <AddOAdmin />
+          <AddOAdmin goback={setAddAdmin} Goback={setAddAdmin} />
         </div>
       )}
-      {toggle && <UpdateOAadmin id={toggle} />}
+      {toggle && <UpdateOAadmin id={toggle} goback={setToggle} />}
     </div>
   )
 }

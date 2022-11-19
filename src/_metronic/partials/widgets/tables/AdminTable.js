@@ -2,7 +2,7 @@
 import axios from '../../../../app/FetchApi/Api'
 import React, {useEffect, useState} from 'react'
 import {KTSVG} from '../../../helpers'
-
+import ReactTooltip from 'react-tooltip'
 import AddAdmin from '../../../../app/pages/Admin/AddAdmin'
 import _ from 'lodash'
 import UpdateAdmin from '../../../../app/pages/Admin/UpdateAdmin'
@@ -17,6 +17,7 @@ const AdminTable = ({className}) => {
   const [data, setData] = useState([])
   const [toggle, setToggle] = useState()
   const [addAdmin, setAddAdmin] = useState(false)
+  const [active, setActive] = useState('')
 
   // const [approve, setApprove] = useState(-1);
 
@@ -25,7 +26,7 @@ const AdminTable = ({className}) => {
   const [last_name, setLast_name] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
-  const [org, setOrg] = useState('')
+  // const [org, setOrg] = useState('')
 
   //Validating
   const [showTable, setShowTable] = useState('')
@@ -44,11 +45,47 @@ const AdminTable = ({className}) => {
 
   useEffect(() => {
     api()
-    console.log(data)
+    // console.log(data)
   }, [toggle, addAdmin])
   //Api call for particluar user to edit.
   const Toggle = async (item) => {
     setToggle(item.id)
+  }
+
+  // Handle AprroveDeactive
+  const handleApproveDeactive = (item) => {
+    // console.log(is_active)
+    const editActive = {is_active: false}
+    axios
+      .patch(`/superadminlist/${item.id}/`, editActive)
+      .then((Response) => {
+        // const tableData = _.cloneDeep(data)
+        const tableData = [...data]
+        const itemIndex = tableData?.findIndex((it) => it?.id == item?.id)
+        tableData[itemIndex] = Response.data
+        setData(tableData)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  // Handle AprroveDeactive
+  const handleApproveActive = (item) => {
+    // console.log(is_active)
+    const editActive = {is_active: true}
+    axios
+      .patch(`/superadminlist/${item.id}/`, editActive)
+      .then((Response) => {
+        // const tableData = _.cloneDeep(data)
+        const tableData = [...data]
+        const itemIndex = tableData?.findIndex((it) => it?.id == item?.id)
+        tableData[itemIndex] = Response.data
+        setData(tableData)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
   //Delete particluar user
@@ -100,7 +137,7 @@ const AdminTable = ({className}) => {
         </div>
       </div>
       {!toggle && !addAdmin && (
-        <div className='shadow bg-body rounded'>
+        <div className='shadow bg-body rounded mx-auto w-75 text-center'>
           {/* <h2>super admin dummytext</h2> */}
           <div className={`card ${className}`}>
             {/* <div className={`card ${className}`}> */}
@@ -111,13 +148,14 @@ const AdminTable = ({className}) => {
                 {/* begin::Table */}
                 <table className='table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3'>
                   {/* begin::Table head */}
-                  <thead>
+                  <thead className=''>
                     <tr className='fw-bold text-muted'>
-                      <th className='min-w-140px'>First Name</th>
-                      <th className='min-w-140px'>Last Name</th>
-
-                      <th className='min-w-140px'>Phone Number</th>
-                      <th className='min-w-140px'>Edit/ Delete</th>
+                      <th className='w-20'>First Name</th>
+                      <th className='w-20'>Last Name</th>
+                      <th className='w-20'>Email</th>
+                      <th className='w-20'>Phone Number</th>
+                      <th className='w-20'>Status</th>
+                      <th className='w-20'>Edit/ Delete</th>
                       {/* <th className='min-w-120px'>Status</th> */}
                       {/* <th className='min-w-100px text-end'>Actions</th> */}
                     </tr>
@@ -134,11 +172,64 @@ const AdminTable = ({className}) => {
                         <td>
                           <p className='text-dark fw-bold fs-6'>{item.last_name}</p>
                         </td>
+                        <td>
+                          <p className='text-dark fw-bold fs-6'>{item.email}</p>
+                        </td>
 
                         <td>
                           <p className='text-dark fw-bold fs-6'>{item.phone}</p>
                         </td>
 
+                        {/* Status start*/}
+                        <td key={item.id}>
+                          <div className=''>
+                            {item.is_active && (
+                              <div>
+                                <span
+                                  data-tip
+                                  data-for='Deactivate'
+                                  className='badge badge-light-success cursor-pointer '
+                                  onClick={() => {
+                                    handleApproveDeactive(item)
+                                  }}
+                                >
+                                  Admin is active
+                                </span>
+                                <ReactTooltip
+                                  id='Deactivate'
+                                  place='top'
+                                  effect='float'
+                                  type='info'
+                                >
+                                  Click to deactivate
+                                </ReactTooltip>
+                              </div>
+                            )}
+                            {!item.is_active && (
+                              <div>
+                                <span
+                                  data-tip
+                                  data-for='Activate'
+                                  className='badge badge-light-danger cursor-pointer'
+                                  onClick={() => {
+                                    handleApproveActive(item)
+                                  }}
+                                >
+                                  Admin deactivated
+                                </span>
+                                <ReactTooltip
+                                  id='Activate'
+                                  place='top'
+                                  effect='float'
+                                  type='info'
+                                >
+                                  Click to activate
+                                </ReactTooltip>
+                              </div>
+                            )}
+                          </div>
+                        </td>
+                        {/* Status ends*/}
                         <td className=''>
                           {/* <a
                             href='#'
@@ -186,11 +277,11 @@ const AdminTable = ({className}) => {
         </div>
       )}
 
-      {toggle && <UpdateAdmin id={toggle} />}
+      {toggle && <UpdateAdmin id={toggle} goback={setToggle} />}
 
       {addAdmin && (
         <div>
-          <AddAdmin />
+          <AddAdmin goback={setAddAdmin} />
         </div>
       )}
     </>

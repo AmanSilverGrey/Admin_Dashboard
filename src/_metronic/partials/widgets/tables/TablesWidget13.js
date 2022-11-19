@@ -37,18 +37,20 @@ const TablesWidget13 = ({className}) => {
 
   //Delete particluar user
   const DeleteUser = (item) => {
-    const text = "Are sure want to delete.";
-    {window.confirm(text) == true  &&
-    axios
-      .delete(`/organization/${item.id}/`)
-      .then(() => {
-        const tableData = _.cloneDeep(data)
-        const filteredData = tableData?.filter((it) => it?.id != item?.id)
-        setData(filteredData)
-      })
-      .catch((error) => {
-        console.log(error)
-      })}
+    const text = 'Are sure want to delete.'
+    {
+      window.confirm(text) == true &&
+        axios
+          .delete(`/organization/${item.id}/`)
+          .then(() => {
+            const tableData = _.cloneDeep(data)
+            const filteredData = tableData?.filter((it) => it?.id != item?.id)
+            setData(filteredData)
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+    }
   }
 
   const Toggle = (id) => {
@@ -60,39 +62,27 @@ const TablesWidget13 = ({className}) => {
     <>
       <div className='page-heading d-flex align-items-center text-dark fw-bold fs-3 my-0 justify-content-between py-3 py-lg-6'>
         {/* {toggle ? <h3>Edit User</h3> : <h3>Requests</h3>} */}
-        {toggle && <h3>Edit Org</h3>}
-        {!toggle && !addOrg && <h3>Organization</h3>}
-        {addOrg && <h3>Add Org</h3>}
-
-        <div
+        {/* {toggle && <h3>Edit Org</h3>} */}
+        <h3>Organization</h3>
+        {/* {addOrg && <h3>Add Org</h3>} */}
+        
+    {  !toggle && !addOrg &&  <div 
           onClick={() => setToggle('')}
           className='btn btn-sm fw-bold btn-primary'
           data-bs-toggle='modal'
           data-bs-target='#kt_modal_create_app'
         >
-          {' '}
-          {!toggle && !addOrg && (
-            <span
-              onClick={() => {
-                setAddOrg(!addOrg)
-              }}
-            >
-              Add Org
-            </span>
-          )}
-          {(toggle || addOrg) && (
-            <span
-              onClick={() => {
-                setAddOrg(false)
-              }}
-            >
-              Back
-            </span>
-          )}
-        </div>
+          <span
+            onClick={() => {
+              setAddOrg(!addOrg)
+            }}
+          >
+            Add Org
+          </span>
+        </div>}
       </div>
       {!toggle && !addOrg && (
-        <div className={`card ${className} shadow bg-body rounded`}>
+        <div className={`card ${className} shadow bg-body rounded mx-auto w-75 text-center`}>
           {status === 0 && (
             <div>
               <h2>Data not available</h2>
@@ -102,7 +92,7 @@ const TablesWidget13 = ({className}) => {
             <div>
               {/* <div className={`card ${className}`}> */}
               {/* begin::Body */}
-              <div className='card-body py-3 '>
+              <div className='card-body py-3  '>
                 {/* begin::Table container */}
                 <div className='table-responsive'>
                   {/* begin::Table */}
@@ -110,11 +100,11 @@ const TablesWidget13 = ({className}) => {
                     {/* begin::Table head */}
                     <thead>
                       <tr className='fw-bold text-muted'>
-                        <th className='min-w-150px'>Name</th>
-                        <th className='min-w-140px'>Address</th>
-                        <th className='min-w-120px'>Account Owner</th>
-                        <th className='min-w-120px'>Phone Number</th>
-                        <th className='min-w-120px'>Edit/ Delete</th>
+                        <th className='w-20'>Name</th>
+                        <th className='w-20'>Address</th>
+                        <th className='w-20'>Account Owner</th>
+                        <th className='w-20'>Phone Number</th>
+                        <th className='w-20'>Edit/ Delete</th>
                         {/* <th className='min-w-120px'>Status</th> */}
                         {/* <th className='min-w-100px text-end'>Actions</th> */}
                       </tr>
@@ -131,7 +121,9 @@ const TablesWidget13 = ({className}) => {
                             <p className='text-dark fw-bold fs-6'>{item.address}</p>
                           </td>
                           <td>
-                            <p className='text-dark fw-bold fs-6'>{item.owner_fname} {item.owner_lname}</p>
+                            <p className='text-dark fw-bold fs-6'>
+                              {item.owner_fname} {item.owner_lname}
+                            </p>
                           </td>
                           <td>
                             <p className='text-dark fw-bold fs-6'>{item.phone}</p>
@@ -178,11 +170,11 @@ const TablesWidget13 = ({className}) => {
         </div>
       )}
 
-      {toggle && <UpdateOrg id={toggle} />}
+      {toggle && <UpdateOrg id={toggle} goback = {setToggle}/>}
 
       {addOrg && (
         <div>
-          <AddOrg />
+          <AddOrg goback = {setAddOrg}/>
         </div>
       )}
     </>

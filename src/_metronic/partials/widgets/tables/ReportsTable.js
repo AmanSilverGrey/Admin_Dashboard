@@ -12,14 +12,14 @@ import { KTSVG } from '../../../helpers'
 const ReportsTable = ({className}) => {
   const [data, setData] = useState([]);
 
-  const api = async () => {
-    await axios.get('/user/').then((response) => { setData(response.data) })
-  }
+  // const api = async () => {
+  //   await axios.get('/user/').then((response) => { setData(response.data) })
+  // }
 
-  useEffect(() => {
-    api()
-    console.log(data)
-  }, [])
+  // useEffect(() => {
+  //   api()
+  //   console.log(data)
+  // }, [])
 
   return (
 
@@ -48,6 +48,7 @@ const ReportsTable = ({className}) => {
               </tr>
             </thead>
             {/* end::Table head */}
+            <h3>Data not available</h3>
             {/* begin::Table body */}
             <tbody>
               {data.map((item) => (

@@ -1,10 +1,11 @@
 import axios from '../../FetchApi/Api'
 import {useEffect, useState} from 'react'
 
-const UpdateAdmin = ({id}) => {
+const UpdateAdmin = ({id, goback}) => {
   const [first_name, setFirst_name] = useState('')
   const [last_name, setLast_name] = useState('')
   const [phone, setPhone] = useState('')
+  const [email, setEmail] = useState('')
 
   const api = async () => {
     await axios
@@ -13,6 +14,7 @@ const UpdateAdmin = ({id}) => {
         setFirst_name(Response.data.first_name)
         setLast_name(Response.data.last_name)
         setPhone(Response.data.phone)
+        setEmail(Response.data.email)
         console.log(Response.data)
       })
       .catch((Error) => {
@@ -32,11 +34,13 @@ const UpdateAdmin = ({id}) => {
       first_name,
       last_name,
       phone,
+      email
     }
     axios
       .patch(`/superadminlist/${id}/`, UpdatedAdmin)
       .then((Response) => {
         console.log(Response.data)
+        goback()
         alert('Super Admin Updated!')
       })
       .catch((error) => {
@@ -78,6 +82,17 @@ const UpdateAdmin = ({id}) => {
 
         <div className='form-floating mb-7'>
           <input
+            type='text'
+            className='form-control form-control-solid bg-white'
+            id='floatingInput1'
+            value={email}
+            onChange={(e) => setLast_name(e.target.value)}
+          />
+          <label htmlFor='floatingInput1'>Email</label>
+        </div>
+
+        <div className='form-floating mb-7'>
+          <input
             type='tel'
             className='form-control form-control-solid bg-white'
             id='floatingInput1'
@@ -90,10 +105,13 @@ const UpdateAdmin = ({id}) => {
           </label>
         </div>
 
-        <div className='col-md-12 text-center'>
+        <div className='col-md-12 text-center d-flex gap-10'>
           <button className='btn btn-sl fw-bold btn-primary w-20 mt-8' onSubmit={handleSubmit}>
             Update
           </button>
+          <div className='btn btn-sl fw-bold btn-dark w-20 mt-8' onClick={() => goback()}>
+            Cancel
+          </div>
         </div>
         {/* <!--end::Input group--> */}
       </form>

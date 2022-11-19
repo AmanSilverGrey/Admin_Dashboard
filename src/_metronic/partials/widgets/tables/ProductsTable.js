@@ -12,14 +12,14 @@ import { KTSVG } from '../../../helpers'
 const ProductsTable = ({className}) => {
   const [data, setData] = useState([]);
 
-  const api = async () => {
-    await axios.get('/product/').then((response) => { setData(response.data) })
-  }
+  // const api = async () => {
+  //   await axios.get('/product/').then((response) => { setData(response.data) })
+  // }
 
-  useEffect(() => {
-    api()
-    console.log(data)
-  }, [])
+  // useEffect(() => {
+  //   api()
+  //   console.log(data)
+  // }, [])
 
   return (
     <div className={`card ${className}`}>
@@ -43,6 +43,8 @@ const ProductsTable = ({className}) => {
               </tr>
             </thead>
             {/* end::Table head */}
+            <h3>Data not available</h3>
+      
             {/* begin::Table body */}
             <tbody>
               {data.map((item) => (

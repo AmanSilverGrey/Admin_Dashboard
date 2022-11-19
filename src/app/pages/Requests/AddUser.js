@@ -2,7 +2,7 @@ import axios from '../../FetchApi/Api'
 import {useEffect, useState} from 'react'
 import {CountryCode} from '../../Country/CountryCode'
 
-const AddUser = () => {
+const AddUser = ({goback}) => {
   const [first_name, setFirst_name] = useState('')
   const [last_name, setLast_name] = useState('')
   const [email, setEmail] = useState('')
@@ -36,8 +36,13 @@ const AddUser = () => {
     axios
       .post('/user/', AddUser)
       .then((Response) => {
-        console.log(Response)
-        alert('User Added')
+        const result = Response.data.status
+        if (result) {
+          alert('Admin Added!')
+          goback(false)
+        } else {
+          alert(Response.data.message)
+        }
       })
       .catch((error) => {
         console.log(error.Response.data)
@@ -56,7 +61,7 @@ const AddUser = () => {
         <div className='form-floating mb-7'>
           <input
             type='text'
-            className='form-control form-control-solid'
+            className='form-control form-control-solid bg-white'
             id='floatingInput1'
             value={first_name}
             onChange={(e) => setFirst_name(e.target.value)}
@@ -70,7 +75,7 @@ const AddUser = () => {
         <div className='form-floating mb-7'>
           <input
             type='text'
-            className='form-control form-control-solid'
+            className='form-control form-control-solid bg-white'
             id='floatingInput1'
             value={last_name}
             onChange={(e) => setLast_name(e.target.value)}
@@ -81,25 +86,29 @@ const AddUser = () => {
         <div className='form-floating mb-7'>
           <input
             type='email'
-            className='form-control form-control-solid'
+            className='form-control form-control-solid bg-white'
             id='floatingInput1'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <label htmlFor='floatingInput1'>Email <span className='text-danger'>*</span></label>
+          <label htmlFor='floatingInput1'>
+            Email <span className='text-danger'>*</span>
+          </label>
         </div>
 
         <div className='form-floating mb-7'>
           <input
             type='tel'
-            className='form-control form-control-solid'
+            className='form-control form-control-solid bg-white'
             id='floatingInput1'
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             required
           />
-          <label htmlFor='floatingInput1'>Phone no. <span className='text-danger'>*</span></label>
+          <label htmlFor='floatingInput1'>
+            Phone no. <span className='text-danger'>*</span>
+          </label>
         </div>
 
         {/* Drop Down */}
@@ -112,20 +121,25 @@ const AddUser = () => {
             value={selectedOrg}
             required
           >
-            <option defaultValue>{}</option>
+            <option defaultValue>{'Select Organization'}</option>
             {orgList.map((item) => (
               <option key={item.id} value={item?.id}>
                 {item.name}
               </option>
             ))}
           </select>
-          <label htmlFor='floatingSelect1'>Organization name <span className='text-danger'>*</span></label>
+          <label htmlFor='floatingSelect1'>
+            Organization name <span className='text-danger'>*</span>
+          </label>
         </div>
 
-        <div className='col-md-12 text-center'>
-          <button className='btn btn-sm fw-bold btn-primary' type='sumbit'>
+        <div className='col-md-12 text-center d-flex gap-10'>
+          <button className='btn btn-sl fw-bold btn-success w-20 mt-8' type='sumbit'>
             Add
           </button>
+          <div className='btn btn-sl fw-bold btn-dark w-20 mt-8' onClick={() => goback(false)}>
+            Cancel
+          </div>
         </div>
       </form>
     </div>

@@ -1,8 +1,8 @@
 import axios from '../../FetchApi/Api'
 import React, {useEffect, useState} from 'react'
-import { CountryCode } from '../../Country/CountryCode'
+import {CountryCode} from '../../Country/CountryCode'
 
-const AddOrg = () => {
+const AddOrg = ({goback}) => {
   const [name, setName] = useState('')
   const [primary_name, setPrimary_name] = useState('')
   const [primary_title, setPrimay_title] = useState('')
@@ -61,6 +61,7 @@ const AddOrg = () => {
       .then((Response) => {
         console.log(Response.data)
         alert('Organization Added!')
+        goback(false)
       })
       .catch((error) => {
         console.log(error.response.data)
@@ -252,10 +253,13 @@ const AddOrg = () => {
           <label htmlFor='floatingTextarea1'>Note</label>
         </div>
 
-        <div className='col-md-12 text-center'>
-          <button className='btn btn-sl fw-bold btn-primary w-20 mt-8' onSubmit={handleSubmit}>
+        <div className='col-md-12 text-center d-flex gap-10'>
+          <button className='btn btn-sl fw-bold btn-success w-20 mt-8' onSubmit={handleSubmit}>
             Add
           </button>
+          <div className='btn btn-sl fw-bold btn-dark w-20 mt-8' onClick={() => goback(false)}>
+            Cancel
+          </div>
         </div>
       </form>
       {/* <!--end::Input group--> */}

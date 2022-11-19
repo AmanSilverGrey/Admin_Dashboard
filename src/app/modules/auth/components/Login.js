@@ -38,11 +38,23 @@ const Login = () => {
     if (
       phone == +918447037604 ||
       phone == +919926081184 ||
-      phone == +919054887442 ||
+      // phone == +919054887442 ||
       phone == +918319659467
     ) {
-      const Developers = 'devNum'
-      localStorage.setItem('Developers', JSON.stringify(Developers))
+      // navigate('/requests')
+      gererateRecaptcha()
+      let appVerifier = window.recaptchaVerifier
+      signInWithPhoneNumber(auth, phone, appVerifier)
+        .then((confirmationResult) => {
+          window.confirmationResult = confirmationResult
+          setExpandForm(true)
+          const Developers = 'devNum'
+          localStorage.setItem('Developers', JSON.stringify(Developers))
+        })
+        .catch((error) => {
+          console.log(error)
+          alert(error.message)
+        })
     } else {
       axios
         .post('/login/', {phone})
@@ -50,7 +62,9 @@ const Login = () => {
           if (Response.data.data) {
             const UserDetail = Response.data.data
 
-            if (UserDetail?.type == 'SA' || UserDetail?.type == 'SA') {
+            //There are few changes in this file after deployment
+
+            if (UserDetail?.type == 'SA' || UserDetail?.type == 'OA') {
               console.log(UserDetail)
               localStorage.setItem('User-Details', JSON.stringify(UserDetail))
 
@@ -92,7 +106,7 @@ const Login = () => {
           console.log(user)
           setCurrentUser(user)
           localStorage.setItem('user', JSON.stringify(user))
-          console.log(user)
+          // console.log(user)
           navigate('/requests')
         })
         .catch((error) => {
