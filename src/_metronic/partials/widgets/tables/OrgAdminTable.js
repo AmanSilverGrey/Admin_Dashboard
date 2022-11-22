@@ -109,6 +109,7 @@ const OrgAdminTable = ({className}) => {
                     <th className='min-w-140px'>Last Name</th>
                     <th className='min-w-140px'>Email</th>
                     <th className='min-w-140px'>Phone Number</th>
+                    <th className='min-w-140px'>Organization</th>
                     <th className='w-20'>Status</th>
                     <th className='min-w-140px'>Edit/ Delete</th>
                     {/* <th className='min-w-120px'>Status</th> */}
@@ -134,6 +135,9 @@ const OrgAdminTable = ({className}) => {
 
                       <td>
                         <p className='text-dark fw-bold fs-6'>{item.phone}</p>
+                      </td>
+                      <td>
+                        <p className='text-dark fw-bold fs-6'>{item?.org_name}</p>
                       </td>
 
                       {/* Status start*/}

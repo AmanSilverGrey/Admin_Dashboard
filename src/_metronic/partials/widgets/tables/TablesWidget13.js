@@ -32,8 +32,8 @@ const TablesWidget13 = ({className}) => {
 
   useEffect(() => {
     api()
-    console.log(data)
-  }, [toggle])
+    // console.log(data)
+  }, [toggle, addOrg])
 
   //Delete particluar user
   const DeleteUser = (item) => {

@@ -14,7 +14,7 @@ const UpdateOrg = ({id, goback}) => {
   const [owner, setOwner] = useState('')
   const [note, setNote] = useState('')
   const [oAname, setOAname] = useState([])
-
+  // const [ownerName, setOwnerName] = useState('')
 
   const api = async () => {
     await axios
@@ -40,6 +40,9 @@ const UpdateOrg = ({id, goback}) => {
       .get('/orgadminlist/')
       .then((Response) => {
         setOAname(Response.data.data)
+        // const name = oAname.find((item) => item.id == owner)
+
+        // console.log(ownerName)
       })
       .catch((Error) => {
         console.log(Error)
@@ -53,7 +56,7 @@ const UpdateOrg = ({id, goback}) => {
   //Handling the form submit
   const handleSubmit = (e) => {
     e.preventDefault()
-    
+
     const UpdatedOrg = {
       name,
       primary_name,
@@ -69,11 +72,11 @@ const UpdateOrg = ({id, goback}) => {
     }
 
     axios
-      .put(`/organization/${id}/`, UpdatedOrg)
+      .patch(`/organization/${id}/`, UpdatedOrg)
       .then((Response) => {
         console.log(Response.data)
         alert('Organization Updated!')
-        goback();
+        goback()
       })
       .catch((error) => {
         console.log(error)
@@ -84,8 +87,8 @@ const UpdateOrg = ({id, goback}) => {
     <div className='w-50 mx-auto p-10 shadow  mb-5 bg-body rounded'>
       {/* <!--begin::Input group--> */}
       <br />
-        <h2 className='text-primary'>Add Organization</h2>
-        <br />
+      <h2 className='text-primary'>Add Organization</h2>
+      <br />
       <div className='form-floating mb-7'>
         <input
           type='text'
@@ -179,17 +182,20 @@ const UpdateOrg = ({id, goback}) => {
         />
         <label htmlFor='floatingInput1'>Zip</label>
       </div>
-     {/* DropDown */}
-     <div className='form-floating mb-7'>
+      {/* DropDown */}
+      <div className='form-floating mb-7'>
         <select
           className='form-select form-select-solid bg-white'
           id='floatingSelect1'
           aria-label='Floating label select example'
           onChange={(e) => setOwner(e.target.value)}
+          value={owner}
         >
-          {/* <option defaultValue>{id}</option> */}
+          <option value={null}>Select Owner</option>
           {oAname.map((item) => (
-            <option key={item.id} value={item.org_name}>{item.first_name} {item.last_name}</option>
+            <option key={item.id} value={item.id}>
+              {item.first_name} {item.last_name}
+            </option>
           ))}
         </select>
         <label htmlFor='floatingSelect1'>Owner</label>
@@ -213,8 +219,8 @@ const UpdateOrg = ({id, goback}) => {
           Update
         </span>
         <div className='btn btn-sl fw-bold btn-dark w-20 mt-8' onClick={() => goback()}>
-            Cancel
-          </div>
+          Cancel
+        </div>
       </div>
       {/* <!--end::Input group--> */}
     </div>

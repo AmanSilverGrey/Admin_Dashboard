@@ -16,6 +16,7 @@ import {getUserByToken} from './_requests'
 import {WithChildren} from '../../../../_metronic/helpers'
 import {signOut} from 'firebase/auth'
 import {auth} from '../firebase'
+import { json } from 'node:stream/consumers'
 // import { useNavigate } from 'react-router-dom'
 
 // type AuthContextProps = {
@@ -44,6 +45,7 @@ const AuthProvider = ({children}) => {
   //  const navigate = useNavigate();
   const [auth, setAuth] = useState(authHelper.getAuth())
   const [currentUser, setCurrentUser] = useState()
+  const [currentUserDetails, setCurrentUserDetails] = useState()
 
   useEffect(() => {
     const cUser = localStorage.getItem('user')
@@ -65,7 +67,7 @@ const AuthProvider = ({children}) => {
     localStorage.removeItem('user')
     localStorage.removeItem('User-Details')
     localStorage.removeItem('Developers')
-    console.log('Uer log out')
+    console.log('User log out')
     window.location.reload()
   }
 
@@ -87,7 +89,7 @@ const AuthInit = ({children}) => {
         if (!didRequest.current) {
           const {data} = await getUserByToken(apiToken)
           if (data) {
-            setCurrentUser(data)
+            // setCurrentUser(data)
           }
         }
       } catch (error) {

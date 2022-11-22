@@ -5,6 +5,8 @@ import {KTSVG} from '../../../helpers'
 import AddUser from '../../../../app/pages/Requests/AddUser'
 import _ from 'lodash'
 import ReactTooltip from 'react-tooltip'
+import {userdata} from '../../../../app/LocalStorage/UserDetails'
+import { useAuth } from '../../../../app/modules/auth'
 
 //type Props = {
 //className: string,
@@ -15,8 +17,9 @@ const RequestsTable = ({className}) => {
   const [data, setData] = useState([])
   const [toggle, setToggle] = useState('')
   const [addUser, setAddUser] = useState(false)
+  const currentUser = useAuth()
 
-  // const [approve, setApprove] = useState(-1);
+  // const [approve, setApprove] = useState(-1); 
 
   // States for updating
   const [first_name, setFirst_name] = useState('')
@@ -53,24 +56,48 @@ const RequestsTable = ({className}) => {
 
   //Api call to list users.
   const api = async () => {
-    await axios
-      .get('/user/')
-      .then((response) => {
-        setData(response.data)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    if (currentUser?.type == 'SA') {
+      await axios
+        .get('/requestusers/?type=NU')
+        .then((response) => {
+          console.log(response.data.results)
+          setData(response.data.results)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
 
-    //Fecthing Org names
-    await axios
-      .get('/organization/')
-      .then((Response) => {
-        setOrgName(Response.data.data)
-      })
-      .catch((Error) => {
-        console.log(Error)
-      })
+      //Fecthing Org names
+      await axios
+        .get('/organization/')
+        .then((Response) => {
+          setOrgName(Response.data.data)
+        })
+        .catch((Error) => {
+          console.log(Error)
+        })
+    } else {
+      const userorg = currentUser?.org
+      await axios
+        .get(`/requestusers/?type=NU&org=${userorg}`)
+        .then((response) => {
+          console.log(response.data.results)
+          setData(response.data.results)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+
+      //Fecthing Org names
+      await axios
+        .get('/organization/')
+        .then((Response) => {
+          setOrgName(Response.data.data)
+        })
+        .catch((Error) => {
+          console.log(Error)
+        })
+    }
   }
   //Api call for particluar user to edit.
   const Toggle = async (id) => {
@@ -107,14 +134,15 @@ const RequestsTable = ({className}) => {
   }
   useEffect(() => {
     api()
-  }, [])
+    console.log(data)
+  }, [toggle, addUser])
 
   //Handle Form Submit
   const handleSubmit = (e) => {
     e.preventDefault()
 
     console.log(selectOrg)
-    const orgId = orgName.find((item) => item?.id == selectOrg)
+    const orgId = orgName.find((item) => item?.name == selectOrg)
     const EditedUser = {first_name, last_name, email, org: orgId?.id, org_name: orgId?.name}
 
     axios
@@ -227,8 +255,8 @@ const RequestsTable = ({className}) => {
                             {!item.is_active && (
                               <div>
                                 <span
-                                 data-tip
-                                 data-for='activateUser'
+                                  data-tip
+                                  data-for='activateUser'
                                   onClick={() => {
                                     setActive(true)
                                     handleApprove(item)
@@ -360,9 +388,9 @@ const RequestsTable = ({className}) => {
               value={selectOrg}
               required
             >
-              {/* <option defaultValue>{org}</option> */}
+              <option defaultValue>{selectOrg}</option>
               {orgName.map((item) => (
-                <option key={item.id} value={item?.id}>
+                <option key={item.id} value={item?.name}>
                   {item.name}
                 </option>
               ))}

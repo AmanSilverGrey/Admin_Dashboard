@@ -29,16 +29,16 @@ const AddUser = ({goback}) => {
   //Hnadling the form submit and posting it to the jason(database)
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(selectedOrg)
-    const org = orgList.find((item) => item?.id == selectedOrg)
-
-    const AddUser = {first_name, last_name, email, phone, org: org?.id, org_name: org?.name}
+    console.log (selectedOrg)
+    const org = orgList.find((item) => item?.id == selectedOrg.replace(/[^\d]/g, ''))
+    const AddUser = {first_name, last_name, email, phone, org: org?.id}
     axios
       .post('/user/', AddUser)
       .then((Response) => {
         const result = Response.data.status
         if (result) {
-          alert('Admin Added!')
+          console.log(Response);
+          alert('User Added!')
           goback(false)
         } else {
           alert(Response.data.message)
@@ -114,7 +114,7 @@ const AddUser = ({goback}) => {
         {/* Drop Down */}
         <div className='form-floating mb-7'>
           <select
-            className='form-select form-select-solid cursor-pointer'
+            className='form-select form-select-solid cursor-pointer bg-white'
             id='floatingSelect1'
             aria-label='Floating label select example'
             onChange={(e) => setSelectedOrg(e.target.value)}
@@ -124,7 +124,7 @@ const AddUser = ({goback}) => {
             <option defaultValue>{'Select Organization'}</option>
             {orgList.map((item) => (
               <option key={item.id} value={item?.id}>
-                {item.name}
+                {`${item.name} (ID: ${item.id})`}
               </option>
             ))}
           </select>

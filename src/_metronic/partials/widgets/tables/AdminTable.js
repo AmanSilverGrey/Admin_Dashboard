@@ -47,6 +47,7 @@ const AdminTable = ({className}) => {
     api()
     // console.log(data)
   }, [toggle, addAdmin])
+  
   //Api call for particluar user to edit.
   const Toggle = async (item) => {
     setToggle(item.id)
@@ -110,13 +111,13 @@ const AdminTable = ({className}) => {
         <h3>Super Admin</h3>
         {/* {addAdmin && <h3>Add Super Admin</h3>} */}
 
-        <div
-          onClick={() => setToggle('')}
-          className='btn btn-sm fw-bold btn-primary'
-          data-bs-toggle='modal'
-          data-bs-target='#kt_modal_create_app'
-        >
-          {!toggle && !addAdmin && (
+        {!toggle && !addAdmin && (
+          <div
+            onClick={() => setToggle('')}
+            className='btn btn-sm fw-bold btn-primary'
+            data-bs-toggle='modal'
+            data-bs-target='#kt_modal_create_app'
+          >
             <span
               onClick={() => {
                 setAddAdmin(!addAdmin)
@@ -124,17 +125,8 @@ const AdminTable = ({className}) => {
             >
               Add Super Admin
             </span>
-          )}
-          {(toggle || addAdmin) && (
-            <span
-              onClick={() => {
-                setAddAdmin(false)
-              }}
-            >
-              Back
-            </span>
-          )}
-        </div>
+          </div>
+        )}
       </div>
       {!toggle && !addAdmin && (
         <div className='shadow bg-body rounded mx-auto w-75 text-center'>
@@ -217,12 +209,7 @@ const AdminTable = ({className}) => {
                                 >
                                   Admin deactivated
                                 </span>
-                                <ReactTooltip
-                                  id='Activate'
-                                  place='top'
-                                  effect='float'
-                                  type='info'
-                                >
+                                <ReactTooltip id='Activate' place='top' effect='float' type='info'>
                                   Click to activate
                                 </ReactTooltip>
                               </div>

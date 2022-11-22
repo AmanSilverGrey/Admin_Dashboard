@@ -35,61 +35,59 @@ const Login = () => {
   const requestOTP = (e) => {
     e.preventDefault()
 
-    if (
-      phone == +918447037604 ||
-      phone == +919926081184 ||
-      // phone == +919054887442 ||
-      phone == +918319659467
-    ) {
-      // navigate('/requests')
-      gererateRecaptcha()
-      let appVerifier = window.recaptchaVerifier
-      signInWithPhoneNumber(auth, phone, appVerifier)
-        .then((confirmationResult) => {
-          window.confirmationResult = confirmationResult
-          setExpandForm(true)
-          const Developers = 'devNum'
-          localStorage.setItem('Developers', JSON.stringify(Developers))
-        })
-        .catch((error) => {
-          console.log(error)
-          alert(error.message)
-        })
-    } else {
-      axios
-        .post('/login/', {phone})
-        .then((Response) => {
-          if (Response.data.data) {
-            const UserDetail = Response.data.data
+    // if (
+    //   phone == +918319659467
+    // ) {
+    //   // navigate('/requests')
+    //   gererateRecaptcha()
+    //   let appVerifier = window.recaptchaVerifier
+    //   signInWithPhoneNumber(auth, phone, appVerifier)
+    //     .then((confirmationResult) => {
+    //       window.confirmationResult = confirmationResult
+    //       setExpandForm(true)
+    //       const Developers = 'devNum'
+    //       localStorage.setItem('Developers', JSON.stringify(Developers))
+    //     })
+    //     .catch((error) => {
+    //       console.log(error)
+    //       alert(error.message)
+    //     })
+    // }
+    // else {
+    axios
+      .post('/login/', {phone})
+      .then((Response) => {
+        if (Response.data.data) {
+          const UserDetail = Response.data.data
 
-            //There are few changes in this file after deployment
+          //There are few changes in this file after deployment
 
-            if (UserDetail?.type == 'SA' || UserDetail?.type == 'OA') {
-              console.log(UserDetail)
-              localStorage.setItem('User-Details', JSON.stringify(UserDetail))
+          if (UserDetail?.type == 'SA' || UserDetail?.type == 'OA') {
+            console.log(UserDetail)
+            localStorage.setItem('User-Details', JSON.stringify(UserDetail))
 
-              gererateRecaptcha()
-              let appVerifier = window.recaptchaVerifier
-              signInWithPhoneNumber(auth, phone, appVerifier)
-                .then((confirmationResult) => {
-                  window.confirmationResult = confirmationResult
-                  setExpandForm(true)
-                })
-                .catch((error) => {
-                  console.log(error)
-                  alert(error.message)
-                })
-            } else {
-              alert('You are not eligibile')
-            }
+            gererateRecaptcha()
+            let appVerifier = window.recaptchaVerifier
+            signInWithPhoneNumber(auth, phone, appVerifier)
+              .then((confirmationResult) => {
+                window.confirmationResult = confirmationResult
+                setExpandForm(true)
+              })
+              .catch((error) => {
+                console.log(error)
+                alert(error.message)
+              })
           } else {
-            alert(Response.data.message)
+            alert('You are not eligibile')
           }
-        })
-        .catch((error) => {
-          console.log(error.response.data)
-        })
-    }
+        } else {
+          alert(Response.data.message)
+        }
+      })
+      .catch((error) => {
+        console.log(error.response.data)
+      })
+    // }
   }
 
   const verifyOTP = (e) => {
@@ -102,7 +100,12 @@ const Login = () => {
       confirmationResult
         .confirm(otp)
         .then((result) => {
-          const user = result.user
+          // const user = result.user
+          const userDetails = localStorage.getItem('User-Details')
+          const user = {
+            ...result.user,
+            ...JSON.parse(userDetails),
+          }
           console.log(user)
           setCurrentUser(user)
           localStorage.setItem('user', JSON.stringify(user))
@@ -112,6 +115,7 @@ const Login = () => {
         .catch((error) => {
           setisLoading(false)
           console.log(error.message)
+          alert(error.message)
         })
     }
   }

@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import axios from '../../../../app/FetchApi/Api'
-import React, { useEffect, useState } from 'react'
-import { KTSVG } from '../../../helpers'
+import React, {useEffect, useState} from 'react'
+import {KTSVG} from '../../../helpers'
 
 //type Props = {
 //className: string,
@@ -10,24 +10,28 @@ import { KTSVG } from '../../../helpers'
 
 //const TablesWidget12: React.FC<Props> = ({className}) => {
 const TablesWidget12 = () => {
-  const [data, setData] = useState([]);
-  const [status, setStatus] = useState(0);
-
+  const [data, setData] = useState([])
+  const [status, setStatus] = useState(0)
 
   const api = async () => {
-    await axios.get('/organization/').then((response) => { setData(response.data.data); setStatus(response.data.status) })
+    await axios.get('/organization/').then((response) => {
+      setData(response.data.data)
+      setStatus(response.data.status)
+    })
   }
 
   useEffect(() => {
     api()
-    console.log(data)
+    // console.log(data)
   }, [])
 
   return (
     <div>
-      {status === 0 && <div>
-        <h2>Data not available</h2>
-      </div>}
+      {status === 0 && (
+        <div>
+          <h2>Data not available</h2>
+        </div>
+      )}
       {status === 1 && (
         <div className='shadow bg-body rounded'>
           {/* <div className={`card ${className}`}> */}
@@ -40,7 +44,7 @@ const TablesWidget12 = () => {
                 {/* begin::Table head */}
                 <thead>
                   <tr className='fw-bold text-muted'>
-                    <th className='min-w-150px'>Name</th>
+                    {/* <th className='min-w-150px'>Name</th> */}
                     <th className='min-w-140px'>Address</th>
                     <th className='min-w-120px'>Account Owner</th>
                     <th className='min-w-120px'>Phone Number</th>
@@ -53,7 +57,7 @@ const TablesWidget12 = () => {
                 {/* begin::Table body */}
                 <tbody>
                   {data.map((item) => (
-                    <tr key={item.id} >
+                    <tr key={item.id}>
                       <td>
                         <p className='text-dark fw-bold fs-6'>{item.name}</p>
                       </td>
@@ -116,4 +120,4 @@ const TablesWidget12 = () => {
   )
 }
 
-export { TablesWidget12 }
+export {TablesWidget12}
