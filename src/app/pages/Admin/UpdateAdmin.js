@@ -58,7 +58,7 @@ const UpdateAdmin = ({id, goback}) => {
         <div className='form-floating mb-7'>
           <input
             type='text'
-            className='form-control form-control-solid bg-white'
+            className='form-control form-control-solid bg-light'
             id='floatingInput1'
             value={first_name}
             onChange={(e) => setFirst_name(e.target.value)}
@@ -72,7 +72,7 @@ const UpdateAdmin = ({id, goback}) => {
         <div className='form-floating mb-7'>
           <input
             type='text'
-            className='form-control form-control-solid bg-white'
+            className='form-control form-control-solid bg-light'
             id='floatingInput1'
             value={last_name}
             onChange={(e) => setLast_name(e.target.value)}
@@ -82,11 +82,11 @@ const UpdateAdmin = ({id, goback}) => {
 
         <div className='form-floating mb-7'>
           <input
-            type='text'
-            className='form-control form-control-solid bg-white'
+            type='email'
+            className='form-control form-control-solid bg-light'
             id='floatingInput1'
             value={email}
-            onChange={(e) => setLast_name(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <label htmlFor='floatingInput1'>Email</label>
         </div>
@@ -94,7 +94,7 @@ const UpdateAdmin = ({id, goback}) => {
         <div className='form-floating mb-7'>
           <input
             type='tel'
-            className='form-control form-control-solid bg-white'
+            className='form-control form-control-solid bg-light'
             id='floatingInput1'
             value={phone}
             onChange={(e) => setPhone(e.target.value)}

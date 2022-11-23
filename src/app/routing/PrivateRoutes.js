@@ -16,7 +16,7 @@ import { useAuth } from '../modules/auth'
 
 const PrivateRoutes = () => {
   const {currentUser}= useAuth();
-  console.log('Aman :', currentUser);
+  // console.log('Aman :', currentUser);
   
   const ProfilePage = lazy(() => import('../modules/profile/ProfilePage'))
   const WizardsPage = lazy(() => import('../modules/wizards/WizardsPage'))
@@ -111,7 +111,7 @@ const PrivateRoutes = () => {
   )
 }
 
-const SuspensedView: FC<WithChildren> = ({children}) => {
+const SuspensedView = ({children}) => {
   const baseColor = getCSSVariableValue('--kt-primary')
   TopBarProgress.config({
     barColors: {

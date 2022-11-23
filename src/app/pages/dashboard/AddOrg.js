@@ -89,7 +89,7 @@ const AddOrg = ({goback}) => {
         <div className='form-floating mb-7'>
           <input
             type='text'
-            className='form-control form-control-solid bg-white'
+            className='form-control form-control-solid bg-light'
             id='floatingInput1'
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -103,7 +103,7 @@ const AddOrg = ({goback}) => {
         <div className='form-floating mb-7'>
           <input
             type='text'
-            className='form-control form-control-solid bg-white'
+            className='form-control form-control-solid bg-light'
             id='floatingInput1'
             value={primary_name}
             onChange={(e) => setPrimary_name(e.target.value)}
@@ -117,7 +117,7 @@ const AddOrg = ({goback}) => {
         <div className='form-floating mb-7'>
           <input
             type='text'
-            className='form-control form-control-solid bg-white'
+            className='form-control form-control-solid bg-light'
             id='floatingInput1'
             value={primary_title}
             onChange={(e) => setPrimay_title(e.target.value)}
@@ -131,7 +131,7 @@ const AddOrg = ({goback}) => {
         <div className='form-floating mb-7'>
           <input
             type='tel'
-            className='form-control form-control-solid bg-white'
+            className='form-control form-control-solid bg-light'
             id='floatingInput1'
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
@@ -148,7 +148,7 @@ const AddOrg = ({goback}) => {
         <div className='form-floating mb-7'>
           <input
             type='email'
-            className='form-control form-control-solid bg-white'
+            className='form-control form-control-solid bg-light'
             id='floatingInput1'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -163,7 +163,7 @@ const AddOrg = ({goback}) => {
         <div className='form-floating mb-7'>
           <input
             type='text'
-            className='form-control form-control-solid bg-white'
+            className='form-control form-control-solid bg-light'
             id='floatingInput1'
             value={address}
             onChange={(e) => setAddress(e.target.value)}
@@ -177,7 +177,7 @@ const AddOrg = ({goback}) => {
         <div className='form-floating mb-7'>
           <input
             type='text'
-            className='form-control form-control-solid bg-white'
+            className='form-control form-control-solid bg-light'
             id='floatingInput1'
             value={city}
             onChange={(e) => setCity(e.target.value)}
@@ -191,7 +191,7 @@ const AddOrg = ({goback}) => {
         <div className='form-floating mb-7'>
           <input
             type='text'
-            className='form-control form-control-solid bg-white'
+            className='form-control form-control-solid bg-light'
             id='floatingInput1'
             value={state}
             onChange={(e) => setState(e.target.value)}
@@ -205,7 +205,7 @@ const AddOrg = ({goback}) => {
         <div className='form-floating mb-7'>
           <input
             type='number'
-            className='form-control form-control-solid bg-white'
+            className='form-control form-control-solid bg-light'
             id='floatingInput1'
             value={zip}
             onChange={(e) => setZip(e.target.value)}
@@ -219,7 +219,7 @@ const AddOrg = ({goback}) => {
         {/* Drop Down */}
         <div className='form-floating mb-7'>
           <select
-            className='form-select form-select-solid bg-white cursor-pointer'
+            className='form-select form-select-solid bg-light cursor-pointer'
             id='floatingSelect1'
             aria-label='Floating label select example'
             value={ownerName}
@@ -244,7 +244,7 @@ const AddOrg = ({goback}) => {
         {/* Note */}
         <div className='form-floating'>
           <textarea
-            className='form-control form-control-solid bg-white'
+            className='form-control form-control-solid bg-light'
             placeholder='Leave a comment here'
             id='floatingTextarea1'
             value={note}

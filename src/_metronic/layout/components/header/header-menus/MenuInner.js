@@ -8,12 +8,12 @@ import { useAuth } from '../../../../../app/modules/auth'
 
 export function MenuInner() {
   const {currentUser} = useAuth()
-  const UserDetails = localStorage.getItem('User-Details')
-  const userdata = JSON.parse(JSON.parse(JSON.stringify(UserDetails)))
+  // const UserDetails = localStorage.getItem('User-Details')
+  // const userdata = JSON.parse(JSON.parse(JSON.stringify(UserDetails)))
   return (
     <>
       <figure className='figure my-4 p-4'>
-        <img src={asc_logo} alt='logo' width={70} />
+        <img src={asc_logo} alt='logo' width={60} />
         {/* <figcaption className='figure-caption'>  Complete Rapid Drug Testing
          and PPE Solutions</figcaption> */}
       </figure>

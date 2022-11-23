@@ -62,13 +62,13 @@ const AuthLayout = () => {
         {/* begin::Content */}
         <div className='d-flex flex-column flex-center py-15 px-5 px-md-15 w-100'>
           {/* begin::Image */}
-          <img className='mx-auto w-275px w-md-50 w-xl-400px mb-10 mb-lg-3' src={logo_asc_white} alt='' />
+          <img className='mx-auto w-275px w-md-50 w-xl-300px mb-10 mb-lg-3' src={logo_asc_white} alt='' />
           {/* end::Image */}
-
+          <br />
           
 
           {/* begin::Title */}
-          <h2 className='text-white fw-bolder text-center mb-3'>
+          <h2 className='text-light fw-bolder text-center mb-3'>
           Complete Rapid Drug Testing and PPE Solutions
           </h2>
           {/* end::Title */}

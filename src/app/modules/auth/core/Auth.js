@@ -16,7 +16,7 @@ import {getUserByToken} from './_requests'
 import {WithChildren} from '../../../../_metronic/helpers'
 import {signOut} from 'firebase/auth'
 import {auth} from '../firebase'
-import { json } from 'node:stream/consumers'
+// import { json } from 'node:stream/consumers'
 // import { useNavigate } from 'react-router-dom'
 
 // type AuthContextProps = {
@@ -49,7 +49,7 @@ const AuthProvider = ({children}) => {
 
   useEffect(() => {
     const cUser = localStorage.getItem('user')
-    setCurrentUser(cUser)
+    setCurrentUser(JSON.parse(cUser))
   }, [])
 
   const saveAuth = (auth) => {

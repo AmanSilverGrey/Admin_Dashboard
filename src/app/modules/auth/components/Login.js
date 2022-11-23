@@ -20,6 +20,7 @@ const Login = () => {
   const [expandForm, setExpandForm] = useState(false)
   const {setCurrentUser} = useAuth()
   const [isloading, setisLoading] = useState(false)
+  const [sendOTP, setSendOTP] = useState(false)
 
   const gererateRecaptcha = () => {
     window.recaptchaVerifier = new RecaptchaVerifier(
@@ -65,7 +66,7 @@ const Login = () => {
           if (UserDetail?.type == 'SA' || UserDetail?.type == 'OA') {
             console.log(UserDetail)
             localStorage.setItem('User-Details', JSON.stringify(UserDetail))
-
+            setSendOTP(true)
             gererateRecaptcha()
             let appVerifier = window.recaptchaVerifier
             signInWithPhoneNumber(auth, phone, appVerifier)
@@ -123,23 +124,22 @@ const Login = () => {
   return (
     <>
       {!isloading && (
-        <div className='formContainer'>
+        <div className='formContainer p-20 shadow-lg p-3 mb-5 bg-body rounded'>
           <form onSubmit={requestOTP}>
             <div className='text-center mb-11'>
               <h1 className='text-dark fw-bolder mb-3'>Log In</h1>
               <div className='text-gray-500 fw-semibold fs-6'>To your asc account</div>
             </div>
 
-            <div className='mb-3'>
-              <label
-                htmlFor='phonenumberinput'
-                className='form-label fw-bolder text-dark fs-6 mb-0'
-              >
+            <p className='text-gray-500 fw-semibold fs-7'>Please login with your phone number</p>
+            <div className='form-outline mb-4'>
+              {/* <label htmlFor='phonenumberinput' className='form-label fw-bolder text-dark fs-6'>
                 Phone number
-              </label>
+              </label> */}
+
               <input
                 type='tel'
-                className='form-control bg-transparent'
+                className='form-control bg-light'
                 id='phoneNumberInput'
                 aria-describedby='emailHelp'
                 value={phone}
@@ -147,7 +147,7 @@ const Login = () => {
               />
             </div>
             {expandForm && (
-              <div className='mb-3'>
+              <div className='form-outline mb-4'>
                 <label htmlFor='otpInput' className='form-label'>
                   OTP
                 </label>
@@ -164,10 +164,17 @@ const Login = () => {
                 </div>
               </div>
             )}
-            {!expandForm && (
-              <button type='submit' className='btn btn-primary mx-auto'>
-                Request OTP
-              </button>
+            {!expandForm && !sendOTP && (
+              <div className='text-center pt- mb-5 pb-1'>
+                <button type='submit' className='btn btn-primary mb-3'>
+                  Request OTP
+                </button>
+              </div>
+              // btn btn-primary mx-auto fs-small
+            )}
+
+            {!expandForm && sendOTP && (
+              <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
             )}
             <div id='recaptcha-container'></div>
           </form>

@@ -6,6 +6,8 @@ import ReactTooltip from 'react-tooltip'
 import AddAdmin from '../../../../app/pages/Admin/AddAdmin'
 import _ from 'lodash'
 import UpdateAdmin from '../../../../app/pages/Admin/UpdateAdmin'
+import {userdata} from '../../../../app/LocalStorage/UserDetails'
+import {useAuth} from '../../../../app/modules/auth'
 
 //type Props = {
 //className: string,
@@ -20,6 +22,8 @@ const AdminTable = ({className}) => {
   const [active, setActive] = useState('')
 
   // const [approve, setApprove] = useState(-1);
+  // Auth
+  const {currentUser} = useAuth()
 
   // States for updating
   const [first_name, setFirst_name] = useState('')
@@ -47,7 +51,7 @@ const AdminTable = ({className}) => {
     api()
     // console.log(data)
   }, [toggle, addAdmin])
-  
+
   //Api call for particluar user to edit.
   const Toggle = async (item) => {
     setToggle(item.id)
@@ -92,8 +96,13 @@ const AdminTable = ({className}) => {
   //Delete particluar user
 
   const DeleteUser = (item) => {
-    const text = 'Are sure want to delete.'
-    {
+    console.log()
+    const admin = currentUser?.phone
+    const text = 'Confirm delete'
+
+    if (admin == item.phone) {
+      alert("You can't delete yourself")
+    } else {
       window.confirm(text) == true &&
         axios.delete(`/superadminlist/${item.id}/`).then(() => {
           const tableData = _.cloneDeep(data)

@@ -2,7 +2,7 @@ import axios from '../../FetchApi/Api'
 import {useEffect, useState} from 'react'
 import {CountryCode} from '../../Country/CountryCode'
 
-const AddUser = ({goback}) => {
+const AddUser = ({goback, setShowTable}) => {
   const [first_name, setFirst_name] = useState('')
   const [last_name, setLast_name] = useState('')
   const [email, setEmail] = useState('')
@@ -39,6 +39,7 @@ const AddUser = ({goback}) => {
         if (result) {
           console.log(Response);
           alert('User Added!')
+          setShowTable(true);
           goback(false)
         } else {
           alert(Response.data.message)
@@ -61,7 +62,7 @@ const AddUser = ({goback}) => {
         <div className='form-floating mb-7'>
           <input
             type='text'
-            className='form-control form-control-solid bg-white'
+            className='form-control form-control-solid bg-light'
             id='floatingInput1'
             value={first_name}
             onChange={(e) => setFirst_name(e.target.value)}
@@ -75,7 +76,7 @@ const AddUser = ({goback}) => {
         <div className='form-floating mb-7'>
           <input
             type='text'
-            className='form-control form-control-solid bg-white'
+            className='form-control form-control-solid bg-light'
             id='floatingInput1'
             value={last_name}
             onChange={(e) => setLast_name(e.target.value)}
@@ -86,7 +87,7 @@ const AddUser = ({goback}) => {
         <div className='form-floating mb-7'>
           <input
             type='email'
-            className='form-control form-control-solid bg-white'
+            className='form-control form-control-solid bg-light'
             id='floatingInput1'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -100,7 +101,7 @@ const AddUser = ({goback}) => {
         <div className='form-floating mb-7'>
           <input
             type='tel'
-            className='form-control form-control-solid bg-white'
+            className='form-control form-control-solid bg-light'
             id='floatingInput1'
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
@@ -114,7 +115,7 @@ const AddUser = ({goback}) => {
         {/* Drop Down */}
         <div className='form-floating mb-7'>
           <select
-            className='form-select form-select-solid cursor-pointer bg-white'
+            className='form-select form-select-solid cursor-pointer bg-light'
             id='floatingSelect1'
             aria-label='Floating label select example'
             onChange={(e) => setSelectedOrg(e.target.value)}

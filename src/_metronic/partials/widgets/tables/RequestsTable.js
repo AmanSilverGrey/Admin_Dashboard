@@ -6,7 +6,8 @@ import AddUser from '../../../../app/pages/Requests/AddUser'
 import _ from 'lodash'
 import ReactTooltip from 'react-tooltip'
 import {userdata} from '../../../../app/LocalStorage/UserDetails'
-import { useAuth } from '../../../../app/modules/auth'
+import NoData from '../../../../app/pages/NoData/NoData'
+import {useAuth} from '../../../../app/modules/auth'
 
 //type Props = {
 //className: string,
@@ -15,11 +16,12 @@ import { useAuth } from '../../../../app/modules/auth'
 
 const RequestsTable = ({className}) => {
   const [data, setData] = useState([])
+  // const [nodata, setNOData] = useState('')
   const [toggle, setToggle] = useState('')
   const [addUser, setAddUser] = useState(false)
   const currentUser = useAuth()
 
-  // const [approve, setApprove] = useState(-1); 
+  // const [approve, setApprove] = useState(-1);
 
   // States for updating
   const [first_name, setFirst_name] = useState('')
@@ -29,9 +31,75 @@ const RequestsTable = ({className}) => {
   const [org_name, setOrg_name] = useState('')
   const [selectOrg, setSelectOrg] = useState('')
   const [active, setActive] = useState()
+  // Show Table
+  const [showTable, setShowTable] = useState(true)
 
   //For Update dropdown
   const [orgName, setOrgName] = useState([])
+
+  //Api call to list users.
+  const api = async () => {
+    const UserDetails = localStorage.getItem('User-Details')
+    const UserData = JSON.parse(JSON.parse(JSON.stringify(UserDetails)))
+    if (UserData?.type == 'SA') {
+      await axios
+        .get('/requestusers/?type=NU')
+        .then((response) => {
+          console.log(response.data.results)
+
+          if (response.data.results.length == 0) {
+            setShowTable(false)
+          } else {
+            setData(response.data.results)
+          }
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+
+      //Fecthing Org names
+      await axios
+        .get('/organization/')
+        .then((Response) => {
+          setOrgName(Response.data.data)
+        })
+        .catch((Error) => {
+          console.log(Error)
+        })
+    } else {
+      const userorg = UserData?.org
+      console.log(userorg)
+      await axios
+        .get(`/requestusers/?type=NU&org=${userorg}`)
+        .then((response) => {
+          if (response.data.results.length == 0) {
+            console.log('No data')
+            console.log(response.data.results)
+            setShowTable(false)
+          } else {
+            setData(response.data.results)
+          }
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+
+      //Fecthing Org names
+      await axios
+        .get('/organization/')
+        .then((Response) => {
+          setOrgName(Response.data.data)
+        })
+        .catch((Error) => {
+          console.log(Error)
+        })
+    }
+  }
+
+  useEffect(() => {
+    api()
+    console.log(data)
+  }, [toggle, addUser])
 
   // Handle Aprrove
   const handleApprove = (item) => {
@@ -54,51 +122,6 @@ const RequestsTable = ({className}) => {
       })
   }
 
-  //Api call to list users.
-  const api = async () => {
-    if (currentUser?.type == 'SA') {
-      await axios
-        .get('/requestusers/?type=NU')
-        .then((response) => {
-          console.log(response.data.results)
-          setData(response.data.results)
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-
-      //Fecthing Org names
-      await axios
-        .get('/organization/')
-        .then((Response) => {
-          setOrgName(Response.data.data)
-        })
-        .catch((Error) => {
-          console.log(Error)
-        })
-    } else {
-      const userorg = currentUser?.org
-      await axios
-        .get(`/requestusers/?type=NU&org=${userorg}`)
-        .then((response) => {
-          console.log(response.data.results)
-          setData(response.data.results)
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-
-      //Fecthing Org names
-      await axios
-        .get('/organization/')
-        .then((Response) => {
-          setOrgName(Response.data.data)
-        })
-        .catch((Error) => {
-          console.log(Error)
-        })
-    }
-  }
   //Api call for particluar user to edit.
   const Toggle = async (id) => {
     setToggle(id)
@@ -126,16 +149,15 @@ const RequestsTable = ({className}) => {
             const tableData = _.cloneDeep(data)
             const filteredData = tableData?.filter((it) => it?.id != item?.id)
             setData(filteredData)
+            if (filteredData.length == 0) {
+              setShowTable(false)
+            }
           })
           .catch((error) => {
             console.log(error)
           })
     }
   }
-  useEffect(() => {
-    api()
-    console.log(data)
-  }, [toggle, addUser])
 
   //Handle Form Submit
   const handleSubmit = (e) => {
@@ -183,7 +205,7 @@ const RequestsTable = ({className}) => {
           </div>
         )}
       </div>
-      {!toggle && !addUser && (
+      {!toggle && !addUser && showTable && (
         <div className='shadow bg-body rounded text-center'>
           <div className={`card ${className}`}>
             {/* <div className={`card ${className}`}> */}
@@ -338,7 +360,7 @@ const RequestsTable = ({className}) => {
           <div className='form-floating mb-7'>
             <input
               type='text'
-              className='form-control form-control-solid bg-white'
+              className='form-control form-control-solid bg-light'
               id='floatingInput1'
               value={first_name}
               onChange={(e) => setFirst_name(e.target.value)}
@@ -348,7 +370,7 @@ const RequestsTable = ({className}) => {
           <div className='form-floating mb-7'>
             <input
               type='text'
-              className='form-control form-control-solid bg-white'
+              className='form-control form-control-solid bg-light'
               id='floatingInput1'
               value={last_name}
               onChange={(e) => setLast_name(e.target.value)}
@@ -358,7 +380,7 @@ const RequestsTable = ({className}) => {
           <div className='form-floating mb-7'>
             <input
               type='email'
-              className='form-control form-control-solid bg-white'
+              className='form-control form-control-solid bg-light'
               id='floatingInput1'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -369,7 +391,7 @@ const RequestsTable = ({className}) => {
           {/* <div className='form-floating mb-7'>
             <input
               type='number'
-              className='form-control form-control-solid bg-white'
+              className='form-control form-control-solid bg-light'
               id='floatingInput1'
               value={org}
               onChange={(e) => setOrg(e.target.value)}
@@ -381,7 +403,7 @@ const RequestsTable = ({className}) => {
           {/* Drop Down */}
           <div className='form-floating mb-7'>
             <select
-              className='form-select form-select-solid bg-white cursor-pointer'
+              className='form-select form-select-solid bg-light cursor-pointer'
               id='floatingSelect1'
               aria-label='Floating label select example'
               onChange={(e) => setSelectOrg(e.target.value)}
@@ -409,9 +431,23 @@ const RequestsTable = ({className}) => {
         </div>
       )}
 
+      {!showTable && !addUser && (
+        <div className='d-flex flex-column flex-root'>
+          <div className='d-flex flex-column flex-center flex-column-fluid'>
+            <div className='d-flex flex-column flex-center text-center p-10'>
+              <div className='card card-flush  w-lg-650px py-5 shadow'>
+                <div className='card-body py-15 py-lg-20'>
+                  <NoData setAddUser={setAddUser} />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {addUser && (
         <div>
-          <AddUser goback={setAddUser} />
+          <AddUser goback={setAddUser} setShowTable = {setShowTable}/>
         </div>
       )}
     </>
