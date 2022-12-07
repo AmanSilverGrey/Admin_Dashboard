@@ -1,5 +1,6 @@
 import axios from '../../FetchApi/Api'
 import {useEffect, useState} from 'react'
+import { showToast } from '../../customs/CustomModel'
 
 const UpdateOAadmin = ({id, goback}) => {
   const [first_name, setFirst_name] = useState('')
@@ -39,7 +40,7 @@ const UpdateOAadmin = ({id, goback}) => {
       .patch(`/orgadminlist/${id}/`, UpdatedAdmin)
       .then((Response) => {
         console.log(Response.data)
-        alert('Organisation Admin Updated!')
+        showToast.success('Organisation Admin Updated!')
         goback()
       })
       .catch((error) => {

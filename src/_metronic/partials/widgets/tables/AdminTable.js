@@ -8,6 +8,7 @@ import _ from 'lodash'
 import UpdateAdmin from '../../../../app/pages/Admin/UpdateAdmin'
 import {userdata} from '../../../../app/LocalStorage/UserDetails'
 import {useAuth} from '../../../../app/modules/auth'
+import swal from 'sweetalert'
 
 //type Props = {
 //className: string,
@@ -96,19 +97,38 @@ const AdminTable = ({className}) => {
   //Delete particluar user
 
   const DeleteUser = (item) => {
+    // swal('hello')
     console.log()
     const admin = currentUser?.phone
-    const text = 'Confirm delete'
+    const text = 'Are you sure want to delete?'
 
     if (admin == item.phone) {
-      alert("You can't delete yourself")
+      swal("You can't delete yourself", '', 'warning')
     } else {
-      window.confirm(text) == true &&
-        axios.delete(`/superadminlist/${item.id}/`).then(() => {
-          const tableData = _.cloneDeep(data)
-          const filteredData = tableData?.filter((it) => it?.id != item?.id)
-          setData(filteredData)
-        })
+      swal(text, '', 'warning', {
+        buttons: {
+          cancel: 'No!',
+          yes: true,
+        },
+      }).then((value) => {
+        switch (value) {
+          case 'yes':
+            axios.delete(`/superadminlist/${item.id}/`).then(() => {
+              const tableData = _.cloneDeep(data)
+              const filteredData = tableData?.filter((it) => it?.id != item?.id)
+              setData(filteredData)
+            })
+            break
+        }
+      })
+      //   swal(text, {
+      //     buttons: ['no!', true],
+      //   }) == true &&
+      //     axios.delete(`/superadminlist/${item.id}/`).then(() => {
+      //       const tableData = _.cloneDeep(data)
+      //       const filteredData = tableData?.filter((it) => it?.id != item?.id)
+      //       setData(filteredData)
+      //     })
     }
   }
 
@@ -163,7 +183,7 @@ const AdminTable = ({className}) => {
                   </thead>
                   {/* end::Table head */}
                   {/* begin::Table body */}
-                  <tbody>
+                  <tbody className=''>
                     {data.map((item) => (
                       <tr key={item.id}>
                         <td>

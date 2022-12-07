@@ -184,6 +184,7 @@ const ChatInner: FC<Props> = ({isDrawer = false}) => {
           >
             Send
           </button>
+        
         </div>
       </div>
     </div>

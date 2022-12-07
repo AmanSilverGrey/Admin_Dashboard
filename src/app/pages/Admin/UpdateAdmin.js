@@ -1,5 +1,7 @@
 import axios from '../../FetchApi/Api'
 import {useEffect, useState} from 'react'
+import { showToast } from '../../customs/CustomModel'
+
 
 const UpdateAdmin = ({id, goback}) => {
   const [first_name, setFirst_name] = useState('')
@@ -41,7 +43,7 @@ const UpdateAdmin = ({id, goback}) => {
       .then((Response) => {
         console.log(Response.data)
         goback()
-        alert('Super Admin Updated!')
+        showToast.success('Super Admin Updated!')
       })
       .catch((error) => {
         console.log(error)

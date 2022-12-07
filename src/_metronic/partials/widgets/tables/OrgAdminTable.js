@@ -3,9 +3,10 @@ import axios from '../../../../app/FetchApi/Api'
 import React, {useEffect, useState} from 'react'
 import {KTSVG} from '../../../helpers'
 import UpdateOAadmin from '../../../../app/pages/Admin/UpdateOAadmin'
-import _ from 'lodash'
+import _, { values } from 'lodash'
 import AddOAdmin from '../../../../app/pages/Admin/AddOAdmin'
 import ReactTooltip from 'react-tooltip'
+import swal from 'sweetalert'
 
 //type Props = {
 //className: string,
@@ -56,14 +57,34 @@ const OrgAdminTable = ({className}) => {
 
   // To delete particular user
   const DeleteUser = (item) => {
-    const text = 'Are sure want to delete.'
+    const text = 'Are you sure want to delete ?'
     {
-      window.confirm(text) == true &&
-        axios.delete(`/orgadminlist/${item.id}/`).then(() => {
-          const tableData = _.cloneDeep(data)
-          const filteredData = tableData?.filter((it) => it?.id != item?.id)
-          setData(filteredData)
-        })
+      // window.confirm(text) == true &&
+      //   axios.delete(`/orgadminlist/${item.id}/`).then(() => {
+      //     const tableData = _.cloneDeep(data)
+      //     const filteredData = tableData?.filter((it) => it?.id != item?.id)
+      //     setData(filteredData)
+      //   })
+        swal(text,'', 'warning', {
+          buttons: {
+            cancel: 'No!',
+            yes: true,
+          },
+        }).
+        then((value) =>{
+          switch (value) {
+            case 'yes':
+              axios.delete(`/orgadminlist/${item.id}/`).then(() => {
+                    const tableData = _.cloneDeep(data)
+                    const filteredData = tableData?.filter((it) => it?.id != item?.id)
+                    setData(filteredData)
+              })
+              break;
+          
+            default:
+              break;
+          }
+        } )
     }
   }
 

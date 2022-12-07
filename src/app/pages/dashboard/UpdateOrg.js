@@ -1,5 +1,6 @@
 import axios from '../../FetchApi/Api'
 import {useEffect, useState} from 'react'
+import { showToast } from '../../customs/CustomModel'
 
 const UpdateOrg = ({id, goback}) => {
   const [name, setName] = useState('')
@@ -56,7 +57,7 @@ const UpdateOrg = ({id, goback}) => {
   //Handling the form submit
   const handleSubmit = (e) => {
     e.preventDefault()
-
+    
     const UpdatedOrg = {
       name,
       primary_name,
@@ -74,12 +75,14 @@ const UpdateOrg = ({id, goback}) => {
     axios
       .patch(`/organization/${id}/`, UpdatedOrg)
       .then((Response) => {
+        console.log('aman');
         console.log(Response.data)
-        alert('Organization Updated!')
+
+        showToast.success('Organization Updated!')
         goback()
       })
       .catch((error) => {
-        console.log(error)
+        showToast.error(error.message)
       })
   }
 
@@ -190,8 +193,9 @@ const UpdateOrg = ({id, goback}) => {
           aria-label='Floating label select example'
           onChange={(e) => setOwner(e.target.value)}
           value={owner}
+          required
         >
-          <option value={null}>Select Owner</option>
+          <option value={''} dselected disabled hidden>Select Owner</option>
           {oAname.map((item) => (
             <option key={item.id} value={item.id}>
               {item.first_name} {item.last_name}

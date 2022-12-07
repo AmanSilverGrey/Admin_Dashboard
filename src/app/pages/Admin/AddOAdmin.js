@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import {CountryCode} from '../../Country/CountryCode'
+import { showToast } from '../../customs/CustomModel'
 import axios from '../../FetchApi/Api'
 
 const AddOAdmin = ({Goback}) => {
@@ -16,10 +17,10 @@ const AddOAdmin = ({Goback}) => {
     axios.post('/user/', SubmitOA).then((Response) => {
       const result = Response.data.status
       if (result) {
-        alert('Admin Added!')
+        showToast.success('Admin Added!')
         Goback(false)
       } else {
-        alert(Response.data.message)
+        showToast.error(Response.data.message?.[0])
       }
     })
   }

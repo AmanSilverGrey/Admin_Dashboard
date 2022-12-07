@@ -1,6 +1,7 @@
 import axios from '../../FetchApi/Api'
 import React, {useEffect, useState} from 'react'
 import {CountryCode} from '../../Country/CountryCode'
+import { showToast } from '../../customs/CustomModel'
 
 const AddOrg = ({goback}) => {
   const [name, setName] = useState('')
@@ -60,15 +61,15 @@ const AddOrg = ({goback}) => {
       .post('/organization/', addedOrg)
       .then((Response) => {
         console.log(Response.data)
-        alert('Organization Added!')
+        showToast.success('Organization Added!')
         goback(false)
       })
       .catch((error) => {
         console.log(error.response.data)
         {
           error.response.data.phone
-            ? alert(error.response.data.phone)
-            : alert(error.response.data.email)
+            ? showToast.error(error.response.data.phone?.[0])
+            : showToast.error(error.response.data.email?.[0])
         }
       })
   }
@@ -229,7 +230,7 @@ const AddOrg = ({goback}) => {
             }}
             // required
           >
-            <option defaultValue>{'Select Org Admin'}</option>
+            <option value={''} dselected disabled hidden>{'Select Org Admin'}</option>
             {oAname.map((item) => (
               <option key={item.id} value={item.id}>
                 {item.first_name} {item.last_name}

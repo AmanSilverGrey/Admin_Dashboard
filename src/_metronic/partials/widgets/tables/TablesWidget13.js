@@ -5,6 +5,7 @@ import {KTSVG} from '../../../helpers'
 import UpdateOrg from '../../../../app/pages/dashboard/UpdateOrg'
 import AddOrg from '../../../../app/pages/dashboard/AddOrg'
 import _ from 'lodash'
+import swal from 'sweetalert'
 
 //type Props = {
 //className: string,
@@ -39,17 +40,37 @@ const TablesWidget13 = ({className}) => {
   const DeleteUser = (item) => {
     const text = 'Are sure want to delete.'
     {
-      window.confirm(text) == true &&
-        axios
-          .delete(`/organization/${item.id}/`)
-          .then(() => {
-            const tableData = _.cloneDeep(data)
-            const filteredData = tableData?.filter((it) => it?.id != item?.id)
-            setData(filteredData)
-          })
-          .catch((error) => {
-            console.log(error)
-          })
+      // window.confirm(text) == true &&
+      //   axios
+      //     .delete(`/organization/${item.id}/`)
+      //     .then(() => {
+      //       const tableData = _.cloneDeep(data)
+      //       const filteredData = tableData?.filter((it) => it?.id != item?.id)
+      //       setData(filteredData)
+      //     })
+      //     .catch((error) => {
+      //       console.log(error)
+      //     })
+      swal(text, '', 'warning', {
+        buttons: {
+          cancel: 'No!',
+          yes: true,
+        },
+      }).
+      then((value) =>{
+        switch (value) {
+          case 'yes':
+            axios.delete(`/organization/${item.id}/`).then(() => {
+                  const tableData = _.cloneDeep(data)
+                  const filteredData = tableData?.filter((it) => it?.id != item?.id)
+                  setData(filteredData)
+            })
+            break;
+        
+          default:
+            break;
+        }
+      } )
     }
   }
 

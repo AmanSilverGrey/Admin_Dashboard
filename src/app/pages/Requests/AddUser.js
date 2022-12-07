@@ -1,6 +1,7 @@
 import axios from '../../FetchApi/Api'
 import {useEffect, useState} from 'react'
 import {CountryCode} from '../../Country/CountryCode'
+import { showToast } from '../../customs/CustomModel'
 
 const AddUser = ({goback, setShowTable}) => {
   const [first_name, setFirst_name] = useState('')
@@ -38,11 +39,11 @@ const AddUser = ({goback, setShowTable}) => {
         const result = Response.data.status
         if (result) {
           console.log(Response);
-          alert('User Added!')
+          showToast.success('User Added!')
           setShowTable(true);
           goback(false)
         } else {
-          alert(Response.data.message)
+          showToast.error(Response.data.message?.[0])
         }
       })
       .catch((error) => {
@@ -122,7 +123,7 @@ const AddUser = ({goback, setShowTable}) => {
             value={selectedOrg}
             required
           >
-            <option defaultValue>{'Select Organization'}</option>
+            <option value={''} dselected disabled hidden>{'Select Organization'}</option>
             {orgList.map((item) => (
               <option key={item.id} value={item?.id}>
                 {`${item.name} (ID: ${item.id})`}
@@ -130,7 +131,7 @@ const AddUser = ({goback, setShowTable}) => {
             ))}
           </select>
           <label htmlFor='floatingSelect1'>
-            Organization name <span className='text-danger'>*</span>
+            Select Organization<span className='text-danger'>*</span>
           </label>
         </div>
 

@@ -55,6 +55,7 @@ const PrivateRoutes = () => {
 
         {currentUser?.type == 'SA' && <Route path='orgadmin' element={<SuperAdmin />} />}
 
+
         {/* Lazy Modules */}
         <Route
           path='crafted/pages/profile/*'

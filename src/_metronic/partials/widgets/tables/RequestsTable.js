@@ -8,6 +8,8 @@ import ReactTooltip from 'react-tooltip'
 import {userdata} from '../../../../app/LocalStorage/UserDetails'
 import NoData from '../../../../app/pages/NoData/NoData'
 import {useAuth} from '../../../../app/modules/auth'
+import swal from 'sweetalert'
+import { showToast } from '../../../../app/customs/CustomModel'
 
 //type Props = {
 //className: string,
@@ -142,20 +144,43 @@ const RequestsTable = ({className}) => {
   const DeleteUser = (item) => {
     const text = 'Are sure want to delete.'
     {
-      window.confirm(text) == true &&
-        axios
-          .delete(`/user/${item.id}/`)
-          .then(() => {
-            const tableData = _.cloneDeep(data)
-            const filteredData = tableData?.filter((it) => it?.id != item?.id)
-            setData(filteredData)
-            if (filteredData.length == 0) {
-              setShowTable(false)
-            }
-          })
-          .catch((error) => {
-            console.log(error)
-          })
+      // window.confirm(text) == true &&
+      //   axios
+      //     .delete(`/user/${item.id}/`)
+      //     .then(() => {
+      //       const tableData = _.cloneDeep(data)
+      //       const filteredData = tableData?.filter((it) => it?.id != item?.id)
+      //       setData(filteredData)
+      //       if (filteredData.length == 0) {
+      //         setShowTable(false)
+      //       }
+      //     })
+      //     .catch((error) => {
+      //       console.log(error)
+      //     })
+
+      swal(text, '', 'warning', {
+        buttons: {
+          cancel: 'No!',
+          yes: true,
+        },
+      }).then((value) => {
+        switch (value) {
+          case 'yes':
+            axios.delete(`/user/${item.id}/`).then(() => {
+              const tableData = _.cloneDeep(data)
+              const filteredData = tableData?.filter((it) => it?.id != item?.id)
+              setData(filteredData)
+              if (filteredData.length == 0) {
+                setShowTable(false)
+              }
+            })
+            break
+
+          default:
+            break
+        }
+      })
     }
   }
 
@@ -172,10 +197,10 @@ const RequestsTable = ({className}) => {
       .then((Response) => {
         console.log(Response.data)
         setToggle(false)
-        alert('User Edited!')
+        showToast.success('User Edited!')
       })
       .catch((error) => {
-        console.log(error)
+        showToast.error(error)
       })
   }
 
@@ -410,7 +435,7 @@ const RequestsTable = ({className}) => {
               value={selectOrg}
               required
             >
-              <option defaultValue>{selectOrg}</option>
+              <option value={''} dselected disabled hidden>{selectOrg}</option>
               {orgName.map((item) => (
                 <option key={item.id} value={item?.name}>
                   {item.name}
@@ -447,7 +472,7 @@ const RequestsTable = ({className}) => {
 
       {addUser && (
         <div>
-          <AddUser goback={setAddUser} setShowTable = {setShowTable}/>
+          <AddUser goback={setAddUser} setShowTable={setShowTable} />
         </div>
       )}
     </>

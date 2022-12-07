@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react'
 import {CountryCode} from '../../Country/CountryCode'
+import { showToast } from '../../customs/CustomModel'
 import axios from '../../FetchApi/Api'
 
 const AddAdmin = ({goback}) => {
@@ -24,11 +25,12 @@ const AddAdmin = ({goback}) => {
       .then((Response) => {
         const result = Response.data.status
         if (result) {
-          alert('Admin Added!')
+          // alert('Admin Added!')
+          showToast.success('Admin Added')
         goback(false)
         }
         else{
-          alert(Response.data.message)
+          showToast.error(Response.data.message?.[0])
         }
       })
       .catch((error) => {

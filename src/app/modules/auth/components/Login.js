@@ -12,6 +12,7 @@ import {RecaptchaVerifier} from 'firebase/auth'
 import {useAuth} from '../core/Auth'
 import {CountryCode} from '../../../Country/CountryCode'
 import {useNavigate} from 'react-router-dom'
+import {showToast} from '../../../customs/CustomModel'
 
 const Login = () => {
   const navigate = useNavigate()
@@ -51,7 +52,7 @@ const Login = () => {
     //     })
     //     .catch((error) => {
     //       console.log(error)
-    //       alert(error.message)
+    //
     //     })
     // }
     // else {
@@ -76,13 +77,13 @@ const Login = () => {
               })
               .catch((error) => {
                 console.log(error)
-                alert(error.message)
+                showToast.error(error.message)
               })
           } else {
-            alert('You are not eligibile')
+            showToast.error('You are not eligibile')
           }
         } else {
-          alert(Response.data.message)
+          showToast.error(Response.data.message?.[0])
         }
       })
       .catch((error) => {
@@ -116,7 +117,7 @@ const Login = () => {
         .catch((error) => {
           setisLoading(false)
           console.log(error.message)
-          alert(error.message)
+          showToast.error(error.message)
         })
     }
   }
