@@ -1,7 +1,7 @@
 import axios from '../../FetchApi/Api'
 import React, {useEffect, useState} from 'react'
 import {CountryCode} from '../../Country/CountryCode'
-import { showToast } from '../../customs/CustomModel'
+import {showToast} from '../../customs/CustomModel'
 
 const AddOrg = ({goback}) => {
   const [name, setName] = useState('')
@@ -230,7 +230,9 @@ const AddOrg = ({goback}) => {
             }}
             // required
           >
-            <option value={''} dselected disabled hidden>{'Select Org Admin'}</option>
+            <option value={''} dselected disabled hidden>
+              {'Select Org Admin'}
+            </option>
             {oAname.map((item) => (
               <option key={item.id} value={item.id}>
                 {item.first_name} {item.last_name}

@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react'
 import {CountryCode} from '../../Country/CountryCode'
-import { showToast } from '../../customs/CustomModel'
+import {showToast} from '../../customs/CustomModel'
 import axios from '../../FetchApi/Api'
 
 const AddAdmin = ({goback}) => {
@@ -27,9 +27,8 @@ const AddAdmin = ({goback}) => {
         if (result) {
           // alert('Admin Added!')
           showToast.success('Admin Added')
-        goback(false)
-        }
-        else{
+          goback(false)
+        } else {
           showToast.error(Response.data.message?.[0])
         }
       })
@@ -88,11 +87,13 @@ const AddAdmin = ({goback}) => {
         </div>
         <div className='form-floating mb-7'>
           <input
-            type='text'
+            type='tel'
             required
             className='form-control form-control-solid bg-light'
             id='floatingInput1'
             value={phone}
+            maxLength={15}
+            minLength={10}
             onChange={(e) => setPhone(e.target.value)}
           />
           <label htmlFor='floatingInput1'>

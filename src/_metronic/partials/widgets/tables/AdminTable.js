@@ -134,7 +134,7 @@ const AdminTable = ({className}) => {
 
   return (
     <>
-      <div className='page-heading d-flex align-items-center text-dark fw-bold fs-3 my-0 justify-content-between py-3 py-lg-6'>
+      <div className='page-heading d-flex align-items-center text-dark fw-bold fs-3 my-0 justify-content-between py-3 py-lg-6 w-75 mx-auto'>
         {/* {toggle ? <h3>Edit User</h3> : <h3>Requests</h3>} */}
         {/* {toggle && <h3>Edit User</h3>} */}
         <h3>Super Admin</h3>
@@ -163,20 +163,20 @@ const AdminTable = ({className}) => {
           <div className={`card ${className}`}>
             {/* <div className={`card ${className}`}> */}
             {/* begin::Body */}
-            <div className='card-body py-3'>
+            <div className='card-body'>
               {/* begin::Table container */}
               <div className='table-responsive'>
                 {/* begin::Table */}
-                <table className='table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3'>
+                <table className='table table-striped table-row-bordered table-row-gray-100 align-middle gs-0 gy-3'>
                   {/* begin::Table head */}
-                  <thead className=''>
-                    <tr className='fw-bold text-muted'>
-                      <th className='w-20'>First Name</th>
-                      <th className='w-20'>Last Name</th>
-                      <th className='w-20'>Email</th>
-                      <th className='w-20'>Phone Number</th>
-                      <th className='w-20'>Status</th>
-                      <th className='w-20'>Edit/ Delete</th>
+                  <thead className='text-gray-900 bg-gray-300  '>
+                    <tr className='fw-bold fs-6'>
+                      <th className='w-20 p-5'>First Name</th>
+                      <th className='w-20 p-5'>Last Name</th>
+                      <th className='w-20 p-5'>Email</th>
+                      <th className='w-20 p-5'>Phone Number</th>
+                      <th className='w-20 p-5'>Status</th>
+                      <th className='w-20 p-5'>Edit/ Delete</th>
                       {/* <th className='min-w-120px'>Status</th> */}
                       {/* <th className='min-w-100px text-end'>Actions</th> */}
                     </tr>
@@ -185,20 +185,20 @@ const AdminTable = ({className}) => {
                   {/* begin::Table body */}
                   <tbody className=''>
                     {data.map((item) => (
-                      <tr key={item.id}>
-                        <td>
-                          <p className='text-dark fw-bold fs-6'>{item.first_name}</p>
+                      <tr key={item.id} className=''>
+                        <td className=''>
+                          <div className='text-dark fw-bold fs-6'>{item.first_name}</div>
                         </td>
 
                         <td>
-                          <p className='text-dark fw-bold fs-6'>{item.last_name}</p>
+                          <div className='text-dark fw-bold fs-6'>{item.last_name}</div>
                         </td>
                         <td>
-                          <p className='text-dark fw-bold fs-6'>{item.email}</p>
+                          <div className='text-dark fw-bold fs-6'>{item.email}</div>
                         </td>
 
                         <td>
-                          <p className='text-dark fw-bold fs-6'>{item.phone}</p>
+                          <div className='text-dark fw-bold fs-6'>{item.phone}</div>
                         </td>
 
                         {/* Status start*/}
@@ -260,7 +260,7 @@ const AdminTable = ({className}) => {
                             onClick={() => {
                               Toggle(item)
                             }}
-                            className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
+                            className='btn btn-icon btn-bg-secondary btn-active-color-primary btn-sm me-1'
                           >
                             <KTSVG
                               path='/media/icons/duotune/art/art005.svg'
@@ -269,7 +269,7 @@ const AdminTable = ({className}) => {
                           </div>
                           <div
                             onClick={() => DeleteUser(item)}
-                            className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'
+                            className='btn btn-icon btn-bg-secondary btn-active-color-primary btn-sm'
                           >
                             <KTSVG
                               path='/media/icons/duotune/general/gen027.svg'

@@ -56,21 +56,20 @@ const TablesWidget13 = ({className}) => {
           cancel: 'No!',
           yes: true,
         },
-      }).
-      then((value) =>{
+      }).then((value) => {
         switch (value) {
           case 'yes':
             axios.delete(`/organization/${item.id}/`).then(() => {
-                  const tableData = _.cloneDeep(data)
-                  const filteredData = tableData?.filter((it) => it?.id != item?.id)
-                  setData(filteredData)
+              const tableData = _.cloneDeep(data)
+              const filteredData = tableData?.filter((it) => it?.id != item?.id)
+              setData(filteredData)
             })
-            break;
-        
+            break
+
           default:
-            break;
+            break
         }
-      } )
+      })
     }
   }
 
@@ -81,29 +80,31 @@ const TablesWidget13 = ({className}) => {
 
   return (
     <>
-      <div className='page-heading d-flex align-items-center text-dark fw-bold fs-3 my-0 justify-content-between py-3 py-lg-6'>
+      <div className='page-heading d-flex align-items-center text-dark fw-bold fs-3 my-0 justify-content-between py-3 py-lg-6 mx-auto w-75'>
         {/* {toggle ? <h3>Edit User</h3> : <h3>Requests</h3>} */}
         {/* {toggle && <h3>Edit Org</h3>} */}
         <h3>Organization</h3>
         {/* {addOrg && <h3>Add Org</h3>} */}
-        
-    {  !toggle && !addOrg &&  <div 
-          onClick={() => setToggle('')}
-          className='btn btn-sm fw-bold btn-primary'
-          data-bs-toggle='modal'
-          data-bs-target='#kt_modal_create_app'
-        >
-          <span
-            onClick={() => {
-              setAddOrg(!addOrg)
-            }}
+
+        {!toggle && !addOrg && (
+          <div
+            onClick={() => setToggle('')}
+            className='btn btn-sm fw-bold btn-primary'
+            data-bs-toggle='modal'
+            data-bs-target='#kt_modal_create_app'
           >
-            Add Org
-          </span>
-        </div>}
+            <span
+              onClick={() => {
+                setAddOrg(!addOrg)
+              }}
+            >
+              Add Org
+            </span>
+          </div>
+        )}
       </div>
       {!toggle && !addOrg && (
-        <div className={`card ${className} shadow bg-body rounded mx-auto w-75 text-center`}>
+        <div className={`card ${className} shadow rounded mx-auto w-75 text-center`}>
           {status === 0 && (
             <div>
               <h2>Data not available</h2>
@@ -113,19 +114,19 @@ const TablesWidget13 = ({className}) => {
             <div>
               {/* <div className={`card ${className}`}> */}
               {/* begin::Body */}
-              <div className='card-body py-3  '>
+              <div className='card-body'>
                 {/* begin::Table container */}
-                <div className='table-responsive'>
+                <div className='table-responsive '>
                   {/* begin::Table */}
-                  <table className='table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3'>
+                  <table className='table table-striped table-row-bordered table-row-gray-100 align-middle gs-0 gy-3 '>
                     {/* begin::Table head */}
-                    <thead>
-                      <tr className='fw-bold text-muted'>
-                        <th className='w-20'>Name</th>
-                        <th className='w-20'>Address</th>
-                        <th className='w-20'>Account Owner</th>
-                        <th className='w-20'>Phone Number</th>
-                        <th className='w-20'>Edit/ Delete</th>
+                    <thead className='text-gray-900 bg-gray-300'>
+                      <tr className='fw-bold fs-6'>
+                        <th className='w-auto p-5'>Name</th>
+                        <th className='w-auto p-5'>Address</th>
+                        <th className='w-auto p-5'>Account Owner</th>
+                        <th className='w-auto p-5'>Phone Number</th>
+                        <th className='w-auto p-5'>Edit/ Delete</th>
                         {/* <th className='min-w-120px'>Status</th> */}
                         {/* <th className='min-w-100px text-end'>Actions</th> */}
                       </tr>
@@ -136,18 +137,18 @@ const TablesWidget13 = ({className}) => {
                       {data.map((item) => (
                         <tr key={item.id}>
                           <td>
-                            <p className='text-dark fw-bold fs-6'>{item.name}</p>
+                            <div className='text-dark fw-bold fs-6'>{item.name}</div>
                           </td>
                           <td>
-                            <p className='text-dark fw-bold fs-6'>{item.address}</p>
+                            <div className='text-dark fw-bold fs-6'>{item.address}</div>
                           </td>
                           <td>
-                            <p className='text-dark fw-bold fs-6'>
+                            <div className='text-dark fw-bold fs-6'>
                               {item.owner_fname} {item.owner_lname}
-                            </p>
+                            </div>
                           </td>
                           <td>
-                            <p className='text-dark fw-bold fs-6'>{item.phone}</p>
+                            <div className='text-dark fw-bold fs-6'>{item.phone}</div>
                           </td>
 
                           {/* <td className='text-dark fw-bold text-hover-primary fs-6'>$3560</td> */}
@@ -159,7 +160,7 @@ const TablesWidget13 = ({className}) => {
                               onClick={() => {
                                 Toggle(item.id)
                               }}
-                              className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
+                              className='btn btn-icon btn-bg-secondary btn-active-color-primary btn-sm me-1'
                             >
                               <KTSVG
                                 path='/media/icons/duotune/art/art005.svg'
@@ -168,7 +169,7 @@ const TablesWidget13 = ({className}) => {
                             </div>
                             <div
                               onClick={() => DeleteUser(item)}
-                              className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'
+                              className='btn btn-icon btn-bg-secondary btn-active-color-primary btn-sm'
                             >
                               <KTSVG
                                 path='/media/icons/duotune/general/gen027.svg'
@@ -191,11 +192,11 @@ const TablesWidget13 = ({className}) => {
         </div>
       )}
 
-      {toggle && <UpdateOrg id={toggle} goback = {setToggle}/>}
+      {toggle && <UpdateOrg id={toggle} goback={setToggle} />}
 
       {addOrg && (
         <div>
-          <AddOrg goback = {setAddOrg}/>
+          <AddOrg goback={setAddOrg} />
         </div>
       )}
     </>

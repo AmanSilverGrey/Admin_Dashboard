@@ -14,7 +14,7 @@ const DashboardPage: FC = () => (
 const DashboardWrapper = () => {
   return (
     <>
-      {/* <PageTitle breadcrumbs={[]}>Organisation</PageTitle> */}
+      {/* <PageTitle breadcrumbs={[]}>Organization</PageTitle> */}
       <DashboardPage />
     </>
   )

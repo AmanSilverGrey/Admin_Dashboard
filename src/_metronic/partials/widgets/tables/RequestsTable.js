@@ -9,7 +9,7 @@ import {userdata} from '../../../../app/LocalStorage/UserDetails'
 import NoData from '../../../../app/pages/NoData/NoData'
 import {useAuth} from '../../../../app/modules/auth'
 import swal from 'sweetalert'
-import { showToast } from '../../../../app/customs/CustomModel'
+import {showToast} from '../../../../app/customs/CustomModel'
 
 //type Props = {
 //className: string,
@@ -235,21 +235,21 @@ const RequestsTable = ({className}) => {
           <div className={`card ${className}`}>
             {/* <div className={`card ${className}`}> */}
             {/* begin::Body */}
-            <div className='card-body py-3'>
+            <div className='card-body'>
               {/* begin::Table container */}
               <div className='table-responsive'>
                 {/* begin::Table */}
-                <table className='table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3'>
+                <table className='table table-striped table-row-bordered table-row-gray-100 align-middle gs-0 gy-3'>
                   {/* begin::Table head */}
-                  <thead>
-                    <tr className='fw-bold text-muted'>
-                      <th className='w-15'>First Name</th>
-                      <th className='w-15'>Last Name</th>
-                      <th className='w-15'>Email</th>
-                      <th className='w-15'>Phone Number</th>
-                      <th className='w-15'>Organisation</th>
-                      <th className='w-15'>Status</th>
-                      <th className=''>Edit/ Delete</th>
+                  <thead className='text-gray-900 bg-gray-300'>
+                    <tr className='fw-bold fs-6'>
+                      <th className='w-15 p-5'>First Name</th>
+                      <th className='w-15 p-5'>Last Name</th>
+                      <th className='w-15 p-5'>Email</th>
+                      <th className='w-15 p-5'>Phone Number</th>
+                      <th className='w-15 p-5'>Organization</th>
+                      <th className='w-15 p-5'>Status</th>
+                      <th className='p-5'>Edit/ Delete</th>
                       {/* <th className='min-w-120px'>Status</th> */}
                       {/* <th className='min-w-100px text-end'>Actions</th> */}
                     </tr>
@@ -435,7 +435,9 @@ const RequestsTable = ({className}) => {
               value={selectOrg}
               required
             >
-              <option value={''} dselected disabled hidden>{selectOrg}</option>
+              <option value={''} dselected disabled hidden>
+                {selectOrg}
+              </option>
               {orgName.map((item) => (
                 <option key={item.id} value={item?.name}>
                   {item.name}

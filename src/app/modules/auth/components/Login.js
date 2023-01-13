@@ -144,6 +144,8 @@ const Login = () => {
                 id='phoneNumberInput'
                 aria-describedby='emailHelp'
                 value={phone}
+                maxLength={15}
+                minLength={10}
                 onChange={(e) => setPhone(e.target.value)}
               />
             </div>

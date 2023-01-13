@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import {CountryCode} from '../../Country/CountryCode'
-import { showToast } from '../../customs/CustomModel'
+import {showToast} from '../../customs/CustomModel'
 import axios from '../../FetchApi/Api'
 
 const AddOAdmin = ({Goback}) => {
@@ -75,12 +75,15 @@ const AddOAdmin = ({Goback}) => {
         </div>
         <div className='form-floating mb-7'>
           <input
-            type='text'
+            type='tel'
             required
             className='form-control form-control-solid bg-light'
             id='floatingInput1'
             value={phone}
+            maxLength={15}
+            minLength={10}
             onChange={(e) => setPhone(e.target.value)}
+            placeholder={'+1xxxxxxxxxx'}
           />
           <label htmlFor='floatingInput1'>
             Phone no. <span className='text-danger'>*</span>

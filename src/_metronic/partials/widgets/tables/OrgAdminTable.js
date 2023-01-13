@@ -3,7 +3,7 @@ import axios from '../../../../app/FetchApi/Api'
 import React, {useEffect, useState} from 'react'
 import {KTSVG} from '../../../helpers'
 import UpdateOAadmin from '../../../../app/pages/Admin/UpdateOAadmin'
-import _, { values } from 'lodash'
+import _, {values} from 'lodash'
 import AddOAdmin from '../../../../app/pages/Admin/AddOAdmin'
 import ReactTooltip from 'react-tooltip'
 import swal from 'sweetalert'
@@ -65,36 +65,35 @@ const OrgAdminTable = ({className}) => {
       //     const filteredData = tableData?.filter((it) => it?.id != item?.id)
       //     setData(filteredData)
       //   })
-        swal(text,'', 'warning', {
-          buttons: {
-            cancel: 'No!',
-            yes: true,
-          },
-        }).
-        then((value) =>{
-          switch (value) {
-            case 'yes':
-              axios.delete(`/orgadminlist/${item.id}/`).then(() => {
-                    const tableData = _.cloneDeep(data)
-                    const filteredData = tableData?.filter((it) => it?.id != item?.id)
-                    setData(filteredData)
-              })
-              break;
-          
-            default:
-              break;
-          }
-        } )
+      swal(text, '', 'warning', {
+        buttons: {
+          cancel: 'No!',
+          yes: true,
+        },
+      }).then((value) => {
+        switch (value) {
+          case 'yes':
+            axios.delete(`/orgadminlist/${item.id}/`).then(() => {
+              const tableData = _.cloneDeep(data)
+              const filteredData = tableData?.filter((it) => it?.id != item?.id)
+              setData(filteredData)
+            })
+            break
+
+          default:
+            break
+        }
+      })
     }
   }
 
   return (
     <div>
-      <div className='page-heading d-flex align-items-center text-dark fw-bold fs-3 my-0 justify-content-between py-3 py-lg-6'>
+      <div className='page-heading d-flex align-items-center text-dark fw-bold fs-3 my-0 justify-content-between py-3 py-lg-6 w-75 mx-auto'>
         {/* {toggle ? <h3>Edit User</h3> : <h3>Requests</h3>} */}
         {/* {toggle && <h3>Edit Org admin</h3>} */}
-        <h3>Organisation Admin</h3>
-        {/* {addAdmin && <h3>Add Organisation Admin</h3>} */}
+        <h3>Organization Admin</h3>
+        {/* {addAdmin && <h3>Add Organization Admin</h3>} */}
 
         {!toggle && !addAdmin && (
           <div
@@ -118,21 +117,21 @@ const OrgAdminTable = ({className}) => {
         <div className={`card ${className} mx-auto w-75 text-center`}>
           {/* <div className={`card ${className}`}> */}
           {/* begin::Body */}
-          <div className='card-body py-3 shadow bg-body rounded'>
+          <div className='card-body shadow'>
             {/* begin::Table container */}
             <div className='table-responsive'>
               {/* begin::Table */}
-              <table className='table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3'>
+              <table className='table table-striped table-row-bordered table-row-gray-100 align-middle gs-0 gy-3'>
                 {/* begin::Table head */}
-                <thead>
-                  <tr className='fw-bold text-muted'>
-                    <th className='min-w-140px'>First Name</th>
-                    <th className='min-w-140px'>Last Name</th>
-                    <th className='min-w-140px'>Email</th>
-                    <th className='min-w-140px'>Phone Number</th>
-                    <th className='min-w-140px'>Organization</th>
-                    <th className='w-20'>Status</th>
-                    <th className='min-w-140px'>Edit/ Delete</th>
+                <thead className='text-gray-900 bg-gray-300'>
+                  <tr className='fw-bold fs-6'>
+                    <th className='min-w-140px p-5'>First Name</th>
+                    <th className='min-w-140px p-5'>Last Name</th>
+                    <th className='min-w-140px p-5'>Email</th>
+                    <th className='min-w-140px p-5'>Phone Number</th>
+                    <th className='min-w-140px p-5'>Organization</th>
+                    <th className='w-20 p-5'>Status</th>
+                    <th className='min-w-140px p-5'>Edit/ Delete</th>
                     {/* <th className='min-w-120px'>Status</th> */}
                     {/* <th className='min-w-100px text-end'>Actions</th> */}
                   </tr>

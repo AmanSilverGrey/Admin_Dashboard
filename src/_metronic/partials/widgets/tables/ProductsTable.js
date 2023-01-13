@@ -28,22 +28,25 @@ const ProductsTable = ({className}) => {
 
   return (
     <>
-      <div className={`card ${className} shadow bg-body rounded w-75 mx-auto`}>
+      <div className='w-75 mx-auto'>
+        <h3>Products</h3>
+      </div>
+      <div className={`card ${className} shadow bg-body rounded w-75 mx-auto text-center my-10`}>
         {/* begin::Body */}
-        <div className='card-body py-3  '>
+        <div className='card-body'>
           {/* begin::Table container */}
           <div className='table-responsive'>
             {/* begin::Table */}
-            <table className='table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3'>
+            <table className='table table-striped table-row-bordered table-row-gray-100 align-middle gs-0 gy-3'>
               {/* begin::Table head */}
-              <thead>
-                <tr className='text-center p-10 fw-bold text-muted'>
-                  <th className='w-auto'>Product Name</th>
-                  <th className='w-auto'>Product Image</th>
-                  <th className='w-auto'>Organisation</th>
-                  <th className='w-auto'>Test for</th>
-                  <th className='w-auto'>SKU</th>
-                  <th className='w-auto'>Edit/ Delete</th>
+              <thead className='text-gray-900 bg-gray-300'>
+                <tr className='fw-bold fs-6'>
+                  <th className='w-auto p-5'>Product Name</th>
+                  <th className='w-auto p-5'>Product Image</th>
+                  <th className='w-auto p-5'>Organization</th>
+                  <th className='w-auto p-5'>Test for</th>
+                  <th className='w-auto p-5'>SKU</th>
+                  <th className='w-auto p-5'>Edit/ Delete</th>
                   {/* <th className='w-auto'>Status</th> */}
                   {/* <th className='min-w-100px text-end'>Actions</th> */}
                 </tr>
@@ -56,25 +59,25 @@ const ProductsTable = ({className}) => {
                 {data.map((item) => (
                   <tr key={item.id} className='text-justify'>
                     <td>
-                      <p className='text-dark fw-bold fs-6'>{item.Brand_Name}</p>
+                      <div className='text-dark fw-bold fs-6'>{item.Brand_Name}</div>
                     </td>
                     <td>
-                      <p className='text-dark fw-bold fs-6'>
+                      <div className='text-dark fw-bold fs-6'>
                         {item.Image_URL ? item.Image_URL : 'null'}
-                      </p>
+                      </div>
                     </td>
                     <td>
-                      <p className='text-dark fw-bold fs-6'>
+                      <div className='text-dark fw-bold fs-6'>
                         {item.organization.length > 0 ? item.organization : 'null'}
-                      </p>
+                      </div>
                     </td>
                     <td>
-                      <p className='text-dark fw-bold fs-6'>
+                      <div className='text-dark fw-bold fs-6'>
                         {item.test_for ? item.test_for : 'null'}
-                      </p>
+                      </div>
                     </td>
                     <td>
-                      <p className='text-dark fw-bold fs-6'>{item.SKU}</p>
+                      <div className='text-dark fw-bold fs-6'>{item.SKU}</div>
                     </td>
 
                     {/* <td className='text-dark fw-bold text-hover-primary fs-6'>$3560</td> */}
@@ -93,13 +96,13 @@ const ProductsTable = ({className}) => {
                       </a> */}
                       <a
                         href='#'
-                        className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
+                        className='btn btn-icon btn-bg-secondary btn-active-color-primary btn-sm me-1'
                       >
                         <KTSVG path='/media/icons/duotune/art/art005.svg' className='svg-icon-3' />
                       </a>
                       <a
                         href='#'
-                        className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'
+                        className='btn btn-icon btn-bg-secondary btn-active-color-primary btn-sm'
                       >
                         <KTSVG
                           path='/media/icons/duotune/general/gen027.svg'

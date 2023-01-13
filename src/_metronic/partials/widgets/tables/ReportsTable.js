@@ -40,7 +40,7 @@ const ReportsTable = ({className}) => {
                 <th className='min-w-120px'>Email</th>
                 <th className='min-w-120px'>Phone Number</th>
                 <th className='min-w-120px'>Phone Number</th>
-                <th className='min-w-120px'>Organisation</th>
+                <th className='min-w-120px'>Organization</th>
                 <th className='min-w-120px'>Status</th>
                 <th className='min-w-120px'>View / Edit/ Delete</th>
                 {/* <th className='min-w-120px'>Status</th> */}

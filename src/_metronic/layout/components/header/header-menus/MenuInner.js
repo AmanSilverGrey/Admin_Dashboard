@@ -20,14 +20,14 @@ export function MenuInner() {
       {/* 1 */}
       {currentUser?.type == 'SA' && <MenuItem title='Admin' to='/superadmin' />}
       {/* 2 */}
-      {currentUser?.type == 'SA' && <MenuItem title='Organisation Admin' to='/orgadmin' />}
+      {currentUser?.type == 'SA' && <MenuItem title='Organization Admin' to='/orgadmin' />}
       {/* 3 */}
 
       {currentUser?.type == 'SA' && <MenuItem title='Organization' to='/organization' />}
 
       {/* 4 */}
 
-      <MenuItem title='Products' to='/products' />
+      <MenuItem title='Products' to='/products' />  
 
       {/* 5 */}
 

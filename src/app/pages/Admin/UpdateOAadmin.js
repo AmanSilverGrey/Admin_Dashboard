@@ -40,7 +40,7 @@ const UpdateOAadmin = ({id, goback}) => {
       .patch(`/orgadminlist/${id}/`, UpdatedAdmin)
       .then((Response) => {
         console.log(Response.data)
-        showToast.success('Organisation Admin Updated!')
+        showToast.success('Organization Admin Updated!')
         goback()
       })
       .catch((error) => {
