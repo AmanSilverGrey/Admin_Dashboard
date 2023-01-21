@@ -1,6 +1,6 @@
 import axios from '../../FetchApi/Api'
 import {useEffect, useState} from 'react'
-import { showToast } from '../../customs/CustomModel'
+import {showToast} from '../../customs/CustomModel'
 
 const UpdateOrg = ({id, goback}) => {
   const [name, setName] = useState('')
@@ -57,7 +57,7 @@ const UpdateOrg = ({id, goback}) => {
   //Handling the form submit
   const handleSubmit = (e) => {
     e.preventDefault()
-    
+
     const UpdatedOrg = {
       name,
       primary_name,
@@ -75,7 +75,7 @@ const UpdateOrg = ({id, goback}) => {
     axios
       .patch(`/organization/${id}/`, UpdatedOrg)
       .then((Response) => {
-        console.log('aman');
+        console.log('aman')
         console.log(Response.data)
 
         showToast.success('Organization Updated!')
@@ -90,8 +90,13 @@ const UpdateOrg = ({id, goback}) => {
     <div className='w-50 mx-auto p-10 shadow  mb-5 bg-body rounded'>
       {/* <!--begin::Input group--> */}
       <br />
-      <h2 className='text-primary'>Add Organization</h2>
-      <br />
+      <h2 className='text-primary'>Update Organization</h2>
+      <div className='form-floating mb-7'>
+        <p className='text-muted'>
+          Fields marked with <span className='text-danger'>*</span> are required.
+        </p>
+      </div>
+
       <div className='form-floating mb-7'>
         <input
           type='text'
@@ -99,8 +104,10 @@ const UpdateOrg = ({id, goback}) => {
           id='floatingInput1'
           value={name}
           onChange={(e) => setName(e.target.value)}
+          required
+          pattern='\S(.*\S)?'
         />
-        <label htmlFor='floatingInput1'>Name</label>
+        <label htmlFor='floatingInput1'>Name <span className='text-danger'>*</span></label>
       </div>
 
       <div className='form-floating mb-7'>
@@ -110,8 +117,10 @@ const UpdateOrg = ({id, goback}) => {
           id='floatingInput1'
           value={primary_name}
           onChange={(e) => setPrimary_name(e.target.value)}
+          required
+          pattern='\S(.*\S)?'
         />
-        <label htmlFor='floatingInput1'>Primary name</label>
+        <label htmlFor='floatingInput1'>Primary name <span className='text-danger'>*</span></label>
       </div>
       <div className='form-floating mb-7'>
         <input
@@ -120,8 +129,10 @@ const UpdateOrg = ({id, goback}) => {
           id='floatingInput1'
           value={primary_title}
           onChange={(e) => setPrimay_title(e.target.value)}
+          required
+          pattern='\S(.*\S)?'
         />
-        <label htmlFor='floatingInput1'>Primary title</label>
+        <label htmlFor='floatingInput1'>Primary title <span className='text-danger'>*</span></label>
       </div>
       {/* Phone Number */}
       {/* <div className='form-floating mb-7'>
@@ -142,8 +153,10 @@ const UpdateOrg = ({id, goback}) => {
           id='floatingInput1'
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          required
+          pattern='\S(.*\S)?'
         />
-        <label htmlFor='floatingInput1'>Email</label>
+        <label htmlFor='floatingInput1'>Email <span className='text-danger'>*</span></label>
       </div>
       <div className='form-floating mb-7'>
         <input
@@ -152,8 +165,10 @@ const UpdateOrg = ({id, goback}) => {
           id='floatingInput1'
           value={address}
           onChange={(e) => setAddress(e.target.value)}
+          required
+          pattern='\S(.*\S)?'
         />
-        <label htmlFor='floatingInput1'>Address</label>
+        <label htmlFor='floatingInput1'>Address <span className='text-danger'>*</span></label>
       </div>
       <div className='form-floating mb-7'>
         <input
@@ -162,8 +177,10 @@ const UpdateOrg = ({id, goback}) => {
           id='floatingInput1'
           value={city}
           onChange={(e) => setCity(e.target.value)}
+          required
+          pattern='\S(.*\S)?'
         />
-        <label htmlFor='floatingInput1'>City</label>
+        <label htmlFor='floatingInput1'>City<span className='text-danger'>*</span></label>
       </div>
       <div className='form-floating mb-7'>
         <input
@@ -172,8 +189,10 @@ const UpdateOrg = ({id, goback}) => {
           id='floatingInput1'
           value={state}
           onChange={(e) => setState(e.target.value)}
+          required
+          pattern='\S(.*\S)?'
         />
-        <label htmlFor='floatingInput1'>State</label>
+        <label htmlFor='floatingInput1'>State<span className='text-danger'>*</span></label>
       </div>
       <div className='form-floating mb-7'>
         <input
@@ -182,8 +201,10 @@ const UpdateOrg = ({id, goback}) => {
           id='floatingInput1'
           value={zip}
           onChange={(e) => setZip(e.target.value)}
+          required
+          pattern='\S(.*\S)?'
         />
-        <label htmlFor='floatingInput1'>Zip</label>
+        <label htmlFor='floatingInput1'>Zip<span className='text-danger'>*</span></label>
       </div>
       {/* DropDown */}
       <div className='form-floating mb-7'>
@@ -194,15 +215,18 @@ const UpdateOrg = ({id, goback}) => {
           onChange={(e) => setOwner(e.target.value)}
           value={owner}
           required
+          pattern='\S(.*\S)?'
         >
-          <option value={''} dselected disabled hidden>Select Owner</option>
+          <option value={''} dselected disabled hidden>
+            Select Owner
+          </option>
           {oAname.map((item) => (
             <option key={item.id} value={item.id}>
               {item.first_name} {item.last_name}
             </option>
           ))}
         </select>
-        <label htmlFor='floatingSelect1'>Owner</label>
+        <label htmlFor='floatingSelect1'>Owner<span className='text-danger'>*</span></label>
       </div>
       {/* <!--end::Input group--> */}
 

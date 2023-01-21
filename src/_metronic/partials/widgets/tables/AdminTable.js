@@ -96,10 +96,10 @@ const AdminTable = ({className}) => {
 
   //Delete particluar user
 
+  const admin = currentUser?.phone
   const DeleteUser = (item) => {
     // swal('hello')
     console.log()
-    const admin = currentUser?.phone
     const text = 'Are you sure want to delete?'
 
     if (admin == item.phone) {
@@ -204,7 +204,7 @@ const AdminTable = ({className}) => {
                         {/* Status start*/}
                         <td key={item.id}>
                           <div className=''>
-                            {item.is_active && (
+                            {item.is_active && item?.phone != admin && (
                               <div>
                                 <span
                                   data-tip
@@ -226,7 +226,7 @@ const AdminTable = ({className}) => {
                                 </ReactTooltip>
                               </div>
                             )}
-                            {!item.is_active && (
+                            {!item.is_active && item?.phone != admin && (
                               <div>
                                 <span
                                   data-tip
@@ -243,8 +243,18 @@ const AdminTable = ({className}) => {
                                 </ReactTooltip>
                               </div>
                             )}
+
+                            {/* For admin */}
+                            {item.is_active && item?.phone == admin && (
+                              <div className='badge badge-light-success  '>Active</div>
+                            )}
+                            {!item.is_active && item?.phone == admin && (
+                              <div className='badge badge-light-danger '>Deactivated</div>
+                            )}
                           </div>
+                          {/* For admin ends */}
                         </td>
+
                         {/* Status ends*/}
                         <td className=''>
                           {/* <a

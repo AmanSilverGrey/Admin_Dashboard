@@ -36,11 +36,30 @@ const OrgAdminTable = ({className}) => {
     setToggle(item.id)
   }
 
-  // Handle AprroveDeactive
-  const handleApprove = (item) => {
+  // Handle Aprrove Aactive
+  const handleApproveActive = (item) => {
     // console.log(is_active)
     console.log(active)
-    const editActive = {is_active: active}
+    const editActive = {is_active: true}
+    axios
+      .patch(`/orgadminlist/${item.id}/`, editActive)
+      .then((Response) => {
+        // const tableData = _.cloneDeep(data)
+        const tableData = [...data]
+        const itemIndex = tableData?.findIndex((it) => it?.id == item?.id)
+        tableData[itemIndex] = Response.data
+        setData(tableData)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  // Handle Aprrove Deactive
+  const handleApproveDeactive = (item) => {
+    // console.log(is_active)
+    console.log(active)
+    const editActive = {is_active: false}
     axios
       .patch(`/orgadminlist/${item.id}/`, editActive)
       .then((Response) => {
@@ -170,8 +189,8 @@ const OrgAdminTable = ({className}) => {
                                 data-for='Deactivate'
                                 className='badge badge-light-success cursor-pointer '
                                 onClick={() => {
-                                  setActive(false)
-                                  handleApprove(item)
+                                  // setActive(false)
+                                  handleApproveDeactive(item)
                                 }}
                               >
                                 Admin is active
@@ -188,8 +207,8 @@ const OrgAdminTable = ({className}) => {
                                 data-for='Activate'
                                 className='badge badge-light-danger cursor-pointer'
                                 onClick={() => {
-                                  setActive(true)
-                                  handleApprove(item)
+                                  // setActive(true)
+                                  handleApproveActive(item)
                                 }}
                               >
                                 Admin deactivated

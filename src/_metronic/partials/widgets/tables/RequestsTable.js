@@ -206,7 +206,7 @@ const RequestsTable = ({className}) => {
 
   return (
     <>
-      <div className='page-heading d-flex align-items-center text-dark fw-bold fs-3 my-0 justify-content-between py-3 py-lg-6'>
+      <div className='page-heading d-flex align-items-center text-dark fw-bold fs-3 my-0 justify-content-between py-3 py-lg-6 w-sm-75 mx-auto'>
         {/* {toggle ? <h3>Edit User</h3> : <h3>Requests</h3>} */}
         {/* {toggle && <h3>Edit User</h3>} */}
         <h3>Requests</h3>
@@ -231,7 +231,7 @@ const RequestsTable = ({className}) => {
         )}
       </div>
       {!toggle && !addUser && showTable && (
-        <div className='shadow bg-body rounded text-center'>
+        <div className='shadow bg-body rounded text-center w-sm-75 mx-auto'>
           <div className={`card ${className}`}>
             {/* <div className={`card ${className}`}> */}
             {/* begin::Body */}
@@ -381,7 +381,12 @@ const RequestsTable = ({className}) => {
         <div className='w-50 mx-auto p-10 shadow  mb-5 bg-body rounded'>
           <br />
           <h2 className='text-primary'>Edit user </h2>
-          <br />
+          <div className='form-floating mb-7'>
+            <p className='text-muted'>
+              Fields marked with <span className='text-danger'>*</span> are required.
+            </p>
+          </div>
+
           <div className='form-floating mb-7'>
             <input
               type='text'
@@ -389,8 +394,12 @@ const RequestsTable = ({className}) => {
               id='floatingInput1'
               value={first_name}
               onChange={(e) => setFirst_name(e.target.value)}
+              required
+              pattern='\S(.*\S)?'
             />
-            <label htmlFor='floatingInput1'>First Name</label>
+            <label htmlFor='floatingInput1'>
+              First Name<span className='text-danger'>*</span>
+            </label>
           </div>
           <div className='form-floating mb-7'>
             <input
@@ -400,7 +409,9 @@ const RequestsTable = ({className}) => {
               value={last_name}
               onChange={(e) => setLast_name(e.target.value)}
             />
-            <label htmlFor='floatingInput1'>Last Name</label>
+            <label htmlFor='floatingInput1'>
+              Last Name
+            </label>
           </div>
           <div className='form-floating mb-7'>
             <input
@@ -409,8 +420,12 @@ const RequestsTable = ({className}) => {
               id='floatingInput1'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
+              pattern='\S(.*\S)?'
             />
-            <label htmlFor='floatingInput1'>Email</label>
+            <label htmlFor='floatingInput1'>
+              Email<span className='text-danger'>*</span>
+            </label>
           </div>
 
           {/* <div className='form-floating mb-7'>
@@ -434,6 +449,7 @@ const RequestsTable = ({className}) => {
               onChange={(e) => setSelectOrg(e.target.value)}
               value={selectOrg}
               required
+              pattern='\S(.*\S)?'
             >
               <option value={''} dselected disabled hidden>
                 {selectOrg}
@@ -444,7 +460,9 @@ const RequestsTable = ({className}) => {
                 </option>
               ))}
             </select>
-            <label htmlFor='floatingSelect1'>Organization name</label>
+            <label htmlFor='floatingSelect1'>
+              Organization name<span className='text-danger'>*</span>
+            </label>
           </div>
 
           <div className='col-md-12 text-center d-flex gap-10'>

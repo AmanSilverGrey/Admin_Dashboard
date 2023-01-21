@@ -1,7 +1,6 @@
 import axios from '../../FetchApi/Api'
 import {useEffect, useState} from 'react'
-import { showToast } from '../../customs/CustomModel'
-
+import {showToast} from '../../customs/CustomModel'
 
 const UpdateAdmin = ({id, goback}) => {
   const [first_name, setFirst_name] = useState('')
@@ -36,7 +35,7 @@ const UpdateAdmin = ({id, goback}) => {
       first_name,
       last_name,
       phone,
-      email
+      email,
     }
     axios
       .patch(`/superadminlist/${id}/`, UpdatedAdmin)
@@ -65,6 +64,7 @@ const UpdateAdmin = ({id, goback}) => {
             value={first_name}
             onChange={(e) => setFirst_name(e.target.value)}
             required
+            pattern='\S(.*\S)?'
           />
           <label htmlFor='floatingInput1'>
             Name <span className='text-danger'>*</span>
@@ -89,6 +89,7 @@ const UpdateAdmin = ({id, goback}) => {
             id='floatingInput1'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            pattern='\S(.*\S)?'
           />
           <label htmlFor='floatingInput1'>Email</label>
         </div>
@@ -101,6 +102,8 @@ const UpdateAdmin = ({id, goback}) => {
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             required
+            pattern='[+]{1}[0-9]{1}[0-9]{10}'
+            title='eg. +1XXXXXXXXXX'
           />
           <label htmlFor='floatingInput1'>
             Phone no. <span className='text-danger'>*</span>

@@ -142,11 +142,11 @@ const Login = () => {
                 type='tel'
                 className='form-control bg-light'
                 id='phoneNumberInput'
-                aria-describedby='emailHelp'
                 value={phone}
                 maxLength={15}
                 minLength={10}
                 onChange={(e) => setPhone(e.target.value)}
+                pattern='[+]{1}[0-9]{2}[0-9]{10}'
               />
             </div>
             {expandForm && (

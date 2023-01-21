@@ -6,16 +6,47 @@ import {Languages} from './Languages'
 import {toAbsoluteUrl} from '../../../helpers'
 import {signOut} from 'firebase/auth'
 import {auth} from '../../../../app/modules/auth/firebase'
-import { json } from 'node:stream/consumers'
+import {BroadcastChannel} from 'broadcast-channel'
 import user from '../../../layout/components/header/header-menus/Assests/user.png'
+// import {BroadcastChannel} from 'broadcast-channel'
 
-const HeaderUserMenu: FC = () => {
-  const {currentUser, setCurrentUser, logout} = useAuth()
+// const logoutChannel = new BroadcastChannel('logoutMsg')
+
+// export const logoutMsg = () => {
+//   logoutChannel.postMessage('Logout')
+// }
+
+// export const logoutAllTabs = () => {
+//   logoutChannel.onmessage = () => {
+//     logoutMsg()
+//     logoutChannel.close()
+//   }
+// }
+
+const logoutChannel = new BroadcastChannel('logout')
+
+export const logout = () => {
+  localStorage.removeItem('user')
+  localStorage.removeItem('User-Details')
+  localStorage.removeItem('Developers')
+  console.log('User log out')
+  window.location.reload()
+  logoutChannel.postMessage('Logout')
+}
+
+export const logoutAllTabs = () => {
+  logoutChannel.onmessage = () => {
+    logout()
+    logoutChannel.close()
+  }
+}
+
+const HeaderUserMenu = () => {
+  // const {currentUser, setCurrentUser, logout} = useAuth()
   const UserDetails = localStorage.getItem('User-Details')
-  const userdata = JSON.parse(JSON.parse(JSON.stringify(UserDetails)));
-//  console.log(userdata);
- 
-  
+  const userdata = JSON.parse(JSON.parse(JSON.stringify(UserDetails)))
+  //  console.log(userdata);
+
   return (
     <div
       className='menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px shadow'
@@ -30,7 +61,9 @@ const HeaderUserMenu: FC = () => {
           <div className='d-flex flex-column '>
             <div className='fw-bolder d-flex align-items-center fs-5'>
               {userdata?.firstname} {userdata?.lastname}
-              <span className='badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2'>{userdata?.type}</span>
+              <span className='badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2'>
+                {userdata?.type}
+              </span>
             </div>
             <a href='#' className='fw-bold text-muted text-hover-primary fs-7'>
               {/* {currentUser?.email} */}

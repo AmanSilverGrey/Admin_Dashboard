@@ -43,7 +43,7 @@ const AddAdmin = ({goback}) => {
       <br />
       <h2 className='text-primary'>Add Super Admin</h2>
       <p className='text-muted'>
-        Feilds marked with <span className='text-danger'>*</span> are required.
+        Fields marked with <span className='text-danger'>*</span> are required.
       </p>
       <br />
       <form onSubmit={handleSubmit}>
@@ -55,6 +55,7 @@ const AddAdmin = ({goback}) => {
             value={first_name}
             onChange={(e) => setFirst_name(e.target.value)}
             required
+            pattern='\S(.*\S)?'
           />
           <label htmlFor='floatingInput1'>
             First Name <span className='text-danger'>*</span>
@@ -80,6 +81,7 @@ const AddAdmin = ({goback}) => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            pattern='\S(.*\S)?'
           />
           <label htmlFor='floatingInput1'>
             Email <span className='text-danger'>*</span>
@@ -89,12 +91,14 @@ const AddAdmin = ({goback}) => {
           <input
             type='tel'
             required
+            pattern='[+]{1}[0-9]{1}[0-9]{10}'
             className='form-control form-control-solid bg-light'
             id='floatingInput1'
             value={phone}
             maxLength={15}
             minLength={10}
             onChange={(e) => setPhone(e.target.value)}
+            title='eg. +1XXXXXXXXXX'
           />
           <label htmlFor='floatingInput1'>
             Phone no. <span className='text-danger'>*</span>

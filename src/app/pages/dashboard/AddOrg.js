@@ -81,7 +81,7 @@ const AddOrg = ({goback}) => {
         <h2 className='text-primary'>Add organization </h2>
         <div className='form-floating mb-7'>
           <p className='text-muted'>
-            Feilds marked with <span className='text-danger'>*</span> are required.
+            Fields marked with <span className='text-danger'>*</span> are required.
           </p>
         </div>
         <br />
@@ -95,6 +95,7 @@ const AddOrg = ({goback}) => {
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
+            pattern='\S(.*\S)?'
           />
           <label htmlFor='floatingInput1'>
             Name <span className='text-danger'>*</span>
@@ -109,6 +110,7 @@ const AddOrg = ({goback}) => {
             value={primary_name}
             onChange={(e) => setPrimary_name(e.target.value)}
             required
+            pattern='\S(.*\S)?'
           />
           <label htmlFor='floatingInput1'>
             Primary name <span className='text-danger'>*</span>
@@ -123,6 +125,7 @@ const AddOrg = ({goback}) => {
             value={primary_title}
             onChange={(e) => setPrimay_title(e.target.value)}
             required
+            pattern='\S(.*\S)?'
           />
           <label htmlFor='floatingInput1'>
             Primary title <span className='text-danger'>*</span>
@@ -137,8 +140,10 @@ const AddOrg = ({goback}) => {
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             required
+            pattern='[+]{1}[0-9]{1}[0-9]{10}'
             maxLength={15}
             minLength={10}
+            title='eg. +1XXXXXXXXXX'
           />
           <label htmlFor='floatingInput1'>
             Phone no. <span className='text-danger'>*</span>{' '}
@@ -154,6 +159,7 @@ const AddOrg = ({goback}) => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            pattern='\S(.*\S)?'
           />
           <label htmlFor='floatingInput1'>
             Email <span className='text-danger'>*</span>
@@ -169,6 +175,7 @@ const AddOrg = ({goback}) => {
             value={address}
             onChange={(e) => setAddress(e.target.value)}
             required
+            pattern='\S(.*\S)?'
           />
           <label htmlFor='floatingInput1'>
             Address <span className='text-danger'>*</span>
@@ -183,6 +190,7 @@ const AddOrg = ({goback}) => {
             value={city}
             onChange={(e) => setCity(e.target.value)}
             required
+            pattern='\S(.*\S)?'
           />
           <label htmlFor='floatingInput1'>
             City <span className='text-danger'>*</span>
@@ -197,6 +205,7 @@ const AddOrg = ({goback}) => {
             value={state}
             onChange={(e) => setState(e.target.value)}
             required
+            pattern='\S(.*\S)?'
           />
           <label htmlFor='floatingInput1'>
             State <span className='text-danger'>*</span>
@@ -211,6 +220,7 @@ const AddOrg = ({goback}) => {
             value={zip}
             onChange={(e) => setZip(e.target.value)}
             required
+            pattern='\S(.*\S)?'
           />
           <label htmlFor='floatingInput1'>
             Zip <span className='text-danger'>*</span>
@@ -229,6 +239,7 @@ const AddOrg = ({goback}) => {
               setOwner(e.target.value)
             }}
             // required
+            pattern='\S(.*\S)?'
           >
             <option value={''} dselected disabled hidden>
               {'Select Org Admin'}

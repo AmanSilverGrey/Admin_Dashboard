@@ -144,7 +144,7 @@ const TablesWidget13 = ({className}) => {
                           </td>
                           <td>
                             <div className='text-dark fw-bold fs-6'>
-                              {item.owner_fname} {item.owner_lname}
+                              {item.owner_fname ?? null} {item.owner_lname ?? null}
                             </div>
                           </td>
                           <td>

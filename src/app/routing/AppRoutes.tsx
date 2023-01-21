@@ -21,6 +21,8 @@ const {PUBLIC_URL} = process.env
 
 const AppRoutes: FC = () => {
   const {currentUser} = useAuth()
+  console.log('currrent', currentUser)
+
   // const item = true;
 
   // const getLocalItems = () => {
@@ -47,7 +49,7 @@ const AppRoutes: FC = () => {
             // item
             <>
               <Route path='/*' element={<PrivateRoutes />} />
-              <Route index element={<Navigate to='/' />} />
+              <Route index element={<Navigate to='/requests' />} />
             </>
           ) : (
             <>
