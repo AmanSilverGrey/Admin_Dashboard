@@ -19,9 +19,8 @@ import {AuthProvider, setupAxios} from './app/modules/auth'
 // import { initializeApp } from 'firebase/app'
 // import { firebaseConfig } from './app/modules/auth/firebase-config'
 
-
 // initializeApp(firebaseConfig)
- 
+
 /**
  * Creates `axios-mock-adapter` instance for provided `axios` instance, add
  * basic Metronic mocks and returns it.

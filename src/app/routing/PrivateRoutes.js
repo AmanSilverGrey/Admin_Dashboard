@@ -1,4 +1,4 @@
-import {lazy, FC, Suspense} from 'react'
+import {lazy, FC, Suspense, useEffect} from 'react'
 import {Route, Routes, Navigate} from 'react-router-dom'
 import {MasterLayout} from '../../_metronic/layout/MasterLayout'
 import TopBarProgress from 'react-topbar-progress-indicator'
@@ -12,12 +12,12 @@ import Requests from '../pages/Requests/Requests'
 import OrgAdmin from '../pages/Admin/OrgAdmin'
 import SuperAdmin from '../pages/Admin/SuperAdmin'
 import {userdata} from '../LocalStorage/UserDetails'
-import { useAuth } from '../modules/auth'
+import {useAuth} from '../modules/auth'
 
 const PrivateRoutes = () => {
-  const {currentUser}= useAuth();
+  const {currentUser} = useAuth()
   // console.log('Aman :', currentUser);
-  
+
   const ProfilePage = lazy(() => import('../modules/profile/ProfilePage'))
   const WizardsPage = lazy(() => import('../modules/wizards/WizardsPage'))
   const AccountPage = lazy(() => import('../modules/accounts/AccountPage'))
@@ -54,7 +54,6 @@ const PrivateRoutes = () => {
         {/* Org Admin */}
 
         {currentUser?.type == 'SA' && <Route path='orgadmin' element={<SuperAdmin />} />}
-
 
         {/* Lazy Modules */}
         <Route
@@ -116,7 +115,7 @@ const SuspensedView = ({children}) => {
   const baseColor = getCSSVariableValue('--kt-primary')
   TopBarProgress.config({
     barColors: {
-      '0': baseColor,
+      0: baseColor,
     },
     barThickness: 1,
     shadowBlur: 5,

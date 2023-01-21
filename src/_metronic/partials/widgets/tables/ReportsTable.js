@@ -118,7 +118,7 @@ const ReportsTable = ({className}) => {
             {/* begin::Table container */}
             <div className='table-responsive'>
               {/* begin::Table */}
-              <table className='table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3'>
+              <table className='table table-striped table-row-bordered table-row-gray-100 align-middle gs-0 gy-3'>
                 {/* begin::Table head */}
                 <thead>
                   <tr className='fw-bold text-muted'>
@@ -135,7 +135,7 @@ const ReportsTable = ({className}) => {
                   </tr>
                 </thead>
                 {/* end::Table head */}
-                <h3>Data not available</h3>
+                <h3 className='text-center'>Data not available</h3>
                 {/* begin::Table body */}
                 <tbody>
                   {data.map((item) => (

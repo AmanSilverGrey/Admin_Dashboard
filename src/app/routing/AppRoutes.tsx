@@ -23,21 +23,6 @@ const AppRoutes: FC = () => {
   const {currentUser} = useAuth()
   console.log('currrent', currentUser)
 
-  // const item = true;
-
-  // const getLocalItems = () => {
-  //   const data = localStorage.getItem('user')
-  //   console.log(data)
-
-  //   if (data && data.length) {
-  //     setItems(true)
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   getLocalItems()
-  // }, [])
-
   return (
     <BrowserRouter basename='/'>
       <Routes>

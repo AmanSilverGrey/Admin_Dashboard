@@ -1,4 +1,5 @@
-import {useEffect} from 'react'
+import axios from '../../app/FetchApi/Api'
+import {useEffect, useState} from 'react'
 import {Outlet, useLocation} from 'react-router-dom'
 import {HeaderWrapper} from './components/header'
 // import {RightToolbar} from '../partials/layout/RightToolbar'
@@ -12,15 +13,35 @@ import {
   InviteUsers,
   UpgradePlan,
   ThemeModeProvider,
+  logout,
 } from '../partials'
 import {PageDataProvider} from './core'
 import {reInitMenu} from '../helpers'
 import {ToolbarWrapper} from './components/toolbar'
 
 const MasterLayout = () => {
+  // To check user is active or not
+  const [adminActive, setAdminActive] = useState(null)
+  const LocalStorageData = JSON.parse(localStorage.getItem('User-Details'))
+  const userType = LocalStorageData?.id
+
   const location = useLocation()
+
   useEffect(() => {
     reInitMenu()
+    axios
+      .get('/superadminlist/')
+      .then((response) => {
+        const AdminData = response?.data?.data
+        // console.log('Unfiltered', AdminData)
+        const filteredAdminData = AdminData.filter((active) => active?.id == userType)
+        {
+          filteredAdminData[0].is_active == false && logout()
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }, [location.key])
 
   return (
