@@ -6,7 +6,6 @@ const Reports: FC = () => {
   return (
     <>
       <PageTitle breadcrumbs={[]}>Reports</PageTitle>
-
       <ReportsTable className='' />
     </>
   )

@@ -90,8 +90,11 @@ const UpdateAdmin = ({id, goback}) => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             pattern='\S(.*\S)?'
+            required
           />
-          <label htmlFor='floatingInput1'>Email</label>
+          <label htmlFor='floatingInput1'>
+            Email<span className='text-danger'> *</span>
+          </label>
         </div>
 
         <div className='form-floating mb-7'>
@@ -104,6 +107,8 @@ const UpdateAdmin = ({id, goback}) => {
             required
             pattern='[+]{1}[0-9]{1}[0-9]{10}'
             title='eg. +1XXXXXXXXXX'
+            min={12}
+            max = {12}
           />
           <label htmlFor='floatingInput1'>
             Phone no. <span className='text-danger'>*</span>

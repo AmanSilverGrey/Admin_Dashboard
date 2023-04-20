@@ -126,7 +126,7 @@ const OrgAdminTable = ({className}) => {
                 setAddAdmin((addAdmin) => !addAdmin)
               }}
             >
-              Add organizationg admin
+              Add Organization admin
             </span>
           </div>
         )}

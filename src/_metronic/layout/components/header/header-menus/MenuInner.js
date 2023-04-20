@@ -18,7 +18,7 @@ export function MenuInner() {
          and PPE Solutions</figcaption> */}
       </figure>
       {/* 1 */}
-      {currentUser?.type == 'SA' && <MenuItem title='Admins' to='/superadmin' />}
+      {currentUser?.type == 'SA' && <MenuItem title='Super Admin' to='/superadmin' />}
       {/* 2 */}
       {currentUser?.type == 'SA' && <MenuItem title='Organization Admin' to='/orgadmin' />}
       {/* 3 */}
