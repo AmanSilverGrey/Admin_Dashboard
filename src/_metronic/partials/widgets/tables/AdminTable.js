@@ -98,8 +98,6 @@ const AdminTable = ({className}) => {
 
   const admin = currentUser?.phone
   const DeleteUser = (item) => {
-    // swal('hello')
-    console.log()
     const text = 'Are you sure want to delete?'
 
     if (admin == item.phone) {

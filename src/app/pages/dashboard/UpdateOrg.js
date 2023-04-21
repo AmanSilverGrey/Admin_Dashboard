@@ -17,6 +17,8 @@ const UpdateOrg = ({id, goback}) => {
   const [oAname, setOAname] = useState([])
   // const [ownerName, setOwnerName] = useState('')
 
+  console.log('Org id', id)
+
   const api = async () => {
     await axios
       .get(`/organization/${id}/`)
@@ -75,7 +77,6 @@ const UpdateOrg = ({id, goback}) => {
     axios
       .patch(`/organization/${id}/`, UpdatedOrg)
       .then((Response) => {
-        console.log('aman')
         console.log(Response.data)
 
         showToast.success('Organization Updated!')
@@ -107,7 +108,9 @@ const UpdateOrg = ({id, goback}) => {
           required
           pattern='\S(.*\S)?'
         />
-        <label htmlFor='floatingInput1'>Name <span className='text-danger'>*</span></label>
+        <label htmlFor='floatingInput1'>
+          Name <span className='text-danger'>*</span>
+        </label>
       </div>
 
       <div className='form-floating mb-7'>
@@ -120,7 +123,9 @@ const UpdateOrg = ({id, goback}) => {
           required
           pattern='\S(.*\S)?'
         />
-        <label htmlFor='floatingInput1'>Primary name <span className='text-danger'>*</span></label>
+        <label htmlFor='floatingInput1'>
+          Primary name <span className='text-danger'>*</span>
+        </label>
       </div>
       <div className='form-floating mb-7'>
         <input
@@ -132,7 +137,9 @@ const UpdateOrg = ({id, goback}) => {
           required
           pattern='\S(.*\S)?'
         />
-        <label htmlFor='floatingInput1'>Primary title <span className='text-danger'>*</span></label>
+        <label htmlFor='floatingInput1'>
+          Primary title <span className='text-danger'>*</span>
+        </label>
       </div>
       {/* Phone Number */}
       {/* <div className='form-floating mb-7'>
@@ -156,7 +163,9 @@ const UpdateOrg = ({id, goback}) => {
           required
           pattern='\S(.*\S)?'
         />
-        <label htmlFor='floatingInput1'>Email <span className='text-danger'>*</span></label>
+        <label htmlFor='floatingInput1'>
+          Email <span className='text-danger'>*</span>
+        </label>
       </div>
       <div className='form-floating mb-7'>
         <input
@@ -168,7 +177,9 @@ const UpdateOrg = ({id, goback}) => {
           required
           pattern='\S(.*\S)?'
         />
-        <label htmlFor='floatingInput1'>Address <span className='text-danger'>*</span></label>
+        <label htmlFor='floatingInput1'>
+          Address <span className='text-danger'>*</span>
+        </label>
       </div>
       <div className='form-floating mb-7'>
         <input
@@ -180,7 +191,9 @@ const UpdateOrg = ({id, goback}) => {
           required
           pattern='\S(.*\S)?'
         />
-        <label htmlFor='floatingInput1'>City<span className='text-danger'>*</span></label>
+        <label htmlFor='floatingInput1'>
+          City<span className='text-danger'>*</span>
+        </label>
       </div>
       <div className='form-floating mb-7'>
         <input
@@ -192,7 +205,9 @@ const UpdateOrg = ({id, goback}) => {
           required
           pattern='\S(.*\S)?'
         />
-        <label htmlFor='floatingInput1'>State<span className='text-danger'>*</span></label>
+        <label htmlFor='floatingInput1'>
+          State<span className='text-danger'>*</span>
+        </label>
       </div>
       <div className='form-floating mb-7'>
         <input
@@ -204,7 +219,9 @@ const UpdateOrg = ({id, goback}) => {
           required
           pattern='\S(.*\S)?'
         />
-        <label htmlFor='floatingInput1'>Zip<span className='text-danger'>*</span></label>
+        <label htmlFor='floatingInput1'>
+          Zip<span className='text-danger'>*</span>
+        </label>
       </div>
       {/* DropDown */}
       <div className='form-floating mb-7'>
@@ -226,7 +243,9 @@ const UpdateOrg = ({id, goback}) => {
             </option>
           ))}
         </select>
-        <label htmlFor='floatingSelect1'>Owner<span className='text-danger'>*</span></label>
+        <label htmlFor='floatingSelect1'>
+          Owner<span className='text-danger'>*</span>
+        </label>
       </div>
       {/* <!--end::Input group--> */}
 

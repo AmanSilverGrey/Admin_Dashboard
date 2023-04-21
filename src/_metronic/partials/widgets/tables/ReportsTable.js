@@ -35,14 +35,12 @@ const ReportsTable = ({className}) => {
 
   useEffect(() => {
     //Org list dropdown
-
     //table data
     axios
       .get(
         `reports/?product_sku=${productId}&organization_id=${orgId}&user=${userId}&from_date=${fromDate}&to_date=${toDate}`
       )
       .then((response) => {
-        console.log('Reports Data', response?.data?.results)
         setTableData(response?.data)
       })
   }, [orgId, searchOrgTerm, userId, searchUserTerm, fromDate, toDate, searchProductTerm])
@@ -120,12 +118,12 @@ const ReportsTable = ({className}) => {
   return (
     <>
       {!openDetailCard?.value && (
-        <div className='w-75 mx-auto'>
+        <div className='w-sm-75 w-100 mx-auto'>
           <h3>Reports</h3>
-          <div className='d-flex justify-content-around my-sm-5 fw-bold'>
+          <div className='d-flex flex-wrap justify-content-around my-5 fw-bold'>
             <div className=''>
               <span className='me-5'>From</span>
-              <span className='mr-3'>
+              <span className=''>
                 <input
                   className='p-3 border border-secondary rounded-1 cursor-pointer '
                   type='date'
@@ -139,7 +137,10 @@ const ReportsTable = ({className}) => {
                 <input
                   className='p-3 border border-secondary rounded-1 '
                   type='date'
-                  onChange={(e) => setToDate(moment(e.target.value).format('DD-MM-YYYY'))}
+                  onChange={(e) => (
+                    setToDate(moment(e.target.value).format('DD-MM-YYYY')),
+                    console.log('Date', e.target.value)
+                  )}
                 />
               </span>
             </div>

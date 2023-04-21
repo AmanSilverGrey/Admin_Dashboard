@@ -76,7 +76,7 @@ const HeaderUserMenu = () => {
 
       <div className='menu-item px-5 text-center '>
         <span
-          className='badge badge-light-danger fw-bolder fs-8 px-2 py-1 ms-2 cursor-pointer shadow'
+          className='btn bg-danger bg-opacity-10 shadow-sm fw-bold py-1 text-danger bg-hover-danger text-hover-white'
           onClick={logout}
         >
           Log out
