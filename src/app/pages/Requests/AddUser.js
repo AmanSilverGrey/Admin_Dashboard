@@ -30,7 +30,6 @@ const AddUser = ({goback, setShowTable}) => {
   //Hnadling the form submit and posting it to the jason(database)
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(selectedOrg)
     const org = orgList.find((item) => item?.id == selectedOrg.replace(/[^\d]/g, ''))
     const AddUser = {first_name, last_name, email, phone, org: org?.id}
     axios

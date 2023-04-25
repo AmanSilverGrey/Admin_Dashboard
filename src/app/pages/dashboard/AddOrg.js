@@ -40,7 +40,6 @@ const AddOrg = ({goback}) => {
   //Hnadling the form submit and posting it to the jason(database)
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(owner)
 
     const addedOrg = {
       name,

@@ -17,7 +17,6 @@ const UpdateOrg = ({id, goback}) => {
   const [oAname, setOAname] = useState([])
   // const [ownerName, setOwnerName] = useState('')
 
-  console.log('Org id', id)
 
   const api = async () => {
     await axios
@@ -77,7 +76,6 @@ const UpdateOrg = ({id, goback}) => {
     axios
       .patch(`/organization/${id}/`, UpdatedOrg)
       .then((Response) => {
-        console.log(Response.data)
 
         showToast.success('Organization Updated!')
         goback()

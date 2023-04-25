@@ -28,7 +28,6 @@ const EditProduct = ({close, id}) => {
         setSkuValue(Response?.data?.SKU)
         setProduct_indus(Response?.data?.Product_Industry)
         setproductImage(Response?.data?.Image_URL)
-        console.log('image', productImage)
       })
       .catch((Error) => {
         console.log(Error)
@@ -68,7 +67,6 @@ const EditProduct = ({close, id}) => {
     axios
       .patch(`/products/${id}/`, formData)
       .then((Response) => {
-        console.log('respnse', Response.data)
         close()
         showToast.success('Product updated!')
       })

@@ -39,7 +39,6 @@ const OrgAdminTable = ({className}) => {
   // Handle Aprrove Aactive
   const handleApproveActive = (item) => {
     // console.log(is_active)
-    console.log(active)
     const editActive = {is_active: true}
     axios
       .patch(`/orgadminlist/${item.id}/`, editActive)
@@ -58,7 +57,6 @@ const OrgAdminTable = ({className}) => {
   // Handle Aprrove Deactive
   const handleApproveDeactive = (item) => {
     // console.log(is_active)
-    console.log(active)
     const editActive = {is_active: false}
     axios
       .patch(`/orgadminlist/${item.id}/`, editActive)
@@ -150,7 +148,9 @@ const OrgAdminTable = ({className}) => {
                     <th className='min-w-140px p-5'>Phone Number</th>
                     <th className='min-w-140px p-5'>Organization</th>
                     <th className='w-20 p-5'>Status</th>
-                    <th className='min-w-140px p-5'>Edit/ Delete</th>
+                    <th className='min-w-140px p-5'>Edit
+                    {/* / Delete */}
+                    </th>
                     {/* <th className='min-w-120px'>Status</th> */}
                     {/* <th className='min-w-100px text-end'>Actions</th> */}
                   </tr>
@@ -243,7 +243,7 @@ const OrgAdminTable = ({className}) => {
                             className='svg-icon-3'
                           />
                         </div>
-                        <div
+                        {/* <div 
                           onClick={() => DeleteUser(item)}
                           className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'
                         >
@@ -251,7 +251,7 @@ const OrgAdminTable = ({className}) => {
                             path='/media/icons/duotune/general/gen027.svg'
                             className='svg-icon-3'
                           />
-                        </div>
+                        </div> */}
                       </td>
                     </tr>
                   ))}
@@ -270,7 +270,7 @@ const OrgAdminTable = ({className}) => {
           <AddOAdmin goback={setAddAdmin} Goback={setAddAdmin} />
         </div>
       )}
-      {toggle && <UpdateOAadmin id={toggle} goback={setToggle} />}
+      {toggle && <UpdateOAadmin id={toggle} goback={setToggle}  />}
     </div>
   )
 }

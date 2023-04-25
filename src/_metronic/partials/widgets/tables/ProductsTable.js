@@ -21,7 +21,6 @@ const ProductsTable = ({className}) => {
 
   const api = async () => {
     await axios.get(`/product/?page=${pgNo}`).then((response) => {
-      console.log('Product', response.data.results)
       setData(response.data.results)
       setTotalpage(Math.ceil(response.data.count / 50))
     })

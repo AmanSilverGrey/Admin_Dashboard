@@ -59,15 +59,15 @@ const AdminTable = ({className}) => {
   }
 
   // Handle AprroveDeactive
-  const handleApproveDeactive = (item) => {
-    // console.log(is_active)
-    const editActive = {is_active: false}
+  const handleApprove = (id, isActive) => {
+    // console.log('Active', item?.is_active)
+    const editActive = {is_active: isActive ? false : true}
     axios
-      .patch(`/superadminlist/${item.id}/`, editActive)
+      .patch(`/superadminlist/${id}/`, editActive)
       .then((Response) => {
         // const tableData = _.cloneDeep(data)
         const tableData = [...data]
-        const itemIndex = tableData?.findIndex((it) => it?.id == item?.id)
+        const itemIndex = tableData?.findIndex((it) => it?.id == id)
         tableData[itemIndex] = Response.data
         setData(tableData)
       })
@@ -174,7 +174,10 @@ const AdminTable = ({className}) => {
                       <th className='w-20 p-5'>Email</th>
                       <th className='w-20 p-5'>Phone Number</th>
                       <th className='w-20 p-5'>Status</th>
-                      <th className='w-20 p-5'>Edit/ Delete</th>
+                      <th className='w-20 p-5'>
+                        Edit
+                        {/* / Delete */}
+                      </th>
                       {/* <th className='min-w-120px'>Status</th> */}
                       {/* <th className='min-w-100px text-end'>Actions</th> */}
                     </tr>
@@ -209,7 +212,7 @@ const AdminTable = ({className}) => {
                                   data-for='Deactivate'
                                   className='badge badge-light-success cursor-pointer '
                                   onClick={() => {
-                                    handleApproveDeactive(item)
+                                    handleApprove(item.id, item.is_active)
                                   }}
                                 >
                                   Admin is active
@@ -231,7 +234,7 @@ const AdminTable = ({className}) => {
                                   data-for='Activate'
                                   className='badge badge-light-danger cursor-pointer'
                                   onClick={() => {
-                                    handleApproveActive(item)
+                                    handleApprove(item.id, item.is_active)
                                   }}
                                 >
                                   Admin deactivated
@@ -275,7 +278,7 @@ const AdminTable = ({className}) => {
                               className='svg-icon-3'
                             />
                           </div>
-                          <div
+                          {/* <div
                             onClick={() => DeleteUser(item)}
                             className='btn btn-icon btn-bg-secondary btn-active-color-primary btn-sm'
                           >
@@ -283,7 +286,7 @@ const AdminTable = ({className}) => {
                               path='/media/icons/duotune/general/gen027.svg'
                               className='svg-icon-3'
                             />
-                          </div>
+                          </div> */}
                         </td>
                       </tr>
                     ))}
@@ -301,7 +304,9 @@ const AdminTable = ({className}) => {
         </div>
       )}
 
-      {toggle && <UpdateAdmin id={toggle} goback={setToggle} />}
+      {toggle && (
+        <UpdateAdmin id={toggle} goback={setToggle} admin={admin} />
+      )}
 
       {addAdmin && (
         <div>

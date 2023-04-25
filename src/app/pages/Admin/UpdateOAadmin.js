@@ -7,6 +7,7 @@ const UpdateOAadmin = ({id, goback}) => {
   const [last_name, setLast_name] = useState('')
   const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
+  const [is_active, setIs_active] = useState(null)
 
   const api = async () => {
     await axios
@@ -16,7 +17,9 @@ const UpdateOAadmin = ({id, goback}) => {
         setLast_name(Response.data.last_name)
         setPhone(Response.data.phone)
         setEmail(Response.data.email)
-        console.log(Response.data)
+        setIs_active(Response.data.is_active)
+
+        console.log('orgAdmin', Response.data)
       })
       .catch((Error) => {
         console.log(Error)
@@ -35,11 +38,11 @@ const UpdateOAadmin = ({id, goback}) => {
       last_name,
       phone,
       email,
+      is_active,
     }
     axios
       .patch(`/orgadminlist/${id}/`, UpdatedAdmin)
       .then((Response) => {
-        console.log(Response.data)
         showToast.success('Organization Admin Updated!')
         goback()
       })
@@ -54,7 +57,18 @@ const UpdateOAadmin = ({id, goback}) => {
       {/* <h2>Update superAdmin</h2> */}
       <form onSubmit={handleSubmit}>
         <br />
-        <h2 className='text-primary'>Edit organization admin</h2>
+        <div className='d-flex flex-wrap justify-content-between align-items-center'>
+          <h2 className='text-primary'>Edit organization admin</h2>
+
+          <div
+            className={`${
+              is_active ? 'btn bg-danger  text-danger' : 'btn bg-success  text-success'
+            }   bg-opacity-10 fw-bold fs-5 py-2`}
+            onClick={() => setIs_active(!is_active)}
+          >
+            {is_active ? 'Disable' : 'Enable'}
+          </div>
+        </div>
         <br />
         <div className='form-floating mb-7'>
           <input

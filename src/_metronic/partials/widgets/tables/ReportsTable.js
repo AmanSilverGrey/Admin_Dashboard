@@ -68,7 +68,6 @@ const ReportsTable = ({className}) => {
   const delayProductSearch = useCallback(
     debounce((val) => {
       axios.get(`productsearchview/?search=${val}`).then((res) => {
-        console.log('Product', res)
         setsearchProductList(res?.data?.results)
       })
     }, 500),
@@ -138,8 +137,7 @@ const ReportsTable = ({className}) => {
                   className='p-3 border border-secondary rounded-1 '
                   type='date'
                   onChange={(e) => (
-                    setToDate(moment(e.target.value).format('DD-MM-YYYY')),
-                    console.log('Date', e.target.value)
+                    setToDate(moment(e.target.value).format('DD-MM-YYYY'))
                   )}
                 />
               </span>

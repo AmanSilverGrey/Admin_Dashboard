@@ -2,11 +2,16 @@ import axios from '../../FetchApi/Api'
 import {useEffect, useState} from 'react'
 import {showToast} from '../../customs/CustomModel'
 
-const UpdateAdmin = ({id, goback}) => {
+const UpdateAdmin = ({id, goback, admin}) => {
   const [first_name, setFirst_name] = useState('')
   const [last_name, setLast_name] = useState('')
   const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
+  const [is_active, setIs_active] = useState(null)
+
+  useEffect(() => {
+    api()
+  }, [])
 
   const api = async () => {
     await axios
@@ -16,16 +21,12 @@ const UpdateAdmin = ({id, goback}) => {
         setLast_name(Response.data.last_name)
         setPhone(Response.data.phone)
         setEmail(Response.data.email)
-        console.log(Response.data)
+        setIs_active(Response.data.is_active)
       })
       .catch((Error) => {
         console.log(Error)
       })
   }
-
-  useEffect(() => {
-    api()
-  }, [])
 
   //Handling the form submit
   const handleSubmit = (e) => {
@@ -36,11 +37,11 @@ const UpdateAdmin = ({id, goback}) => {
       last_name,
       phone,
       email,
+      is_active,
     }
     axios
       .patch(`/superadminlist/${id}/`, UpdatedAdmin)
       .then((Response) => {
-        console.log(Response.data)
         goback()
         showToast.success('Super Admin Updated!')
       })
@@ -53,7 +54,19 @@ const UpdateAdmin = ({id, goback}) => {
     <div className='w-50 mx-auto p-10 shadow  mb-5 bg-body rounded'>
       {/* <!--begin::Input group--> */}
       <br />
-      <h2 className='text-primary'>Edit superAdmin</h2>
+      <div className='d-flex flex-wrap align-items-center justify-content-between'>
+        <h1 className='text-primary'>Edit superAdmin</h1>
+        {phone != admin && (
+          <div
+            className={`${
+              is_active ? 'btn bg-danger  text-danger' : 'btn bg-success  text-success'
+            }   bg-opacity-10 fw-bold fs-5 py-2`}
+            onClick={() => setIs_active(!is_active)}
+          >
+            {is_active ? 'Disable' : 'Enable'}
+          </div>
+        )}
+      </div>
       <br />
       <form onSubmit={handleSubmit}>
         <div className='form-floating mb-7'>
@@ -108,7 +121,7 @@ const UpdateAdmin = ({id, goback}) => {
             pattern='[+]{1}[0-9]{1}[0-9]{10}'
             title='eg. +1XXXXXXXXXX'
             min={12}
-            max = {12}
+            max={12}
           />
           <label htmlFor='floatingInput1'>
             Phone no. <span className='text-danger'>*</span>

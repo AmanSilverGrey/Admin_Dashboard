@@ -47,8 +47,6 @@ const RequestsTable = ({className}) => {
       await axios
         .get('/requestusers/?type=NU')
         .then((response) => {
-          console.log(response.data.results)
-
           if (response.data.results.length == 0) {
             setShowTable(false)
           } else {
@@ -70,13 +68,11 @@ const RequestsTable = ({className}) => {
         })
     } else {
       const userorg = UserData?.org
-      console.log(userorg)
       await axios
         .get(`/requestusers/?type=NU&org=${userorg}`)
         .then((response) => {
           if (response.data.results.length == 0) {
             console.log('No data')
-            console.log(response.data.results)
             setShowTable(false)
           } else {
             setData(response.data.results)
@@ -135,6 +131,7 @@ const RequestsTable = ({className}) => {
         setEmail(Response.data.data.email)
         setOrg(Response.data.data.org)
         setSelectOrg(Response.data.data.org_name)
+        setActive(Response.data.data.is_active)
       })
       .catch((error) => {
         console.log(error)
@@ -186,16 +183,22 @@ const RequestsTable = ({className}) => {
 
   //Handle Form Submit
   const handleSubmit = (e) => {
+    console.log('isactive', active)
     e.preventDefault()
-
-    console.log(selectOrg)
     const orgId = orgName.find((item) => item?.name == selectOrg)
-    const EditedUser = {first_name, last_name, email, org: orgId?.id, org_name: orgId?.name}
+    const EditedUser = {
+      first_name,
+      last_name,
+      email,
+      org: orgId?.id,
+      org_name: orgId?.name,
+      is_active: active,
+    }
 
     axios
       .patch(`/user/${toggle}/`, EditedUser)
       .then((Response) => {
-        console.log(Response.data)
+        console.log('patch', Response.data)
         setToggle(false)
         showToast.success('User Edited!')
       })
@@ -249,7 +252,7 @@ const RequestsTable = ({className}) => {
                       <th className='w-15 p-5'>Phone Number</th>
                       <th className='w-15 p-5'>Organization</th>
                       <th className='w-15 p-5'>Status</th>
-                      <th className='p-5'>Edit/ Delete</th>
+                      <th className='p-5'>Edit</th>
                       {/* <th className='min-w-120px'>Status</th> */}
                       {/* <th className='min-w-100px text-end'>Actions</th> */}
                     </tr>
@@ -350,7 +353,7 @@ const RequestsTable = ({className}) => {
                               className='svg-icon-3'
                             />
                           </div>
-                          <div
+                          {/* <div
                             onClick={() => DeleteUser(item)}
                             className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'
                           >
@@ -358,7 +361,7 @@ const RequestsTable = ({className}) => {
                               path='/media/icons/duotune/general/gen027.svg'
                               className='svg-icon-3'
                             />
-                          </div>
+                          </div> */}
                         </td>
                       </tr>
                     ))}
@@ -380,7 +383,17 @@ const RequestsTable = ({className}) => {
       {toggle && (
         <div className='w-50 mx-auto p-10 shadow  mb-5 bg-body rounded'>
           <br />
-          <h2 className='text-primary'>Edit user </h2>
+          <div className='d-flex flex-wrap justify-content-between align-items-center'>
+            <h2 className='text-primary'>Edit user </h2>
+            <div
+              className={`${
+                active ? 'btn bg-danger  text-danger' : 'btn bg-success  text-success'
+              }   bg-opacity-10 fw-bold fs-5 py-2`}
+              onClick={() => setActive(!active)}
+            >
+              {active ? 'Disable' : 'Enable'}
+            </div>
+          </div>
           <div className='form-floating mb-7'>
             <p className='text-muted'>
               Fields marked with <span className='text-danger'>*</span> are required.
@@ -409,9 +422,7 @@ const RequestsTable = ({className}) => {
               value={last_name}
               onChange={(e) => setLast_name(e.target.value)}
             />
-            <label htmlFor='floatingInput1'>
-              Last Name
-            </label>
+            <label htmlFor='floatingInput1'>Last Name</label>
           </div>
           <div className='form-floating mb-7'>
             <input

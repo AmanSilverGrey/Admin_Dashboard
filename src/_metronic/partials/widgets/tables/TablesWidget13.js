@@ -75,7 +75,6 @@ const TablesWidget13 = ({className}) => {
 
   const Toggle = (id) => {
     setToggle(id)
-    console.log(id)
   }
 
   return (

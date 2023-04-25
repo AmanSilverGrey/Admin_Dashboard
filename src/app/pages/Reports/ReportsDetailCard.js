@@ -4,6 +4,9 @@ import {KTSVG, toAbsoluteUrl} from '../../../_metronic/helpers'
 
 const ReportsDetailCard = ({option, handleClose}) => {
   const IMAGE_URL = 'http://asc.apptology.in:81'
+
+  console.log('option', option)
+
   return (
     <div className='bg-white rounded mx-auto w-75 shadow '>
       <div className='modal-header m-0 px-10 py-2'>
@@ -60,7 +63,12 @@ const ReportsDetailCard = ({option, handleClose}) => {
             <div className='text-gray-600'>Phone Number : </div>
             <div className=''>{option?.phone}</div>
           </div>
-          <div className='d-flex flex-wrap gap-5 align-items-center w-sm-25 '></div>
+          <div className='d-flex flex-wrap gap-5 align-items-center w-sm-25 '>
+            <div className='text-gray-600'>Product: </div>
+            <div className=''>
+              {option?.product_name} <span className='fs-8 text-gray-600'>({option?.product_sku})</span>
+            </div>
+          </div>
         </div>
         {/* Line 4 */}
         <div className='row gap-5 fw-bold fs-5 py-4 px-10 mb-10'>
@@ -128,12 +136,14 @@ const ReportsDetailCard = ({option, handleClose}) => {
           <div className='mb-5'>Test Name :</div>
           {option?.test_result?.length > 0 &&
             Object.keys(option?.test_result[0])?.map((key, index) => {
-              console.log(option?.test_result[key])
               return option?.test_result[0]?.[key] ? (
                 <div className='d-flex align-items-center gap-5 '>
                   <span className='bi bi-circle-fill fs-9 text-gray-600' />
-                  <span className='text-gray-600'> {key} </span>-
-                  <span>{option?.test_result[0]?.[key]}</span>
+                  <span className='text-gray-600'>
+                    {' '}
+                    {key.charAt(0).toUpperCase() + key.slice(1)}{' '}
+                  </span>
+                  -<span>{option?.test_result[0]?.[key]}</span>
                 </div>
               ) : (
                 <></>
