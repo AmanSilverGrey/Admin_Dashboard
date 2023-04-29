@@ -6,6 +6,7 @@ import UpdateOrg from '../../../../app/pages/dashboard/UpdateOrg'
 import AddOrg from '../../../../app/pages/dashboard/AddOrg'
 import _ from 'lodash'
 import swal from 'sweetalert'
+import {showToast} from '../../../../app/customs/CustomModel'
 
 //type Props = {
 //className: string,
@@ -24,6 +25,7 @@ const TablesWidget13 = ({className}) => {
       .get('/organization/')
       .then((response) => {
         setData(response.data.data)
+        console.log('As', response.data)
         setStatus(response.data.status)
       })
       .catch((Error) => {
@@ -40,17 +42,6 @@ const TablesWidget13 = ({className}) => {
   const DeleteUser = (item) => {
     const text = 'Are sure want to delete.'
     {
-      // window.confirm(text) == true &&
-      //   axios
-      //     .delete(`/organization/${item.id}/`)
-      //     .then(() => {
-      //       const tableData = _.cloneDeep(data)
-      //       const filteredData = tableData?.filter((it) => it?.id != item?.id)
-      //       setData(filteredData)
-      //     })
-      //     .catch((error) => {
-      //       console.log(error)
-      //     })
       swal(text, '', 'warning', {
         buttons: {
           cancel: 'No!',
@@ -73,13 +64,36 @@ const TablesWidget13 = ({className}) => {
     }
   }
 
+  // Handle AprroveDeactive
+  const handleApprove = (id, status) => {
+    // console.log('Active', item?.is_active)
+    const editActive = {status: status ? false : true}
+    axios
+      .patch(`/organization/${id}/`, editActive)
+      .then((Response) => {
+        // const tableData = _.cloneDeep(data)
+        const tableData = [...data]
+        const itemIndex = tableData?.findIndex((it) => it?.id == id)
+        tableData[itemIndex] = Response.data
+        {
+          Response.data.status
+            ? showToast.success('Organization Activated!')
+            : showToast.error('Organization Deactivated!')
+        }
+        setData(tableData)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
   const Toggle = (id) => {
     setToggle(id)
   }
 
   return (
     <>
-      <div className='page-heading d-flex align-items-center text-dark fw-bold fs-3 my-0 justify-content-between py-3 py-lg-6 mx-auto w-75'>
+      <div className='d-flex align-items-center text-dark fw-bold fs-3 my-0 justify-content-between py-5 mx-auto w-sm-75'>
         {/* {toggle ? <h3>Edit User</h3> : <h3>Requests</h3>} */}
         {/* {toggle && <h3>Edit Org</h3>} */}
         <h3>Organization</h3>
@@ -103,7 +117,7 @@ const TablesWidget13 = ({className}) => {
         )}
       </div>
       {!toggle && !addOrg && (
-        <div className={`card ${className} shadow rounded mx-auto w-75 text-center`}>
+        <div className={`card ${className} m-0 shadow rounded mx-auto w-75 text-center`}>
           {status === 0 && (
             <div>
               <h2>Data not available</h2>
@@ -125,9 +139,10 @@ const TablesWidget13 = ({className}) => {
                         <th className='w-auto p-5'>Address</th>
                         <th className='w-auto p-5'>Account Owner</th>
                         <th className='w-auto p-5'>Phone Number</th>
-                        <th className='w-auto p-5'>Edit/ Delete</th>
-                        {/* <th className='min-w-120px'>Status</th> */}
-                        {/* <th className='min-w-100px text-end'>Actions</th> */}
+                        <th className='w-auto p-5'>Status</th>
+                        <th className='w-auto p-5'>Edit
+                        {/* / Delete */}
+                        </th>
                       </tr>
                     </thead>
                     {/* end::Table head */}
@@ -151,9 +166,18 @@ const TablesWidget13 = ({className}) => {
                           </td>
 
                           {/* <td className='text-dark fw-bold text-hover-primary fs-6'>$3560</td> */}
-                          {/* <td>
-                  <span className='badge badge-light-success'>Approved</span>
-                </td> */}
+                          <td>
+                            <span
+                              className={`badge cursor-pointer ${
+                                item?.status ? 'badge-light-success' : 'badge-light-danger'
+                              } `}
+                              onClick={() => {
+                                handleApprove(item.id, item.status)
+                              }}
+                            >
+                              {item?.status ? 'Active' : 'Deactivated'}
+                            </span>
+                          </td>
                           <td className=''>
                             <div
                               onClick={() => {
@@ -166,7 +190,7 @@ const TablesWidget13 = ({className}) => {
                                 className='svg-icon-3'
                               />
                             </div>
-                            <div
+                            {/* <div
                               onClick={() => DeleteUser(item)}
                               className='btn btn-icon btn-bg-secondary btn-active-color-primary btn-sm'
                             >
@@ -174,7 +198,7 @@ const TablesWidget13 = ({className}) => {
                                 path='/media/icons/duotune/general/gen027.svg'
                                 className='svg-icon-3'
                               />
-                            </div>
+                            </div> */}
                           </td>
                         </tr>
                       ))}

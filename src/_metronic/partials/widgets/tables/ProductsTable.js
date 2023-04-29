@@ -56,11 +56,9 @@ const ProductsTable = ({className}) => {
   }
   return (
     <>
-      <div className='w-75 mx-auto'>
-        <h3>{edit ? 'Edit Product' : 'Products'}</h3>
-      </div>
+      <div className='w-75 mx-auto mb-5'>{!edit && <h3 className='m-0'>Products</h3>}</div>
       {!edit && (
-        <div className={`card ${className} shadow bg-body rounded w-75 mx-auto text-center my-10`}>
+        <div className={`card ${className} shadow bg-body rounded w-75 mx-auto text-center`}>
           {/* begin::Body */}
           <div className='card-body'>
             {/* begin::Table container */}

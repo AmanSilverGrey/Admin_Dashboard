@@ -51,6 +51,7 @@ const RequestsTable = ({className}) => {
             setShowTable(false)
           } else {
             setData(response.data.results)
+            console.log('Aman', response.data.results)
           }
         })
         .catch((error) => {
@@ -183,7 +184,6 @@ const RequestsTable = ({className}) => {
 
   //Handle Form Submit
   const handleSubmit = (e) => {
-    console.log('isactive', active)
     e.preventDefault()
     const orgId = orgName.find((item) => item?.name == selectOrg)
     const EditedUser = {
@@ -209,10 +209,10 @@ const RequestsTable = ({className}) => {
 
   return (
     <>
-      <div className='page-heading d-flex align-items-center text-dark fw-bold fs-3 my-0 justify-content-between py-3 py-lg-6 w-sm-75 mx-auto'>
+      <div className='d-flex align-items-center text-dark fw-bold fs-3 my-0 justify-content-between pb-5 w-sm-75 mx-auto'>
         {/* {toggle ? <h3>Edit User</h3> : <h3>Requests</h3>} */}
         {/* {toggle && <h3>Edit User</h3>} */}
-        <h3>Requests</h3>
+        {!toggle && !addUser && <h3>Requests</h3>}
         {/* {addUser && <h3>Add User</h3>} */}
 
         {!toggle && !addUser && (

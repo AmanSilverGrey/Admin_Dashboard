@@ -5,6 +5,7 @@ import {KTSVG} from '../../../helpers'
 import moment from 'moment'
 import debounce from 'lodash.debounce'
 import {ReportsDetailCard} from '../../../../app/pages/Reports/ReportsDetailCard'
+import ReportsFilter from '../../../../app/pages/Reports/ReportsFilter'
 
 const ReportsTable = ({className}) => {
   const [fromDate, setFromDate] = useState('')
@@ -27,6 +28,8 @@ const ReportsTable = ({className}) => {
     value: false,
     id: null,
   })
+
+  const [openFilter, setOpenFilter] = useState(false)
 
   // Data from localStorage
 
@@ -76,6 +79,7 @@ const ReportsTable = ({className}) => {
 
   // userfunction
   const handleUserSearch = (e) => {
+    console.log(e)
     setUserId('')
     setsearchUserTerm(e.target.value)
     delayUserSearch(e.target.value)
@@ -114,127 +118,27 @@ const ReportsTable = ({className}) => {
     setOpenDetailCard(false)
   }
 
+  const CloseFilter = () => {
+    setOpenFilter(!openFilter)
+  }
+
+  const closeModal = () => {
+    setFromDate(null)
+    setToDate(null)
+    setOrgId(null)
+    setProductId(null)
+    setUserId(null)
+    setOpenFilter(!openFilter)
+  }
+
   return (
     <>
       {!openDetailCard?.value && (
         <div className='w-sm-75 w-100 mx-auto'>
-          <h3>Reports</h3>
-          <div className='d-flex flex-wrap justify-content-around my-5 fw-bold'>
-            <div className=''>
-              <span className='me-5'>From</span>
-              <span className=''>
-                <input
-                  className='p-3 border border-secondary rounded-1 cursor-pointer '
-                  type='date'
-                  onChange={(e) => setFromDate(moment(e.target.value).format('DD-MM-YYYY'))}
-                />
-              </span>
-            </div>
-            <div className=''>
-              <span className='me-5'>To</span>
-              <span>
-                <input
-                  className='p-3 border border-secondary rounded-1 '
-                  type='date'
-                  onChange={(e) => (
-                    setToDate(moment(e.target.value).format('DD-MM-YYYY'))
-                  )}
-                />
-              </span>
-            </div>
-
-            {/* Select by organisation */}
-            {userType == 'SA' && (
-              <div className='w-auto'>
-                <input
-                  type='text'
-                  value={searchOrgTerm}
-                  onChange={handleOrgSearch}
-                  placeholder='Search org..'
-                  className='form-control py-2'
-                  style={{position: 'relative'}}
-                />
-                {searchOrgList.length > 0 && searchOrgTerm && (
-                  <ul
-                    className='bg-white overflow-auto mx-15 py-2 p-0 shadow rounded '
-                    style={{position: 'absolute', zIndex: '10', listStyle: 'none'}}
-                  >
-                    {searchOrgList.map((option) => (
-                      <div key={option.id} className=''>
-                        <li
-                          className='py-1 cursor-pointer bg-hover-secondary px-10  mx-auto'
-                          onClick={() => {
-                            handleSearchbyOrg(option)
-                          }}
-                        >
-                          {option?.name}
-                        </li>
-                      </div>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            )}
-            {/* User Filter */}
-            <div className='w-auto'>
-              <input
-                type='text'
-                value={searchUserTerm}
-                onChange={handleUserSearch}
-                placeholder='Search user..'
-                className='form-control py-2'
-                style={{position: 'relative'}}
-              />
-              {searchUserList.length > 0 && searchUserTerm && (
-                <ul
-                  className='bg-white overflow-auto mx-15 py-2 p-0 shadow rounded '
-                  style={{position: 'absolute', zIndex: '10', listStyle: 'none'}}
-                >
-                  {searchUserList.map((option) => (
-                    <div key={option.id} className=''>
-                      <li
-                        className='py-1 cursor-pointer bg-hover-secondary px-10  mx-auto'
-                        onClick={() => {
-                          handleSearchbyUser(option)
-                        }}
-                      >
-                        {option?.first_name} {option?.last_name}
-                      </li>
-                    </div>
-                  ))}
-                </ul>
-              )}
-            </div>
-
-            {/* Select by product */}
-            <div className='w-auto'>
-              <input
-                type='text'
-                value={searchProductTerm}
-                onChange={handleProductSearch}
-                placeholder='Search by product..'
-                className='form-control py-2'
-                style={{position: 'relative'}}
-              />
-              {searchProductList.length > 0 && searchProductTerm && (
-                <ul
-                  className='bg-white overflow-auto mx-15 py-2 p-0 shadow rounded '
-                  style={{position: 'absolute', zIndex: '10', listStyle: 'none'}}
-                >
-                  {searchProductList.map((option) => (
-                    <div key={option.id} className=''>
-                      <li
-                        className='py-1 cursor-pointer bg-hover-secondary px-10  mx-auto'
-                        onClick={() => {
-                          handleSearchbyProduct(option)
-                        }}
-                      >
-                        {option?.Brand_Name}
-                      </li>
-                    </div>
-                  ))}
-                </ul>
-              )}
+          <div className='d-flex justify-content-between align-items-center mb-5'>
+            <h3>Reports</h3>
+            <div className='btn bg-primary py-2 text-white fs-5' onClick={CloseFilter}>
+              Filter
             </div>
           </div>
           <div className={`card ${className}`}>
@@ -319,6 +223,27 @@ const ReportsTable = ({className}) => {
       {openDetailCard?.value && (
         <ReportsDetailCard option={openDetailCard?.id} handleClose={handleClose} />
       )}
+
+      <ReportsFilter
+        setFromDate={setFromDate}
+        setToDate={setToDate}
+        userType={userType}
+        searchOrgTerm={searchOrgTerm}
+        handleOrgSearch={handleOrgSearch}
+        searchOrgList={searchOrgList}
+        handleSearchbyOrg={handleSearchbyOrg}
+        searchUserTerm={searchUserTerm}
+        handleUserSearch={handleUserSearch}
+        searchUserList={searchUserList}
+        handleSearchbyUser={handleSearchbyUser}
+        searchProductTerm={searchProductTerm}
+        handleProductSearch={handleProductSearch}
+        searchProductList={searchProductList}
+        handleSearchbyProduct={handleSearchbyProduct}
+        closeModal={closeModal}
+        show={openFilter}
+        handleClose={CloseFilter}
+      />
     </>
   )
 }

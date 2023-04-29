@@ -15,8 +15,7 @@ const UpdateOrg = ({id, goback}) => {
   const [owner, setOwner] = useState('')
   const [note, setNote] = useState('')
   const [oAname, setOAname] = useState([])
-  // const [ownerName, setOwnerName] = useState('')
-
+  const [status, setStatus] = useState('')
 
   const api = async () => {
     await axios
@@ -33,6 +32,8 @@ const UpdateOrg = ({id, goback}) => {
         setZip(Response.data.zip)
         setOwner(Response.data.owner)
         setNote(Response.data.note)
+        setStatus(Response.data.status)
+
         console.log(Response.data)
       })
       .catch((Error) => {
@@ -71,12 +72,12 @@ const UpdateOrg = ({id, goback}) => {
       zip,
       owner,
       note,
+      status,
     }
 
     axios
       .patch(`/organization/${id}/`, UpdatedOrg)
       .then((Response) => {
-
         showToast.success('Organization Updated!')
         goback()
       })
@@ -89,7 +90,17 @@ const UpdateOrg = ({id, goback}) => {
     <div className='w-50 mx-auto p-10 shadow  mb-5 bg-body rounded'>
       {/* <!--begin::Input group--> */}
       <br />
-      <h2 className='text-primary'>Update Organization</h2>
+      <div className='d-flex justify-content-between'>
+        <h2 className='text-primary'>Update Organization</h2>
+        <div
+          className={`${
+            status ? 'btn bg-danger  text-danger' : 'btn bg-success  text-success'
+          }   bg-opacity-10 fw-bold fs-5 py-2`}
+          onClick={() => setStatus(!status)}
+        >
+          {status ? 'Deactive' : 'Active'}
+        </div>
+      </div>
       <div className='form-floating mb-7'>
         <p className='text-muted'>
           Fields marked with <span className='text-danger'>*</span> are required.

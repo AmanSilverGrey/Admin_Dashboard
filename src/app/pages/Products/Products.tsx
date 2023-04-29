@@ -5,7 +5,7 @@ import {ProductsTable} from '../../../_metronic/partials/widgets'
 const Products: FC = () => {
   return (
     <>
-      <PageTitle breadcrumbs={[]}>Products</PageTitle>
+      {/* <PageTitle breadcrumbs={[]}>Products</PageTitle> */}
 
       {<ProductsTable className={''} />}
     </>

@@ -132,10 +132,10 @@ const AdminTable = ({className}) => {
 
   return (
     <>
-      <div className='page-heading d-flex align-items-center text-dark fw-bold fs-3 my-0 justify-content-between py-3 py-lg-6 w-75 mx-auto'>
+      <div className='d-flex align-items-center text-dark fw-bold fs-3 my-0 justify-content-between py-3 py-lg-6 w-sm-75 mx-auto'>
         {/* {toggle ? <h3>Edit User</h3> : <h3>Requests</h3>} */}
         {/* {toggle && <h3>Edit User</h3>} */}
-        <h3>Super Admin</h3>
+        {!toggle && !addAdmin && <h3>Super Admin</h3>}
         {/* {addAdmin && <h3>Add Super Admin</h3>} */}
 
         {!toggle && !addAdmin && (
@@ -156,7 +156,7 @@ const AdminTable = ({className}) => {
         )}
       </div>
       {!toggle && !addAdmin && (
-        <div className='shadow bg-body rounded mx-auto w-75 text-center'>
+        <div className='shadow bg-body rounded mx-auto w-sm-75 text-center'>
           {/* <h2>super admin dummytext</h2> */}
           <div className={`card ${className}`}>
             {/* <div className={`card ${className}`}> */}
@@ -304,9 +304,7 @@ const AdminTable = ({className}) => {
         </div>
       )}
 
-      {toggle && (
-        <UpdateAdmin id={toggle} goback={setToggle} admin={admin} />
-      )}
+      {toggle && <UpdateAdmin id={toggle} goback={setToggle} admin={admin} />}
 
       {addAdmin && (
         <div>

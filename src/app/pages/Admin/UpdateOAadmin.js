@@ -66,7 +66,7 @@ const UpdateOAadmin = ({id, goback}) => {
             }   bg-opacity-10 fw-bold fs-5 py-2`}
             onClick={() => setIs_active(!is_active)}
           >
-            {is_active ? 'Disable' : 'Enable'}
+            {is_active ? 'Deactive' : 'Active'}
           </div>
         </div>
         <br />

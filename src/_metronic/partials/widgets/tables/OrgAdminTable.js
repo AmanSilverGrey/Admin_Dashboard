@@ -105,17 +105,17 @@ const OrgAdminTable = ({className}) => {
   }
 
   return (
-    <div>
-      <div className='page-heading d-flex align-items-center text-dark fw-bold fs-3 my-0 justify-content-between py-3 py-lg-6 w-75 mx-auto'>
+    <div className='m-0 p-0'>
+      <div className=' d-flex align-items-center text-dark fw-bold fs-3 m-0 justify-content-between py-5 w-75 mx-auto'>
         {/* {toggle ? <h3>Edit User</h3> : <h3>Requests</h3>} */}
         {/* {toggle && <h3>Edit Org admin</h3>} */}
-        <h3>Organization Admin</h3>
+        {!toggle && !addAdmin && <h3 className='m-0'>Organization Admin</h3>}
         {/* {addAdmin && <h3>Add Organization Admin</h3>} */}
 
         {!toggle && !addAdmin && (
           <div
             onClick={() => setToggle('')}
-            className='btn btn-sm fw-bold btn-primary'
+            className='btn btn-sm fw-bold btn-primary m-0'
             data-bs-toggle='modal'
             data-bs-target='#kt_modal_create_app'
           >
@@ -131,7 +131,7 @@ const OrgAdminTable = ({className}) => {
       </div>
       {/* Display Table */}
       {!toggle && !addAdmin && (
-        <div className={`card ${className} mx-auto w-75 text-center`}>
+        <div className={`card ${className} m-0  mx-auto w-75 text-center`}>
           {/* <div className={`card ${className}`}> */}
           {/* begin::Body */}
           <div className='card-body shadow'>
@@ -148,8 +148,9 @@ const OrgAdminTable = ({className}) => {
                     <th className='min-w-140px p-5'>Phone Number</th>
                     <th className='min-w-140px p-5'>Organization</th>
                     <th className='w-20 p-5'>Status</th>
-                    <th className='min-w-140px p-5'>Edit
-                    {/* / Delete */}
+                    <th className='min-w-140px p-5'>
+                      Edit
+                      {/* / Delete */}
                     </th>
                     {/* <th className='min-w-120px'>Status</th> */}
                     {/* <th className='min-w-100px text-end'>Actions</th> */}
@@ -176,7 +177,21 @@ const OrgAdminTable = ({className}) => {
                         <p className='text-dark fw-bold fs-6'>{item.phone}</p>
                       </td>
                       <td>
-                        <p className='text-dark fw-bold fs-6'>{item?.org_name}</p>
+                        <p
+                          className='text-dark fw-bold fs-6'
+                          data-toggle='tooltip'
+                          data-placement='left'
+                          title={item?.org_name?.join(', ')}
+                          style={{
+                            textOverflow: 'ellipsis',
+                            overflow: 'hidden',
+                            cursor: 'pointer',
+                            width: '100px',
+                            whiteSpace: 'nowrap',
+                          }}
+                        >
+                          {item?.org_name?.join(', ')}
+                        </p>
                       </td>
 
                       {/* Status start*/}
@@ -270,7 +285,7 @@ const OrgAdminTable = ({className}) => {
           <AddOAdmin goback={setAddAdmin} Goback={setAddAdmin} />
         </div>
       )}
-      {toggle && <UpdateOAadmin id={toggle} goback={setToggle}  />}
+      {toggle && <UpdateOAadmin id={toggle} goback={setToggle} />}
     </div>
   )
 }
