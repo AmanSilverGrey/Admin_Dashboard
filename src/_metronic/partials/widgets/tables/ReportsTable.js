@@ -79,7 +79,6 @@ const ReportsTable = ({className}) => {
 
   // userfunction
   const handleUserSearch = (e) => {
-    console.log(e)
     setUserId('')
     setsearchUserTerm(e.target.value)
     delayUserSearch(e.target.value)
@@ -141,25 +140,26 @@ const ReportsTable = ({className}) => {
               Filter
             </div>
           </div>
-          <div className={`card ${className}`}>
+          <div className={` shadow-sm`}>
             {/* <div className={`card ${className}`}> */}
             {/* begin::Body */}
-            <div className='card-body py-3 shadow bg-body rounded'>
+            <div className='card-body  m-0 p-0'>
               {/* begin::Table container */}
-              <div className='table-responsive'>
+              <div className='table-responsive bg-white' style={{borderRadius: '10px'}}>
                 {/* begin::Table */}
                 <table className='table table-striped table-row-bordered table-row-gray-100 align-middle gs-0 gy-3'>
                   {/* begin::Table head */}
-                  <thead>
-                    <tr className='fw-bold text-muted'>
-                      <th className='text-nowrap'>First Name</th>
-                      <th className='text-nowrap'>Last Name</th>
-                      <th className='text-nowrap'>Email</th>
-                      <th className='text-nowrap'>Phone Number</th>
-                      <th className='text-nowrap'>Organization</th>
-                      <th className='text-nowrap'>User</th>
-                      <th className='text-nowrap'>Product</th>
-                      <th className='text-nowrap'>View</th>
+                  <thead className='text-gray-900 bg-gray-300'>
+                    <tr className='fw-bold fs-6'>
+                      <th className='text-nowrap p-6'>Report id</th>
+                      <th className='text-nowrap p-6'>Name</th>
+                      <th className='text-nowrap p-6'>Email</th>
+                      <th className='text-nowrap p-6'>Phone Number</th>
+                      <th className='text-nowrap p-6'>Organization</th>
+                      <th className='text-nowrap p-6'>User</th>
+                      <th className='text-nowrap p-6'>Product</th>
+                      <th className='text-nowrap p-6'>Submitted on</th>
+                      <th className='text-nowrap p-6'>View</th>
                       {/* <th className='text-nowrap'>Status</th> */}
                       {/* <th className='min-w-100px text-end'>Actions</th> */}
                     </tr>
@@ -170,11 +170,14 @@ const ReportsTable = ({className}) => {
                     {tableData?.results?.map((item) => (
                       <tr key={item.id}>
                         <td>
-                          <p className='text-dark fw-bold fs-6'>{item?.fname}</p>
+                          <p className='text-dark text-center fw-bold fs-6'>{item?.id}</p>
                         </td>
                         <td>
-                          <p className='text-dark fw-bold fs-6'>{item?.lname}</p>
+                          <p className='text-dark fw-bold fs-6'>
+                            {item?.fname} {item?.lname}
+                          </p>
                         </td>
+
                         <td>
                           <p className='text-dark fw-bold fs-6'>{item?.email}</p>
                         </td>
@@ -190,6 +193,11 @@ const ReportsTable = ({className}) => {
                         </td>
                         <td>
                           <p className='text-dark fw-bold fs-6'>{item?.product_name}</p>
+                        </td>
+                        <td>
+                          <p className='text-dark text-nowrap fw-bold fs-6'>
+                            {moment(item?.datetime).format('DD-MM-YYYY')}
+                          </p>
                         </td>
 
                         {/* <td className='text-dark fw-bold text-hover-primary fs-6'>$3560</td> */}

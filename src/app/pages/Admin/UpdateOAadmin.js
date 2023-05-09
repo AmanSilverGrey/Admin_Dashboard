@@ -8,18 +8,20 @@ const UpdateOAadmin = ({id, goback}) => {
   const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
   const [is_active, setIs_active] = useState(null)
+  const [org_name, setOrg_name] = useState([])
 
   const api = async () => {
     await axios
       .get(`/orgadminlist/${id}/`)
       .then((Response) => {
-        setFirst_name(Response.data.first_name)
-        setLast_name(Response.data.last_name)
-        setPhone(Response.data.phone)
-        setEmail(Response.data.email)
-        setIs_active(Response.data.is_active)
+        setFirst_name(Response?.data?.first_name)
+        setLast_name(Response?.data?.last_name)
+        setPhone(Response?.data?.phone)
+        setEmail(Response?.data?.email)
+        setIs_active(Response?.data?.is_active)
+        setOrg_name(Response?.data?.org_name)
 
-        console.log('orgAdmin', Response.data)
+        console.log('orgAdmin', Response?.data)
       })
       .catch((Error) => {
         console.log(Error)
@@ -30,6 +32,12 @@ const UpdateOAadmin = ({id, goback}) => {
     api()
   }, [])
 
+  // update org_name
+  const updateorg_name = (i) => {
+    const updatedorg_name = org_name?.filter((item, index) => index !== i)
+    setOrg_name(updatedorg_name)
+  }
+
   //Handling the form submit
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -39,7 +47,11 @@ const UpdateOAadmin = ({id, goback}) => {
       phone,
       email,
       is_active,
+      org_name,
     }
+
+    console.log('Updated array', UpdatedAdmin)
+
     axios
       .patch(`/orgadminlist/${id}/`, UpdatedAdmin)
       .then((Response) => {
@@ -62,11 +74,14 @@ const UpdateOAadmin = ({id, goback}) => {
 
           <div
             className={`${
-              is_active ? 'btn bg-danger  text-danger' : 'btn bg-success  text-success'
+              !is_active ? 'btn bg-danger  text-danger' : 'btn bg-success  text-success'
             }   bg-opacity-10 fw-bold fs-5 py-2`}
             onClick={() => setIs_active(!is_active)}
+            data-toggle='tooltip'
+            data-placement='left'
+            title={is_active ? 'Click to deactivate ' : 'Click to activate'}
           >
-            {is_active ? 'Deactive' : 'Active'}
+            {is_active ? 'Activate' : 'Deactivate'}
           </div>
         </div>
         <br />
@@ -119,9 +134,33 @@ const UpdateOAadmin = ({id, goback}) => {
             pattern='[+]{1}[0-9]{1}[0-9]{10}'
             title='eg. +1XXXXXXXXXX'
           />
-          <label htmlFor='floatingInput1'>
-            Phone no. <span className='text-danger'>*</span>
-          </label>
+        </div>
+
+        <div>
+          <div className='mb-7 fw-bold text-gray-800 fs-5'>Organizations assigned</div>
+          {org_name?.length ? (
+            <div className='d-flex align-items-center gap-5 flex-wrap justify-content-center'>
+              {org_name?.map((i, index) => (
+                <div
+                  key={index}
+                  className={`d-flex gap-3 align-items-center fw-bold px-5 py-2 rounded text-gray-900 bg-hover-dark text-hover-danger bg-${
+                    index % 2 == 0 ? 'primary' : 'success'
+                  }`}
+                >
+                  <div>{i}</div>
+                  <div
+                    data-toggle='tooltip'
+                    data-placement='left'
+                    title='Remove Organization'
+                    className='bi bi-x-lg text-white text-hover-danger'
+                    onClick={() => updateorg_name(index)}
+                  />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className='text-gray-700 fw-bold text-center'> No organization assigned</div>
+          )}
         </div>
 
         <div className='col-md-12 text-center d-flex gap-10'>

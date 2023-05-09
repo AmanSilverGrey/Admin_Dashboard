@@ -134,7 +134,7 @@ const OrgAdminTable = ({className}) => {
         <div className={`card ${className} m-0  mx-auto w-75 text-center`}>
           {/* <div className={`card ${className}`}> */}
           {/* begin::Body */}
-          <div className='card-body shadow'>
+          <div className='card-body shadow m-0 p-0 rounded'>
             {/* begin::Table container */}
             <div className='table-responsive'>
               {/* begin::Table */}
@@ -142,8 +142,7 @@ const OrgAdminTable = ({className}) => {
                 {/* begin::Table head */}
                 <thead className='text-gray-900 bg-gray-300'>
                   <tr className='fw-bold fs-6'>
-                    <th className='min-w-140px p-5'>First Name</th>
-                    <th className='min-w-140px p-5'>Last Name</th>
+                    <th className='min-w-140px p-5'>Name</th>
                     <th className='min-w-140px p-5'>Email</th>
                     <th className='min-w-140px p-5'>Phone Number</th>
                     <th className='min-w-140px p-5'>Organization</th>
@@ -162,11 +161,9 @@ const OrgAdminTable = ({className}) => {
                   {data.map((item) => (
                     <tr key={item.id}>
                       <td>
-                        <p className='text-dark fw-bold fs-6'>{item.first_name}</p>
-                      </td>
-
-                      <td>
-                        <p className='text-dark fw-bold fs-6'>{item.last_name}</p>
+                        <p className='text-dark fw-bold fs-6'>
+                          {item.first_name} {item.last_name}
+                        </p>
                       </td>
 
                       <td>

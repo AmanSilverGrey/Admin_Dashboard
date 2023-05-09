@@ -158,10 +158,10 @@ const AdminTable = ({className}) => {
       {!toggle && !addAdmin && (
         <div className='shadow bg-body rounded mx-auto w-sm-75 text-center'>
           {/* <h2>super admin dummytext</h2> */}
-          <div className={`card ${className}`}>
+          <div className={`shadow rounded`}>
             {/* <div className={`card ${className}`}> */}
             {/* begin::Body */}
-            <div className='card-body'>
+            <div className='card-body m-0 p-0'>
               {/* begin::Table container */}
               <div className='table-responsive'>
                 {/* begin::Table */}
@@ -169,8 +169,7 @@ const AdminTable = ({className}) => {
                   {/* begin::Table head */}
                   <thead className='text-gray-900 bg-gray-300  '>
                     <tr className='fw-bold fs-6'>
-                      <th className='w-20 p-5'>First Name</th>
-                      <th className='w-20 p-5'>Last Name</th>
+                      <th className='w-20 p-5'>Name</th>
                       <th className='w-20 p-5'>Email</th>
                       <th className='w-20 p-5'>Phone Number</th>
                       <th className='w-20 p-5'>Status</th>
@@ -188,12 +187,13 @@ const AdminTable = ({className}) => {
                     {data.map((item) => (
                       <tr key={item.id} className=''>
                         <td className=''>
-                          <div className='text-dark fw-bold fs-6'>{item.first_name}</div>
+                          <div className='text-dark fw-bold fs-6'>
+                            {item.first_name}
+                            {' '}
+                            {item.last_name}
+                          </div>
                         </td>
 
-                        <td>
-                          <div className='text-dark fw-bold fs-6'>{item.last_name}</div>
-                        </td>
                         <td>
                           <div className='text-dark fw-bold fs-6'>{item.email}</div>
                         </td>

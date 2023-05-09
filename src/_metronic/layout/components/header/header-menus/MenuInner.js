@@ -4,7 +4,7 @@ import {MenuItem} from './MenuItem'
 //import {MenuInnerWithSub} from './MenuInnerWithSub'
 //import {MegaMenu} from './MegaMenu'
 import asc_logo from './Assests/asc_logo.png'
-import { useAuth } from '../../../../../app/modules/auth'
+import {useAuth} from '../../../../../app/modules/auth'
 
 export function MenuInner() {
   const {currentUser} = useAuth()
@@ -23,11 +23,11 @@ export function MenuInner() {
       {currentUser?.type == 'SA' && <MenuItem title='Organization Admin' to='/orgadmin' />}
       {/* 3 */}
 
-      {currentUser?.type == 'SA' && <MenuItem title='Organization' to='/organization' />}
+      <MenuItem title='Organization' to='/organization' />
 
       {/* 4 */}
 
-      <MenuItem title='Product' to='/products' />  
+      <MenuItem title='Product' to='/products' />
 
       {/* 5 */}
 

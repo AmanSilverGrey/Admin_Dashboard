@@ -65,7 +65,6 @@ const Login = () => {
           //There are few changes in this file after deployment
 
           if (UserDetail?.type == 'SA' || UserDetail?.type == 'OA') {
-            console.log(UserDetail)
             localStorage.setItem('User-Details', JSON.stringify(UserDetail))
             setSendOTP(true)
             gererateRecaptcha()
@@ -146,7 +145,7 @@ const Login = () => {
                 maxLength={15}
                 minLength={10}
                 onChange={(e) => setPhone(e.target.value)}
-                pattern='[+]{1}[0-9]{2}[0-9]{10}'
+                // pattern='[+]{1}[0-9]{2}[0-9]{10}'
               />
             </div>
             {expandForm && (

@@ -55,15 +55,18 @@ const UpdateAdmin = ({id, goback, admin}) => {
       {/* <!--begin::Input group--> */}
       <br />
       <div className='d-flex flex-wrap align-items-center justify-content-between'>
-        <h1 className='text-primary'>Edit superAdmin</h1>
+        <h1 className='text-primary'>Edit superadmin</h1>
         {phone != admin && (
           <div
             className={`${
-              is_active ? 'btn bg-danger  text-danger' : 'btn bg-success  text-success'
+              !is_active ? 'btn bg-danger  text-danger' : 'btn bg-success  text-success'
             }   bg-opacity-10 fw-bold fs-5 py-2`}
             onClick={() => setIs_active(!is_active)}
+            data-toggle='tooltip'
+            data-placement='left'
+            title={is_active ? 'Click to deactivate ' : 'Click to activate'}
           >
-            {is_active ? 'Deactive' : 'Active'}
+            {is_active ? "Active" : 'Deactive'}
           </div>
         )}
       </div>

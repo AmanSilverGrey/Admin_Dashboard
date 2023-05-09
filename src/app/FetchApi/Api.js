@@ -1,11 +1,26 @@
-import axios from 'axios';
+
+import axios from 'axios'
 
 const Api = axios.create({
-    // baseURL: "http://15.206.124.89/api",
-    // baseURL: "http://18.214.99.164/api",
-    // baseURL: "https://asc.apptology.in/api/",
-    // baseURL: "https://asc.apptology.in/api",
     baseURL: "http://asc.apptology.in:81/api",
-});
+  timeout: 30000,
+})
 
-export default Api;
+Api.interceptors.request.use(async (config) => {
+  const userData = localStorage.getItem('User-Details');
+  const jsonUserData = JSON.parse(userData)
+  console.log('rk', jsonUserData);
+  config.headers['Authorization'] = jsonUserData?.id
+  return config
+})
+
+Api.interceptors.response.use(
+  (res) => {
+    return Promise.resolve(res)
+  },
+  async (error) => {
+    return Promise.reject(error)
+  }
+)
+
+export default Api

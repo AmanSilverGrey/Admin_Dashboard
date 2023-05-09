@@ -10,6 +10,7 @@ import NoData from '../../../../app/pages/NoData/NoData'
 import {useAuth} from '../../../../app/modules/auth'
 import swal from 'sweetalert'
 import {showToast} from '../../../../app/customs/CustomModel'
+import EditRequest from './EditRequest'
 
 //type Props = {
 //className: string,
@@ -19,7 +20,7 @@ import {showToast} from '../../../../app/customs/CustomModel'
 const RequestsTable = ({className}) => {
   const [data, setData] = useState([])
   // const [nodata, setNOData] = useState('')
-  const [toggle, setToggle] = useState('')
+  const [toggle, setToggle] = useState(0)
   const [addUser, setAddUser] = useState(false)
   const currentUser = useAuth()
 
@@ -35,6 +36,7 @@ const RequestsTable = ({className}) => {
   const [active, setActive] = useState()
   // Show Table
   const [showTable, setShowTable] = useState(true)
+  const [editData, setEditData] = useState([])
 
   //For Update dropdown
   const [orgName, setOrgName] = useState([])
@@ -122,22 +124,24 @@ const RequestsTable = ({className}) => {
   }
 
   //Api call for particluar user to edit.
-  const Toggle = async (id) => {
-    setToggle(id)
-    await axios
-      .get(`/user/${id}/`)
-      .then((Response) => {
-        setFirst_name(Response.data.data.first_name)
-        setLast_name(Response.data.data.last_name)
-        setEmail(Response.data.data.email)
-        setOrg(Response.data.data.org)
-        setSelectOrg(Response.data.data.org_name)
-        setActive(Response.data.data.is_active)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
+  // const Toggle = async (id) => {
+  //   setToggle(id)
+  //   await axios
+  //     .get(`/user/${id}/`)
+  //     .then((Response) => {
+  //       setEditData(Response.data.data)
+  //       console.log('User', Response.data.data)
+  //       setFirst_name(Response.data.data.first_name)
+  //       setLast_name(Response.data.data.last_name)
+  //       setEmail(Response.data.data.email)
+  //       setOrg(Response.data.data.org)
+  //       setSelectOrg(Response.data.data.org_name)
+  //       setActive(Response.data.data.is_active)
+  //     })
+  //     .catch((error) => {
+  //       console.log(error)
+  //     })
+  // }
   //Delete particluar user
   const DeleteUser = (item) => {
     const text = 'Are sure want to delete.'
@@ -183,29 +187,28 @@ const RequestsTable = ({className}) => {
   }
 
   //Handle Form Submit
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    const orgId = orgName.find((item) => item?.name == selectOrg)
-    const EditedUser = {
-      first_name,
-      last_name,
-      email,
-      org: orgId?.id,
-      org_name: orgId?.name,
-      is_active: active,
-    }
+  // const handleSubmit = (e) => {
+  //   e.preventDefault()
+  //   const orgId = orgName.find((item) => item?.name == selectOrg)
+  //   const EditedUser = {
+  //     first_name,
+  //     last_name,
+  //     email,
+  //     org: orgId?.id,
+  //     org_name: orgId?.name,
+  //     is_active: active,
+  //   }
 
-    axios
-      .patch(`/user/${toggle}/`, EditedUser)
-      .then((Response) => {
-        console.log('patch', Response.data)
-        setToggle(false)
-        showToast.success('User Edited!')
-      })
-      .catch((error) => {
-        showToast.error(error)
-      })
-  }
+  //   axios
+  //     .patch(`/user/${toggle}/`, EditedUser)
+  //     .then((Response) => {
+  //       setToggle(false)
+  //       showToast.success('User Edited!')
+  //     })
+  //     .catch((error) => {
+  //       showToast.error(error)
+  //     })
+  // }
 
   return (
     <>
@@ -238,7 +241,7 @@ const RequestsTable = ({className}) => {
           <div className={`card ${className}`}>
             {/* <div className={`card ${className}`}> */}
             {/* begin::Body */}
-            <div className='card-body'>
+            <div className='card-body m-0 p-0 rounded'>
               {/* begin::Table container */}
               <div className='table-responsive'>
                 {/* begin::Table */}
@@ -247,7 +250,6 @@ const RequestsTable = ({className}) => {
                   <thead className='text-gray-900 bg-gray-300'>
                     <tr className='fw-bold fs-6'>
                       <th className='w-15 p-5'>First Name</th>
-                      <th className='w-15 p-5'>Last Name</th>
                       <th className='w-15 p-5'>Email</th>
                       <th className='w-15 p-5'>Phone Number</th>
                       <th className='w-15 p-5'>Organization</th>
@@ -263,11 +265,13 @@ const RequestsTable = ({className}) => {
                     {data.map((item) => (
                       <tr key={item.id}>
                         <td>
-                          <p className='text-dark fw-bold fs-6'>{item.first_name}</p>
+                          <p className='text-dark fw-bold fs-6'>
+                            {item.first_name}
+                            {' '}
+                            {item.last_name}
+                          </p>
                         </td>
-                        <td>
-                          <p className='text-dark fw-bold fs-6'>{item.last_name}</p>
-                        </td>
+
                         <td>
                           <p className='text-dark fw-bold fs-6'>{item.email}</p>
                         </td>
@@ -275,7 +279,7 @@ const RequestsTable = ({className}) => {
                           <p className='text-dark fw-bold fs-6'>{item.phone}</p>
                         </td>
                         <td>
-                          <p className='text-dark fw-bold fs-6'>{item.org_name}</p>
+                          <p className='text-dark fw-bold fs-6'>{item.org_names}</p>
                         </td>
                         <td key={item.id}>
                           <div>
@@ -306,7 +310,7 @@ const RequestsTable = ({className}) => {
                               <div>
                                 <span
                                   data-tip
-                                  data-for='activateUser'
+                                  data-for='activate User'
                                   onClick={() => {
                                     setActive(true)
                                     handleApprove(item)
@@ -316,7 +320,7 @@ const RequestsTable = ({className}) => {
                                   User is deactive
                                 </span>
                                 <ReactTooltip
-                                  id='activateUser'
+                                  id='activate User'
                                   place='top'
                                   effect='float'
                                   type='info'
@@ -344,7 +348,7 @@ const RequestsTable = ({className}) => {
                           </a> */}
                           <div
                             onClick={() => {
-                              Toggle(item.id)
+                              setToggle(item?.id)
                             }}
                             className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
                           >
@@ -380,114 +384,9 @@ const RequestsTable = ({className}) => {
       )}
 
       {/* Edit User */}
-      {toggle && (
-        <div className='w-50 mx-auto p-10 shadow  mb-5 bg-body rounded'>
-          <br />
-          <div className='d-flex flex-wrap justify-content-between align-items-center'>
-            <h2 className='text-primary'>Edit user </h2>
-            <div
-              className={`${
-                active ? 'btn bg-danger  text-danger' : 'btn bg-success  text-success'
-              }   bg-opacity-10 fw-bold fs-5 py-2`}
-              onClick={() => setActive(!active)}
-            >
-              {active ? 'Disable' : 'Enable'}
-            </div>
-          </div>
-          <div className='form-floating mb-7'>
-            <p className='text-muted'>
-              Fields marked with <span className='text-danger'>*</span> are required.
-            </p>
-          </div>
+      {toggle ? <EditRequest setToggle={setToggle} toggle={toggle} /> : null}
 
-          <div className='form-floating mb-7'>
-            <input
-              type='text'
-              className='form-control form-control-solid bg-light'
-              id='floatingInput1'
-              value={first_name}
-              onChange={(e) => setFirst_name(e.target.value)}
-              required
-              pattern='\S(.*\S)?'
-            />
-            <label htmlFor='floatingInput1'>
-              First Name<span className='text-danger'>*</span>
-            </label>
-          </div>
-          <div className='form-floating mb-7'>
-            <input
-              type='text'
-              className='form-control form-control-solid bg-light'
-              id='floatingInput1'
-              value={last_name}
-              onChange={(e) => setLast_name(e.target.value)}
-            />
-            <label htmlFor='floatingInput1'>Last Name</label>
-          </div>
-          <div className='form-floating mb-7'>
-            <input
-              type='email'
-              className='form-control form-control-solid bg-light'
-              id='floatingInput1'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              pattern='\S(.*\S)?'
-            />
-            <label htmlFor='floatingInput1'>
-              Email<span className='text-danger'>*</span>
-            </label>
-          </div>
-
-          {/* <div className='form-floating mb-7'>
-            <input
-              type='number'
-              className='form-control form-control-solid bg-light'
-              id='floatingInput1'
-              value={org}
-              onChange={(e) => setOrg(e.target.value)}
-            />
-            <label htmlFor='floatingInput1'>Org</label>
-          </div> */}
-
-          {/* dropdown */}
-          {/* Drop Down */}
-          <div className='form-floating mb-7'>
-            <select
-              className='form-select form-select-solid bg-light cursor-pointer'
-              id='floatingSelect1'
-              aria-label='Floating label select example'
-              onChange={(e) => setSelectOrg(e.target.value)}
-              value={selectOrg}
-              required
-              pattern='\S(.*\S)?'
-            >
-              <option value={''} dselected disabled hidden>
-                {selectOrg}
-              </option>
-              {orgName.map((item) => (
-                <option key={item.id} value={item?.name}>
-                  {item.name}
-                </option>
-              ))}
-            </select>
-            <label htmlFor='floatingSelect1'>
-              Organization name<span className='text-danger'>*</span>
-            </label>
-          </div>
-
-          <div className='col-md-12 text-center d-flex gap-10'>
-            <span className='btn btn-sl fw-bold btn-success w-20 mt-8' onClick={handleSubmit}>
-              Update
-            </span>
-            <div className='btn btn-sl fw-bold btn-dark w-20 mt-8' onClick={() => setToggle(false)}>
-              Cancel
-            </div>
-          </div>
-        </div>
-      )}
-
-      {!showTable && !addUser && (
+      {!showTable && !addUser ? (
         <div className='d-flex flex-column flex-root'>
           <div className='d-flex flex-column flex-center flex-column-fluid'>
             <div className='d-flex flex-column flex-center text-center p-10'>
@@ -499,13 +398,13 @@ const RequestsTable = ({className}) => {
             </div>
           </div>
         </div>
-      )}
+      ) : null}
 
-      {addUser && (
+      {addUser ? (
         <div>
           <AddUser goback={setAddUser} setShowTable={setShowTable} />
         </div>
-      )}
+      ) : null}
     </>
   )
 }

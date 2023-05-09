@@ -117,7 +117,7 @@ const TablesWidget13 = ({className}) => {
         )}
       </div>
       {!toggle && !addOrg && (
-        <div className={`card ${className} m-0 shadow rounded mx-auto w-75 text-center`}>
+        <div className={`card ${className} m-0 p-0 shadow rounded mx-auto w-75 text-center`}>
           {status === 0 && (
             <div>
               <h2>Data not available</h2>
@@ -127,9 +127,9 @@ const TablesWidget13 = ({className}) => {
             <div>
               {/* <div className={`card ${className}`}> */}
               {/* begin::Body */}
-              <div className='card-body'>
+              <div className='card-body shadow m-0 p-0 rounded'>
                 {/* begin::Table container */}
-                <div className='table-responsive '>
+                <div className='table-responsive m-0 p-0 '>
                   {/* begin::Table */}
                   <table className='table table-striped table-row-bordered table-row-gray-100 align-middle gs-0 gy-3 '>
                     {/* begin::Table head */}

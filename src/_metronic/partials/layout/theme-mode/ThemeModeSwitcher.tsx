@@ -11,7 +11,7 @@ type Props = {
   menuTrigger?: string
 }
 
-const systemMode = ThemeModeComponent.getSystemMode() as 'light' | 'dark'
+const systemMode = ThemeModeComponent.getSystemMode() as 'light'
 
 const ThemeModeSwitcher = ({
   toggleBtnClass = '',

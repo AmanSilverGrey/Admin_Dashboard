@@ -58,9 +58,11 @@ const ProductsTable = ({className}) => {
     <>
       <div className='w-75 mx-auto mb-5'>{!edit && <h3 className='m-0'>Products</h3>}</div>
       {!edit && (
-        <div className={`card ${className} shadow bg-body rounded w-75 mx-auto text-center`}>
+        <div
+          className={`card ${className} p-0 m-0 shadow bg-body rounded w-75 mx-auto text-center`}
+        >
           {/* begin::Body */}
-          <div className='card-body'>
+          <div className='card-body m-0 p-0 rounded'>
             {/* begin::Table container */}
             <div className='table-responsive'>
               {/* begin::Table */}

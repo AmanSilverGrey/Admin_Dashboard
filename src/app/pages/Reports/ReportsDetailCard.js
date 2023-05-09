@@ -66,7 +66,8 @@ const ReportsDetailCard = ({option, handleClose}) => {
           <div className='d-flex flex-wrap gap-5 align-items-center w-sm-25 '>
             <div className='text-gray-600'>Product: </div>
             <div className=''>
-              {option?.product_name} <span className='fs-8 text-gray-600'>({option?.product_sku})</span>
+              {option?.product_name}{' '}
+              <span className='fs-8 text-gray-600'>({option?.product_sku})</span>
             </div>
           </div>
         </div>

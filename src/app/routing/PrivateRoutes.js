@@ -32,7 +32,7 @@ const PrivateRoutes = () => {
         <Route path='auth/*' element={<Navigate to='/requests' />} />
         {/* Pages */}
 
-        {currentUser?.type == 'SA' && <Route path='organization' element={<DashboardWrapper />} />}
+        <Route path='organization' element={<DashboardWrapper />} />
 
         {/* <Route path='admin' element={<AdminPageWrapper />} /> */}
 

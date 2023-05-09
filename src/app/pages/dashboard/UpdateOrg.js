@@ -94,11 +94,14 @@ const UpdateOrg = ({id, goback}) => {
         <h2 className='text-primary'>Update Organization</h2>
         <div
           className={`${
-            status ? 'btn bg-danger  text-danger' : 'btn bg-success  text-success'
+            !status ? 'btn bg-danger  text-danger' : 'btn bg-success  text-success'
           }   bg-opacity-10 fw-bold fs-5 py-2`}
           onClick={() => setStatus(!status)}
+          data-toggle='tooltip'
+          data-placement='left'
+          title={status ? 'Click to deactivate ' : 'Click to activate'}
         >
-          {status ? 'Deactive' : 'Active'}
+          {status ?  'Active': 'Deactive'}
         </div>
       </div>
       <div className='form-floating mb-7'>
@@ -179,11 +182,11 @@ const UpdateOrg = ({id, goback}) => {
       <div className='form-floating mb-7'>
         <input
           type='text'
+          required
           className='form-control form-control-solid bg-light'
           id='floatingInput1'
           value={address}
           onChange={(e) => setAddress(e.target.value)}
-          required
           pattern='\S(.*\S)?'
         />
         <label htmlFor='floatingInput1'>
