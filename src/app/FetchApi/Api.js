@@ -8,7 +8,7 @@ const Api = axios.create({
 Api.interceptors.request.use(async (config) => {
   const userData = localStorage.getItem('User-Details')
   const jsonUserData = JSON.parse(userData)
-  if (jsonUserData?.id && jsonUserData?.type != 'SA') {
+  if (jsonUserData?.id) {
     config.headers['Authorization'] = jsonUserData?.id
   }
   return config

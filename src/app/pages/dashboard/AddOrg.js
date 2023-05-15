@@ -21,6 +21,12 @@ const AddOrg = ({goback}) => {
   const [phoneError, setPhoneError] = useState(null)
   const [emailError, setEmailError] = useState(null)
 
+// Get data from localStorage
+  const UserDetails = localStorage.getItem('User-Details')
+  const userdata = JSON.parse(JSON.parse(JSON.stringify(UserDetails)))
+  console.log('AS', userdata)
+
+
   //Fecthing Org admin names
   const API = async () => {
     await axios
@@ -51,7 +57,7 @@ const AddOrg = ({goback}) => {
       city,
       state,
       zip,
-      owner,
+      owner : userdata?.type == 'OA' ? userdata.id : owner,
       note,
       ownerName,
     }
@@ -72,6 +78,8 @@ const AddOrg = ({goback}) => {
         }
       })
   }
+
+  
 
   return (
     <div className='w-50 mx-auto p-10 shadow  mb-5 bg-body rounded'>
@@ -228,27 +236,35 @@ const AddOrg = ({goback}) => {
 
         {/* Drop Down */}
         <div className='form-floating mb-7'>
-          <select
-            className='form-select form-select-solid bg-light cursor-pointer'
-            id='floatingSelect1'
-            aria-label='Floating label select example'
-            value={ownerName}
-            onChange={(e) => {
-              setOwnerName(e.target.value)
-              setOwner(e.target.value)
-            }}
-            // required
-            pattern='\S(.*\S)?'
-          >
-            <option value={''} dselected disabled hidden>
-              {'Select Org Admin'}
-            </option>
-            {oAname.map((item) => (
-              <option key={item.id} value={item.id}>
-                {item.first_name} {item.last_name}
+          {userdata?.type == 'OA' ? (
+            <input
+              type='text'
+              className='form-control form-control-solid bg-light'
+              value={userdata?.firstname + ' ' + userdata?.lastname}
+            />
+          ) : (
+            <select
+              className='form-select form-select-solid bg-light cursor-pointer'
+              id='floatingSelect1'
+              aria-label='Floating label select example'
+              value={ownerName}
+              onChange={(e) => {
+                setOwnerName(e.target.value)
+                setOwner(e.target.value)
+              }}
+              // required
+              pattern='\S(.*\S)?'
+            >
+              <option value={''} dselected disabled hidden>
+                {'Select Org Admin'}
               </option>
-            ))}
-          </select>
+              {oAname.map((item) => (
+                <option key={item.id} value={item.id}>
+                  {item.first_name} {item.last_name}
+                </option>
+              ))}
+            </select>
+          )}
           <label htmlFor='floatingSelect1'>
             Owner <span className='text-danger'>*</span>
           </label>
