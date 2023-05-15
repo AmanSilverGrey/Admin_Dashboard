@@ -45,16 +45,19 @@ const RequestsTable = ({className}) => {
   const api = async () => {
     const UserDetails = localStorage.getItem('User-Details')
     const UserData = JSON.parse(JSON.parse(JSON.stringify(UserDetails)))
+    console.log('userdata', UserData.type)
     if (UserData?.type == 'SA') {
       await axios
         .get('/requestusers/?type=NU')
         .then((response) => {
-          if (response.data.results.length == 0) {
+          console.log('rk', response)
+          if (response?.data?.data?.length == 0) {
             setShowTable(false)
           } else {
-            setData(response.data.results)
-            console.log('Aman', response.data.results)
+            setData(response?.data?.data)
+            console.log('Aman', response?.data?.data)
           }
+          console.log('Aman', response?.data?.data)
         })
         .catch((error) => {
           console.log(error)
@@ -74,11 +77,11 @@ const RequestsTable = ({className}) => {
       await axios
         .get(`/requestusers/?type=NU&org=${userorg}`)
         .then((response) => {
-          if (response.data.results.length == 0) {
+          if (response?.data?.data?.length == 0) {
             console.log('No data')
             setShowTable(false)
           } else {
-            setData(response.data.results)
+            setData(response?.data?.data)
           }
         })
         .catch((error) => {
@@ -266,9 +269,7 @@ const RequestsTable = ({className}) => {
                       <tr key={item.id}>
                         <td>
                           <p className='text-dark fw-bold fs-6'>
-                            {item.first_name}
-                            {' '}
-                            {item.last_name}
+                            {item.first_name} {item.last_name}
                           </p>
                         </td>
 

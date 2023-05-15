@@ -132,7 +132,7 @@ const UpdateAdmin = ({id, goback, admin}) => {
         </div>
 
         <div className='col-md-12 text-center d-flex gap-10'>
-          <button className='btn btn-sl fw-bold btn-primary w-20 mt-8' onSubmit={handleSubmit}>
+          <button className='btn btn-sl fw-bold btn-primary w-20 mt-8'>
             Update
           </button>
           <div className='btn btn-sl fw-bold btn-dark w-20 mt-8' onClick={() => goback()}>

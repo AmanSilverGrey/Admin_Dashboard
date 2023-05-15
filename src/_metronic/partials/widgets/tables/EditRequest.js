@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react'
 import {showToast} from '../../../../app/customs/CustomModel'
 
 const EditRequest = ({setToggle, toggle}) => {
-//   const [editData, setEditData] = useState([])
+  //   const [editData, setEditData] = useState([])
   const [first_name, setFirst_name] = useState('')
   const [last_name, setLast_name] = useState('')
   const [email, setEmail] = useState('')
@@ -39,7 +39,6 @@ const EditRequest = ({setToggle, toggle}) => {
         console.log(Error)
       })
   }
-
 
   useEffect(() => {
     api()
@@ -94,88 +93,79 @@ const EditRequest = ({setToggle, toggle}) => {
         </p>
       </div>
 
-      <div className='form-floating mb-7'>
-        <input
-          type='text'
-          className='form-control form-control-solid bg-light'
-          id='floatingInput1'
-          value={first_name}
-          onChange={(e) => setFirst_name(e.target.value)}
-          required
-          pattern='\S(.*\S)?'
-        />
-        <label htmlFor='floatingInput1'>
-          First Name<span className='text-danger'>*</span>
-        </label>
-      </div>
-      <div className='form-floating mb-7'>
-        <input
-          type='text'
-          className='form-control form-control-solid bg-light'
-          id='floatingInput1'
-          value={last_name}
-          onChange={(e) => setLast_name(e.target.value)}
-        />
-        <label htmlFor='floatingInput1'>Last Name</label>
-      </div>
-      <div className='form-floating mb-7'>
-        <input
-          type='email'
-          className='form-control form-control-solid bg-light'
-          id='floatingInput1'
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          pattern='\S(.*\S)?'
-        />
-        <label htmlFor='floatingInput1'>
-          Email<span className='text-danger'>*</span>
-        </label>
-      </div>
-
-      {/* <div className='form-floating mb-7'>
-      <input
-        type='number'
-        className='form-control form-control-solid bg-light'
-        id='floatingInput1'
-        value={org}
-        onChange={(e) => setOrg(e.target.value)}
-      />
-      <label htmlFor='floatingInput1'>Org</label>
-    </div> */}
-
-      {/* dropdown */}
-      {/* Drop Down */}
-      <div className='form-floating mb-7'>
-        <select
-          className='form-select form-select-solid bg-light cursor-pointer'
-          id='floatingSelect1'
-          aria-label='Floating label select example'
-          onChange={(e) => setOrg_name(e.target.value)}
-          value={org_name}
-          required
-          pattern='\S(.*\S)?'
-        >
-          <option value={''}>select</option>
-          {org.map((item) => (
-            <option key={item.id} value={item?.name}>
-              {item.name}
-            </option>
-          ))}
-        </select>
-        <label htmlFor='floatingSelect1'>
-          Organization name<span className='text-danger'>*</span>
-        </label>
-      </div>
-
-      <div className='col-md-12 text-center d-flex gap-10'>
-        <span className='btn btn-sl fw-bold btn-success w-20 mt-8' onClick={handleSubmit}>
-          Update
-        </span>
-        <div className='btn btn-sl fw-bold btn-dark w-20 mt-8' onClick={() => setToggle(false)}>
-          Cancel
+      <form  onSubmit={handleSubmit}>
+        <div className='form-floating mb-7'>
+          <input
+            type='text'
+            className='form-control form-control-solid bg-light'
+            id='floatingInput1'
+            value={first_name}
+            onChange={(e) => setFirst_name(e.target.value)}
+            required
+            pattern='\S(.*\S)?'
+          />
+          <label htmlFor='floatingInput1'>
+            First Name<span className='text-danger'>*</span>
+          </label>
         </div>
-      </div>
+        <div className='form-floating mb-7'>
+          <input
+            type='text'
+            className='form-control form-control-solid bg-light'
+            id='floatingInput1'
+            value={last_name}
+            onChange={(e) => setLast_name(e.target.value)}
+          ></input>
+          <label htmlFor='floatingInput1'>Last Name</label>
+        </div>
+        <div className='form-floating mb-7'>
+          <input
+            type='email'
+            className='form-control form-control-solid bg-light'
+            id='floatingInput1'
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            pattern='\S(.*\S)?'
+          ></input>
+          <label htmlFor='floatingInput1'>
+            Email<span className='text-danger'>*</span>
+          </label>
+        </div>
+
+        {/* dropdown */}
+        {/* Drop Down */}
+        <div className='form-floating mb-7'>
+          <select
+            className='form-select form-select-solid bg-light cursor-pointer'
+            id='floatingSelect1'
+            aria-label='Floating label select example'
+            onChange={(e) => setOrg_name(e.target.value)}
+            value={org_name}
+            required
+            pattern='\S(.*\S)?'
+          >
+            <option value={''}>select</option>
+            {org.map((item) => (
+              <option key={item.id} value={item?.name}>
+                {item.name}
+              </option>
+            ))}
+          </select>
+          <label htmlFor='floatingSelect1'>
+            Organization name<span className='text-danger'>*</span>
+          </label>
+        </div>
+
+        <div className='col-md-12 text-center d-flex gap-10'>
+          <button className='btn btn-sl fw-bold btn-success w-20 mt-8'>
+            Update
+          </button>
+          <div className='btn btn-sl fw-bold btn-dark w-20 mt-8' onClick={() => setToggle(false)}>
+            Cancel
+          </div>
+        </div>
+      </form>
     </div>
   )
 }

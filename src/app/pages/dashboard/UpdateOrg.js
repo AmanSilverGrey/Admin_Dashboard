@@ -4,10 +4,10 @@ import {showToast} from '../../customs/CustomModel'
 
 const UpdateOrg = ({id, goback}) => {
   const [name, setName] = useState('')
-  const [primary_name, setPrimary_name] = useState('')
+  const [primary_name, setPrimary_name] = useState()
   const [primary_title, setPrimay_title] = useState('')
   // const [phone, setPhone] = useState('')
-  const [email, setEmail] = useState('')
+  const [email, setEmail] = useState()
   const [address, setAddress] = useState('')
   const [city, setCity] = useState('')
   const [state, setState] = useState('')
@@ -82,7 +82,10 @@ const UpdateOrg = ({id, goback}) => {
         goback()
       })
       .catch((error) => {
-        showToast.error(error.message)
+        const key = Object.keys(error.response.data)
+        showToast.error(`${key[0].length > 0 ? key[0] + ' can not be null' : ''}`)
+        // console.log(error.response.data)
+        console.log(key[0])
       })
   }
 
@@ -101,7 +104,7 @@ const UpdateOrg = ({id, goback}) => {
           data-placement='left'
           title={status ? 'Click to deactivate ' : 'Click to activate'}
         >
-          {status ?  'Active': 'Deactive'}
+          {status ? 'Active' : 'Deactive'}
         </div>
       </div>
       <div className='form-floating mb-7'>
@@ -109,52 +112,52 @@ const UpdateOrg = ({id, goback}) => {
           Fields marked with <span className='text-danger'>*</span> are required.
         </p>
       </div>
+      <form onSubmit={handleSubmit}>
+        <div className='form-floating mb-7'>
+          <input
+            type='text'
+            className='form-control form-control-solid bg-light'
+            id='floatingInput1'
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+            pattern='\S(.*\S)?'
+          />
+          <label htmlFor='floatingInput1'>
+            Name <span className='text-danger'>*</span>
+          </label>
+        </div>
 
-      <div className='form-floating mb-7'>
-        <input
-          type='text'
-          className='form-control form-control-solid bg-light'
-          id='floatingInput1'
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-          pattern='\S(.*\S)?'
-        />
-        <label htmlFor='floatingInput1'>
-          Name <span className='text-danger'>*</span>
-        </label>
-      </div>
-
-      <div className='form-floating mb-7'>
-        <input
-          type='text'
-          className='form-control form-control-solid bg-light'
-          id='floatingInput1'
-          value={primary_name}
-          onChange={(e) => setPrimary_name(e.target.value)}
-          required
-          pattern='\S(.*\S)?'
-        />
-        <label htmlFor='floatingInput1'>
-          Primary name <span className='text-danger'>*</span>
-        </label>
-      </div>
-      <div className='form-floating mb-7'>
-        <input
-          type='text'
-          className='form-control form-control-solid bg-light'
-          id='floatingInput1'
-          value={primary_title}
-          onChange={(e) => setPrimay_title(e.target.value)}
-          required
-          pattern='\S(.*\S)?'
-        />
-        <label htmlFor='floatingInput1'>
-          Primary title <span className='text-danger'>*</span>
-        </label>
-      </div>
-      {/* Phone Number */}
-      {/* <div className='form-floating mb-7'>
+        <div className='form-floating mb-7'>
+          <input
+            type='text'
+            className='form-control form-control-solid bg-light'
+            // id='floatingInput1'
+            value={primary_name}
+            onChange={(e) => setPrimary_name(e.target.value)}
+            required
+            // pattern='\S(.*\S)?'
+          />
+          <label htmlFor='floatingInput1'>
+            Primary name <span className='text-danger'>*</span>
+          </label>
+        </div>
+        <div className='form-floating mb-7'>
+          <input
+            type='text'
+            className='form-control form-control-solid bg-light'
+            id='floatingInput1'
+            value={primary_title}
+            onChange={(e) => setPrimay_title(e.target.value)}
+            required
+            pattern='\S(.*\S)?'
+          />
+          <label htmlFor='floatingInput1'>
+            Primary title <span className='text-danger'>*</span>
+          </label>
+        </div>
+        {/* Phone Number */}
+        {/* <div className='form-floating mb-7'>
         <input
           type='number'
           className='form-control form-control-solid bg-light'
@@ -165,122 +168,121 @@ const UpdateOrg = ({id, goback}) => {
         <label htmlFor='floatingInput1'>Phone no.</label>
       </div> */}
 
-      <div className='form-floating mb-7'>
-        <input
-          type='email'
-          className='form-control form-control-solid bg-light'
-          id='floatingInput1'
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          pattern='\S(.*\S)?'
-        />
-        <label htmlFor='floatingInput1'>
-          Email <span className='text-danger'>*</span>
-        </label>
-      </div>
-      <div className='form-floating mb-7'>
-        <input
-          type='text'
-          required
-          className='form-control form-control-solid bg-light'
-          id='floatingInput1'
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-          pattern='\S(.*\S)?'
-        />
-        <label htmlFor='floatingInput1'>
-          Address <span className='text-danger'>*</span>
-        </label>
-      </div>
-      <div className='form-floating mb-7'>
-        <input
-          type='text'
-          className='form-control form-control-solid bg-light'
-          id='floatingInput1'
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-          required
-          pattern='\S(.*\S)?'
-        />
-        <label htmlFor='floatingInput1'>
-          City<span className='text-danger'>*</span>
-        </label>
-      </div>
-      <div className='form-floating mb-7'>
-        <input
-          type='text'
-          className='form-control form-control-solid bg-light'
-          id='floatingInput1'
-          value={state}
-          onChange={(e) => setState(e.target.value)}
-          required
-          pattern='\S(.*\S)?'
-        />
-        <label htmlFor='floatingInput1'>
-          State<span className='text-danger'>*</span>
-        </label>
-      </div>
-      <div className='form-floating mb-7'>
-        <input
-          type='number'
-          className='form-control form-control-solid bg-light'
-          id='floatingInput1'
-          value={zip}
-          onChange={(e) => setZip(e.target.value)}
-          required
-          pattern='\S(.*\S)?'
-        />
-        <label htmlFor='floatingInput1'>
-          Zip<span className='text-danger'>*</span>
-        </label>
-      </div>
-      {/* DropDown */}
-      <div className='form-floating mb-7'>
-        <select
-          className='form-select form-select-solid bg-light'
-          id='floatingSelect1'
-          aria-label='Floating label select example'
-          onChange={(e) => setOwner(e.target.value)}
-          value={owner}
-          required
-          pattern='\S(.*\S)?'
-        >
-          <option value={''} dselected disabled hidden>
-            Select Owner
-          </option>
-          {oAname.map((item) => (
-            <option key={item.id} value={item.id}>
-              {item.first_name} {item.last_name}
-            </option>
-          ))}
-        </select>
-        <label htmlFor='floatingSelect1'>
-          Owner<span className='text-danger'>*</span>
-        </label>
-      </div>
-      {/* <!--end::Input group--> */}
-
-      {/* <!--begin::Input group--> */}
-      <div className='form-floating'>
-        <textarea
-          rows={10}
-          className='form-control form-control-solid bg-light'
-          placeholder='Leave a comment here'
-          id='floatingTextarea1'
-          value={note}
-          onChange={(e) => setNote(e.target.value)}
-        ></textarea>
-        <label htmlFor='floatingTextarea1'>Note</label>
-      </div>
-      <div className='col-md-12 text-center d-flex gap-10'>
-        <span className='btn btn-sl fw-bold btn-success w-20 mt-8' onClick={handleSubmit}>
-          Update
-        </span>
-        <div className='btn btn-sl fw-bold btn-dark w-20 mt-8' onClick={() => goback()}>
-          Cancel
+        <div className='form-floating mb-7'>
+          <input
+            type='email'
+            className='form-control form-control-solid bg-light'
+            id='floatingInput1'
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            pattern='\S(.*\S)?'
+          />
+          <label htmlFor='floatingInput1'>
+            Email <span className='text-danger'>*</span>
+          </label>
         </div>
-      </div>
+        <div className='form-floating mb-7'>
+          <input
+            type='text'
+            required
+            className='form-control form-control-solid bg-light'
+            id='floatingInput1'
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            pattern='\S(.*\S)?'
+          />
+          <label htmlFor='floatingInput1'>
+            Address <span className='text-danger'>*</span>
+          </label>
+        </div>
+        <div className='form-floating mb-7'>
+          <input
+            type='text'
+            className='form-control form-control-solid bg-light'
+            id='floatingInput1'
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            required
+            pattern='\S(.*\S)?'
+          />
+          <label htmlFor='floatingInput1'>
+            City<span className='text-danger'>*</span>
+          </label>
+        </div>
+        <div className='form-floating mb-7'>
+          <input
+            type='text'
+            className='form-control form-control-solid bg-light'
+            id='floatingInput1'
+            value={state}
+            onChange={(e) => setState(e.target.value)}
+            required
+            pattern='\S(.*\S)?'
+          />
+          <label htmlFor='floatingInput1'>
+            State<span className='text-danger'>*</span>
+          </label>
+        </div>
+        <div className='form-floating mb-7'>
+          <input
+            type='number'
+            className='form-control form-control-solid bg-light'
+            id='floatingInput1'
+            value={zip}
+            onChange={(e) => setZip(e.target.value)}
+            required
+            pattern='\S(.*\S)?'
+          />
+          <label htmlFor='floatingInput1'>
+            Zip<span className='text-danger'>*</span>
+          </label>
+        </div>
+        {/* DropDown */}
+        <div className='form-floating mb-7'>
+          <select
+            className='form-select form-select-solid bg-light'
+            id='floatingSelect1'
+            aria-label='Floating label select example'
+            onChange={(e) => setOwner(e.target.value)}
+            value={owner}
+            required
+            pattern='\S(.*\S)?'
+          >
+            <option value={''} dselected disabled hidden>
+              Select Owner
+            </option>
+            {oAname.map((item) => (
+              <option key={item.id} value={item.id}>
+                {item.first_name} {item.last_name}
+              </option>
+            ))}
+          </select>
+          <label htmlFor='floatingSelect1'>
+            Owner<span className='text-danger'>*</span>
+          </label>
+        </div>
+        {/* <!--end::Input group--> */}
+
+        {/* <!--begin::Input group--> */}
+        <div className='form-floating'>
+          <textarea
+            rows={10}
+            className='form-control form-control-solid bg-light'
+            placeholder='Leave a comment here'
+            id='floatingTextarea1'
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+          ></textarea>
+          <label htmlFor='floatingTextarea1'>Note</label>
+        </div>
+        <div className='col-md-12 text-center d-flex gap-10'>
+          <button className='btn btn-sl fw-bold btn-success w-20 mt-8'>Update</button>
+          <div className='btn btn-sl fw-bold btn-dark w-20 mt-8' onClick={() => goback()}>
+            Cancel
+          </div>
+        </div>
+      </form>
       {/* <!--end::Input group--> */}
     </div>
   )

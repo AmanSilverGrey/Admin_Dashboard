@@ -25,7 +25,7 @@ const TablesWidget13 = ({className}) => {
       .get('/organization/')
       .then((response) => {
         setData(response.data.data)
-        console.log('As', response.data)
+        // console.log('As', response)
         setStatus(response.data.status)
       })
       .catch((Error) => {

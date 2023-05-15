@@ -48,32 +48,35 @@ const ReportsFilter = ({
         </div>
         <div className='modal-body'>
           <div className=' my-5 fw-bold'>
-            <div className='d-flex align-items-center mb-5'>
-              <span className='w-25'>From</span>
-              <input
-                className='p-3 border border-secondary rounded-1 cursor-pointer w-75'
-                type='date'
-                onChange={(e) => setFromDate(moment(e.target.value).format('DD-MM-YYYY'))}
-              />
+            <div className='d-flex align-items-center justify-content-between'>
+              <div className=' mb-5'>
+                <div className='fw-bold mb-2 fs-6'>From Date:</div>
+                <input
+                  className='p-3 border-0 rounded-1 bg-gray-100 fw-bold text-gray-600'
+                  type='date'
+                  onChange={(e) => setFromDate(moment(e.target.value).format('DD-MM-YYYY'))}
+                />
+              </div>
+              <div className='mb-5 '>
+                <div className='fw-bold mb-2 fs-6'>To Date:</div>
+                <input
+                  className='p-3 border-0 rounded-1 bg-gray-100 fw-bold text-gray-600'
+                  type='date'
+                  onChange={(e) => setToDate(moment(e.target.value).format('DD-MM-YYYY'))}
+                />
+              </div>
             </div>
-            <div className='d-flex align-items-center mb-5 '>
-              <span className='w-25'>To</span>
-              <input
-                className='p-3 border border-secondary rounded-1 w-75'
-                type='date'
-                onChange={(e) => setToDate(moment(e.target.value).format('DD-MM-YYYY'))}
-              />
-            </div>
-
             {/* Select by organisation */}
             {userType == 'SA' && (
               <div className='w-auto mb-5'>
+                <div className='fw-bold mb-2 fs-6'>Organization:</div>
+
                 <input
                   type='text'
                   value={searchOrgTerm}
                   onChange={handleOrgSearch}
                   placeholder='Search org..'
-                  className='form-control py-2'
+                  className='form-control py-2 bg-gray-100 fw-bold text-gray-600'
                   style={{position: 'relative'}}
                 />
                 {searchOrgList.length > 0 && searchOrgTerm && (
@@ -99,12 +102,14 @@ const ReportsFilter = ({
             )}
             {/* User Filter */}
             <div className='w-auto mb-5'>
+              <div className='fw-bold mb-2 fs-6'>User:</div>
+
               <input
                 type='text'
                 value={searchUserTerm}
                 onChange={handleUserSearch}
                 placeholder='Search user..'
-                className='form-control py-2'
+                className='form-control py-2 bg-gray-100 fw-bold text-gray-600'
                 style={{position: 'relative'}}
               />
               {searchUserList.length > 0 && searchUserTerm && (
@@ -130,12 +135,14 @@ const ReportsFilter = ({
 
             {/* Select by product */}
             <div className='w-auto'>
+              <div className='fw-bold mb-2 fs-6'>Product:</div>
+
               <input
                 type='text'
                 value={searchProductTerm}
                 onChange={handleProductSearch}
                 placeholder='Search by product..'
-                className='form-control py-2'
+                className='form-control py-2 bg-gray-100 fw-bold text-gray-600'
                 style={{position: 'relative'}}
               />
               {searchProductList.length > 0 && searchProductTerm && (
@@ -160,12 +167,12 @@ const ReportsFilter = ({
             </div>
           </div>
         </div>
-        <div className='modal-footer'>
-          <button type='button' className='btn btn-light-primary' onClick={closeModal}>
-            Cancel
-          </button>
-          <button id='submit' type='button' className='btn btn-primary' onClick={handleClose}>
+        <div className='modal-footer d-flex justify-content-center align-items-center gap-10'>
+          <button id='submit' type='button' className='btn btn-primary py-2' onClick={handleClose}>
             Apply
+          </button>
+          <button type='button' className='btn btn-light-primary py-2' onClick={closeModal}>
+            Cancel
           </button>
         </div>
       </div>

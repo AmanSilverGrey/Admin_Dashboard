@@ -204,16 +204,11 @@ const ReportsTable = ({className}) => {
                         {/* <td>
                   <span className='badge badge-light-success'>Approved</span>
                 </td> */}
-                        <td className=''>
+                        <td className='text-center'>
                           <span
-                            className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
+                            className='bi bi-eye-fill fs-2 text-dark cursor-pointer text-hover-primary btn-sm '
                             onClick={() => setOpenDetailCard({value: true, id: item})}
-                          >
-                            <KTSVG
-                              path='/media/icons/duotune/general/gen019.svg'
-                              className='svg-icon-3'
-                            />
-                          </span>
+                          ></span>
                         </td>
                       </tr>
                     ))}

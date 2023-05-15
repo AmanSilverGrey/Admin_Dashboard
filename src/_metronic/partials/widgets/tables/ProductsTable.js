@@ -5,6 +5,7 @@ import {KTSVG} from '../../../helpers'
 import EditProduct from '../../../../app/pages/Products/EditProduct'
 import {useAuth} from '../../../../app/modules/auth'
 import swal from 'sweetalert'
+import AddProduct from '../../../../app/pages/Products/AddProduct'
 
 //type Props = {
 //className: string,
@@ -17,6 +18,7 @@ const ProductsTable = ({className}) => {
   const [pgNo, setPgNo] = useState(1)
   const [totalPage, setTotalpage] = useState(null)
   const [edit, setEdit] = useState(null)
+  const [addNew, setAddNew] = useState(false)
   const {currentUser} = useAuth()
 
   const api = async () => {
@@ -28,7 +30,7 @@ const ProductsTable = ({className}) => {
 
   useEffect(() => {
     api()
-  }, [pgNo, edit])
+  }, [pgNo, edit, addNew])
 
   const handleCloseEdit = () => {
     setEdit(!edit.value)
@@ -54,10 +56,22 @@ const ProductsTable = ({className}) => {
       }
     })
   }
+
+  const handleAddNew = () => {
+    setAddNew(!addNew)
+  }
+
   return (
     <>
-      <div className='w-75 mx-auto mb-5'>{!edit && <h3 className='m-0'>Products</h3>}</div>
-      {!edit && (
+      <div className='w-75 d-flex justify-content-between align-items-center mx-auto mb-5'>
+        {!edit && !addNew && <h3 className='m-0'>Products</h3>}
+        {!addNew ? (
+          <div className='btn bg-primary py-2 text-white fs-5' onClick={handleAddNew}>
+            Add new
+          </div>
+        ) : null}
+      </div>
+      {!edit && !addNew && (
         <div
           className={`card ${className} p-0 m-0 shadow bg-body rounded w-75 mx-auto text-center`}
         >
@@ -191,7 +205,8 @@ const ProductsTable = ({className}) => {
         </div>
       )}
 
-      {edit && <EditProduct close={handleCloseEdit} id={edit.id} />}
+      {edit ? <EditProduct close={handleCloseEdit} id={edit.id} /> : null}
+      {addNew ? <AddProduct close={handleAddNew} /> : null}
     </>
   )
 }

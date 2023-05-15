@@ -117,10 +117,13 @@ const UpdateOAadmin = ({id, goback}) => {
             className='form-control form-control-solid bg-light'
             id='floatingInput1'
             value={email}
+            required
             onChange={(e) => setEmail(e.target.value)}
             pattern='\S(.*\S)?'
           />
-          <label htmlFor='floatingInput1'>Email</label>
+          <label htmlFor='floatingInput1 ' className='required'>
+            Email
+          </label>
         </div>
 
         <div className='form-floating mb-7'>
@@ -134,6 +137,9 @@ const UpdateOAadmin = ({id, goback}) => {
             pattern='[+]{1}[0-9]{1}[0-9]{10}'
             title='eg. +1XXXXXXXXXX'
           />
+          <label htmlFor='floatingInput1 ' className='required'>
+            Phone number
+          </label>
         </div>
 
         <div>
@@ -164,9 +170,7 @@ const UpdateOAadmin = ({id, goback}) => {
         </div>
 
         <div className='col-md-12 text-center d-flex gap-10'>
-          <button className='btn btn-sl fw-bold btn-primary w-20 mt-8' onSubmit={handleSubmit}>
-            Update
-          </button>
+          <button className='btn btn-sl fw-bold btn-primary w-20 mt-8'>Update</button>
           <div className='btn btn-sl fw-bold btn-dark w-20 mt-8' onClick={() => goback()}>
             Cancel
           </div>

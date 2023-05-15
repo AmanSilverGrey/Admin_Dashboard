@@ -2,7 +2,7 @@ import axios from '../../FetchApi/Api'
 import React, {useEffect, useRef, useState} from 'react'
 import {showToast} from '../../customs/CustomModel'
 
-const EditProduct = ({close, id}) => {
+const AddProduct = ({close}) => {
   const profileFilePickerRef = useRef()
   const [hover, setHover] = useState(false)
   const [product_name, setProduct_name] = useState('')
@@ -13,30 +13,6 @@ const EditProduct = ({close, id}) => {
   const [skuValue, setSkuValue] = useState('')
   const [product_indus, setProduct_indus] = useState('')
   const [productImage, setproductImage] = useState(null)
-  const [productData, setproductData] = useState(null)
-
-  const api = async () => {
-    await axios
-      .get(`/products/${id}/`)
-      .then((Response) => {
-        setproductData(Response.data)
-        setProduct_name(Response?.data?.Brand_Name)
-        setProduct_desc(Response?.data?.Product_Description)
-        setGtin(Response?.data?.GTIN)
-        setGtinValue(Response?.data?.GTIN)
-        setSku(Response?.data?.SKU)
-        setSkuValue(Response?.data?.SKU)
-        setProduct_indus(Response?.data?.Product_Industry)
-        setproductImage(Response?.data?.Image_URL)
-      })
-      .catch((Error) => {
-        console.log(Error)
-      })
-  }
-
-  useEffect(() => {
-    api()
-  }, [id])
 
   const handleHover = () => {
     setHover(!hover)
@@ -62,13 +38,13 @@ const EditProduct = ({close, id}) => {
     formData.append('GTIN', gtin)
     formData.append('SKU', sku)
     formData.append('Product_Industry', product_indus)
-    if(productImage?.name) formData.append('Image_URL', productImage)
+    if (productImage?.name) formData.append('Image_URL', productImage)
 
     axios
-      .patch(`/products/${id}/`, formData)
+      .post(`/product/`, formData)
       .then((Response) => {
         close()
-        showToast.success('Product updated!')
+        showToast.success('Product Added!')
       })
       .catch((error) => {
         console.log(error)
@@ -83,7 +59,7 @@ const EditProduct = ({close, id}) => {
         {/* <h2>Update superAdmin</h2> */}
         <form onSubmit={handleSubmit}>
           <br />
-          <h2 className='text-primary'>Edit Product</h2>
+          <h2 className='text-primary'>Add Product</h2>
           <br />
           <div className='form-floating mb-7'>
             <input
@@ -124,7 +100,6 @@ const EditProduct = ({close, id}) => {
               onChange={(e) => setGtin(e.target.value)}
               required
               pattern='\S(.*\S)?'
-              disabled={gtinValue == 'nan' ? false : true}
             />
             <label htmlFor='floatingInput1'>
               GTIN <span className='text-danger'>*</span>
@@ -139,7 +114,6 @@ const EditProduct = ({close, id}) => {
               onChange={(e) => setSku(e.target.value)}
               required
               pattern='\S(.*\S)?'
-              disabled={skuValue == 'nan' ? false : true}
             />
             <label htmlFor='floatingInput1'>
               SKU <span className='text-danger'>*</span>
@@ -157,6 +131,8 @@ const EditProduct = ({close, id}) => {
             <label htmlFor='floatingInput1'>Product Industry</label>
           </div>
 
+          <div className='form-label text-Gray-600'>Add Image:</div>
+
           <div className='w-sm-75'>
             <input
               ref={profileFilePickerRef}
@@ -165,6 +141,7 @@ const EditProduct = ({close, id}) => {
               type='file'
               className='form-control py-2 bg-cmbg rounded border border-cmDisabled border-2 mb-3'
             />
+
             <div className='d-sm-flex align-items-start justify-content-between cursor-pointer'>
               <div
                 className='w-100px mx-sm-0 mx-auto d-flex align-items-center justify-content-center h-100px shdaow-sm border-cmDisabled border border-dashed border-3'
@@ -206,9 +183,7 @@ const EditProduct = ({close, id}) => {
               </div>
               <img
                 style={{width: '100px', height: '100px', borderRadius: '10px'}}
-                src={
-                  productImage?.type ? URL.createObjectURL(productImage) : productData?.Image_URL
-                }
+                src={productImage?.type ? URL.createObjectURL(productImage) : null}
                 alt=''
                 className=''
               />
@@ -216,8 +191,8 @@ const EditProduct = ({close, id}) => {
           </div>
 
           <div className='col-md-12 text-center d-flex gap-10'>
-            <button className='btn btn-sl fw-bold btn-primary w-20 mt-8' onSubmit={handleSubmit}>
-              Update
+            <button type='submit' className='btn btn-sl fw-bold btn-primary mt-8'>
+              Add
             </button>
             <div className='btn btn-sl fw-bold btn-dark w-20 mt-8' onClick={close}>
               Cancel
@@ -230,4 +205,4 @@ const EditProduct = ({close, id}) => {
   )
 }
 
-export default EditProduct
+export default AddProduct
