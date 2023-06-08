@@ -1,6 +1,11 @@
 import axios from '../../FetchApi/Api'
 import React, {useEffect, useRef, useState} from 'react'
 import {showToast} from '../../customs/CustomModel'
+import Select from 'react-select'
+import {TestNames} from './TestNames'
+import makeAnimated from 'react-select/animated'
+
+const animatedComponents = makeAnimated()
 
 const AddProduct = ({close}) => {
   const profileFilePickerRef = useRef()
@@ -31,7 +36,8 @@ const AddProduct = ({close}) => {
   //   Image_URL: productImage,
   // }
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault()
     let formData = new FormData()
     formData.append('Brand_Name', product_name)
     formData.append('Product_Description', product_desc)
@@ -85,6 +91,7 @@ const AddProduct = ({close}) => {
               onChange={(e) => setProduct_desc(e.target.value)}
               required
               pattern='\S(.*\S)?'
+              title='Space before content is not acceptable'
             />
             <label htmlFor='floatingInput1'>
               Product description <span className='text-danger'>*</span>

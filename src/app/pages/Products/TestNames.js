@@ -1,0 +1,15 @@
+export const TestNames = [
+  {value: 'THC', label: 'THC'},
+  {value: 'COC', label: 'COC'},
+  {value: 'OPI/MOR', label: 'OPI/MOR'},
+  {value: 'AMP', label: 'AMP'},
+  {value: 'MAMP', label: 'MAMP'},
+  {value: 'BZO', label: 'BZO'},
+  {value: 'BAR', label: 'BAR'},
+  {value: 'MTD', label: 'MTD'},
+  {value: 'TCA', label: 'TCA'},
+  {value: 'PPX', label: 'PPX'},
+  {value: 'OXY', label: 'OXY'},
+  {value: 'MDMA', label: 'MDMA'},
+  {value: 'BUP', label: 'BUP'},
+]

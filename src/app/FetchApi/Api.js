@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {logout} from '../../_metronic/partials'
 
 const Api = axios.create({
   baseURL: 'http://asc.apptology.in:81/api',
@@ -13,12 +14,12 @@ Api.interceptors.request.use(async (config) => {
   }
   return config
 })
-
 Api.interceptors.response.use(
   (res) => {
     return Promise.resolve(res)
   },
   async (error) => {
+    if (error?.response?.status === 403) logout()
     return Promise.reject(error)
   }
 )

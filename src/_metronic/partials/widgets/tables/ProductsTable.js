@@ -65,7 +65,7 @@ const ProductsTable = ({className}) => {
     <>
       <div className='w-75 d-flex justify-content-between align-items-center mx-auto mb-5'>
         {!edit && !addNew && <h3 className='m-0'>Products</h3>}
-        {!addNew ? (
+        {!addNew && !edit ? (
           <div className='btn bg-primary py-2 text-white fs-5' onClick={handleAddNew}>
             Add new
           </div>
@@ -88,7 +88,12 @@ const ProductsTable = ({className}) => {
                     <th className='w-auto p-5'>Product Image</th>
                     <th className='w-auto p-5'>Product Description</th>
                     <th className='w-auto p-5'>SKU</th>
-                    {currentUser?.type == 'SA' && <th className='w-auto p-5'>Edit/ Delete</th>}
+                    {
+                      <th className='w-auto p-5'>
+                        {currentUser?.type == 'SA' ? 'Edit/ Delete' : 'View'}
+                      </th>
+                    }
+
                     {/* <th className='w-auto'>Status</th> */}
                     {/* <th className='min-w-100px text-end'>Actions</th> */}
                   </tr>
@@ -113,7 +118,7 @@ const ProductsTable = ({className}) => {
                               style={{height: '50px', width: '50px'}}
                             />
                           ) : (
-                            'Image not found'
+                            <span className='bi bi-image-alt fs-1 text-gray-500'></span>
                           )}
                         </div>
                       </td>
@@ -139,23 +144,27 @@ const ProductsTable = ({className}) => {
                         <div className='text-dark fw-bold fs-6'>{item.SKU}</div>
                       </td>
 
-                      {currentUser?.type == 'SA' && (
-                        <td className=''>
-                          <a
-                            href='#'
-                            onClick={() =>
-                              setEdit({
-                                value: true,
-                                id: item?.id,
-                              })
-                            }
-                            className='btn btn-icon btn-bg-secondary btn-active-color-primary btn-sm me-1'
-                          >
+                      <td className=''>
+                        <a
+                          href='#'
+                          onClick={() =>
+                            setEdit({
+                              value: true,
+                              id: item?.id,
+                            })
+                          }
+                          className='btn btn-icon btn-bg-secondary btn-active-color-primary btn-sm me-1'
+                        >
+                          {currentUser?.type == 'SA' ? (
                             <KTSVG
                               path='/media/icons/duotune/art/art005.svg'
                               className='svg-icon-3'
                             />
-                          </a>
+                          ) : (
+                            <div className='bi bi-eye-fill fs-2 text-dark cursor-pointer text-hover-primary btn-sm '></div>
+                          )}
+                        </a>
+                        {currentUser?.type == 'SA' && (
                           <a
                             onClick={() => handleDelete(item?.id)}
                             href='#'
@@ -166,8 +175,8 @@ const ProductsTable = ({className}) => {
                               className='svg-icon-3'
                             />
                           </a>
-                        </td>
-                      )}
+                        )}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -192,14 +201,16 @@ const ProductsTable = ({className}) => {
                 </p>
               )}
               <p className='text-primary btn btn-outline'>{pgNo}</p>
-              <p
-                className='btn btn-outline-primary cursor-pointer '
-                onClick={() => {
-                  setPgNo(pgNo + 1)
-                }}
-              >
-                next
-              </p>
+              {totalPage > pgNo ? (
+                <p
+                  className='btn btn-outline-primary cursor-pointer '
+                  onClick={() => {
+                    setPgNo(pgNo + 1)
+                  }}
+                >
+                  next
+                </p>
+              ) : null}
             </div>
           </div>
         </div>

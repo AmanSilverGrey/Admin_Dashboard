@@ -25,7 +25,7 @@ import user from '../../../layout/components/header/header-menus/Assests/user.pn
 
 const logoutChannel = new BroadcastChannel('logout')
 
-export const logout = () => {
+const logout = () => {
   localStorage.removeItem('user')
   localStorage.removeItem('User-Details')
   localStorage.removeItem('Developers')
@@ -177,4 +177,4 @@ const HeaderUserMenu = () => {
   )
 }
 
-export {HeaderUserMenu}
+export {HeaderUserMenu, logout}
