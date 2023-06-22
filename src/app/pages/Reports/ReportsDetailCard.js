@@ -22,48 +22,55 @@ const ReportsDetailCard = ({option, handleClose}) => {
       {/* container */}
       <div className='pb-10'>
         {/* line 1 */}
-        <div className='d-flex flex-wrap justify-content-between align-items-center fw-bold fs-5 py-4 px-10'>
-          <div className='d-flex flex-wrap gap-5 align-items-center w-sm-25'>
+        <div className='row align-items-center fw-bold fs-5 py-4 px-10 w-100 mx-auto'>
+          <div className='col-sm d-flex flex-wrap gap-5 align-items-center w-sm-25'>
             <div className='text-gray-600'>Organization (Employer) : </div>
             <div className=''>{option?.employer}</div>
           </div>
-          <div className='d-flex flex-wrap gap-5 align-items-center w-sm-25 '>
+          <div className='col-sm d-flex flex-wrap gap-5 align-items-center w-sm-25 '>
             <div className='text-gray-600'>First Name : </div>
             <div className=''>{option?.fname}</div>
           </div>
-          <div className='d-flex flex-wrap gap-5 align-items-center w-sm-25 '>
+          <div className='col-sm d-flex flex-wrap gap-5 align-items-center w-sm-25 '>
             <div className='text-gray-600'>Last Name : </div>
             <div className=''>{option?.lname}</div>
           </div>
         </div>
         {/* line 2 */}
-        <div className='d-flex flex-wrap justify-content-between align-items-center fw-bold fs-5 py-4 bg-light px-10'>
-          <div className='d-flex flex-wrap gap-5 align-items-center w-sm-25'>
+        <div className='row align-items-center fw-bold fs-5 py-4 bg-light px-10 w-100 mx-auto'>
+          <div className='col-sm d-flex flex-wrap gap-5 align-items-center w-sm-25'>
             <div className='text-gray-600'>Picture Id : </div>
             <div className=''>
               {option?.picture_id_verified == 'yes' ? 'Verified' : 'Not-verified'}
             </div>
           </div>
-          <div className='d-flex flex-wrap gap-5 align-items-center w-sm-25 '>
+          <div className='col-sm d-flex flex-wrap gap-5 align-items-center w-sm-25 '>
             <div className='text-gray-600'>Test Reason : </div>
             <div className=''>{option?.test_reason}</div>
           </div>
-          <div className='d-flex flex-wrap gap-5 align-items-center w-sm-25 '>
+          <div className='col-sm d-flex flex-wrap gap-5 align-items-center w-sm-25 '>
             <div className='text-gray-600'>Work Email : </div>
             <div className=''>{option?.email}</div>
           </div>
         </div>
         {/* line 3 */}
-        <div className='d-flex flex-wrap justify-content-between align-items-center fw-bold fs-5 py-4 px-10 mb-10'>
-          <div className='d-flex flex-wrap gap-5 align-items-center w-sm-25'>
+        <div className='row align-items-center fw-bold fs-5 py-4 px-10 w-100 mx-auto'>
+          <div className='col-sm d-flex flex-wrap gap-5 align-items-center'>
             <div className='text-gray-600'>Driver's License : </div>
             <div className=''>{option?.license_no}</div>
           </div>
-          <div className='d-flex flex-wrap gap-5 align-items-center w-sm-25 '>
+          <div className='col-sm d-flex flex-wrap gap-5 align-items-center w-sm-25'>
+            <div className='text-gray-600'>Date of Birth: </div>
+            <div className=''>{option?.date_of_birth ?? '-'}</div>
+          </div>
+          <div className='col-sm d-flex flex-wrap gap-5 align-items-center  '>
             <div className='text-gray-600'>Phone Number : </div>
             <div className=''>{option?.phone}</div>
           </div>
-          <div className='d-flex flex-wrap gap-5 align-items-center w-sm-25 '>
+        </div>
+        {/* Line 3.5 */}
+        <div className='row align-itmes-center fw-bold fs-5 py-4 px-10 mb-10 bg-light w-100 mx-auto'>
+          <div className='col-sm d-flex flex-wrap gap-5 align-items-center '>
             <div className='text-gray-600'>Product: </div>
             <div className=''>
               {option?.product_name}{' '}
@@ -71,6 +78,7 @@ const ReportsDetailCard = ({option, handleClose}) => {
             </div>
           </div>
         </div>
+
         {/* Line 4 */}
         <div className='row gap-5 fw-bold fs-5 py-4 px-10 mb-10'>
           <div className='text-gray-600'>Test Captured :</div>

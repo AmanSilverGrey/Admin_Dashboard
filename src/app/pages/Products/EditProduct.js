@@ -32,7 +32,7 @@ const EditProduct = ({close, id}) => {
         desc.pop(-1)
         const descData = desc.join(' ')
         setProduct_desc(descData)
-        setGtin(Response?.data?.GTIN)
+        setGtin(Response?.data?.GTIN_11)
         setGtinValue(Response?.data?.GTIN)
         setSku(Response?.data?.SKU)
         setSkuValue(Response?.data?.SKU)
@@ -140,7 +140,7 @@ const EditProduct = ({close, id}) => {
               onChange={(e) => setGtin(e.target.value)}
               required
               pattern='\S(.*\S)?'
-              disabled={(gtinValue == 'nan' ? false : true) && editable}
+              disabled
             />
             <label htmlFor='floatingInput1'>
               GTIN <span className='text-danger'>*</span>

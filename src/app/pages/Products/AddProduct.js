@@ -41,7 +41,7 @@ const AddProduct = ({close}) => {
     let formData = new FormData()
     formData.append('Brand_Name', product_name)
     formData.append('Product_Description', product_desc)
-    formData.append('GTIN', gtin)
+    formData.append('GTIN_11', gtin)
     formData.append('SKU', sku)
     formData.append('Product_Industry', product_indus)
     if (productImage?.name) formData.append('Image_URL', productImage)
@@ -55,6 +55,10 @@ const AddProduct = ({close}) => {
       .catch((error) => {
         console.log(error)
       })
+  }
+
+  const handleInput = (event) => {
+    event.target.value = event.target.value.replace(/\D/g, '').slice(0, 11)
   }
 
   return (
@@ -98,19 +102,21 @@ const AddProduct = ({close}) => {
             </label>
           </div>
 
-          <div className='form-floating mb-7'>
-            <input
-              type='text'
-              className='form-control form-control-solid bg-light'
-              id='floatingInput1'
-              value={gtin}
-              onChange={(e) => setGtin(e.target.value)}
-              required
-              pattern='\S(.*\S)?'
-            />
-            <label htmlFor='floatingInput1'>
-              GTIN <span className='text-danger'>*</span>
-            </label>
+          <div className='mb-7'>
+            <div className='form-floating'>
+              <input
+                type='text'
+                onInput={handleInput}
+                className='form-control form-control-solid bg-light'
+                value={gtin}
+                onChange={(e) => setGtin(e.target.value)}
+                required
+              />
+              <label>
+                GTIN <span className='text-danger'>*</span>
+              </label>
+            </div>
+            <div className='fs-8 text-gray-600 fw-bold '>Enter your 11 digit GTIN number</div>
           </div>
           <div className='form-floating mb-7'>
             <input
